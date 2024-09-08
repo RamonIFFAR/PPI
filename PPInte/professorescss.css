@@ -251,7 +251,7 @@
                     
                     .backgroundFundo1 {
                         width: 250px;
-                        height: 300px;
+                        height: 350px;
                         position: relative; /* Para que os elementos absolutos fiquem posicionados dentro deste bloco */
                         background-color: #003417;
                         border-radius: 50px;
@@ -265,13 +265,13 @@
                         height: 5px;
                         position: absolute;
                         background-color: #0d3e23;
-                        top: 210px;
+                        top: 270px;
                         left: 0px;
                     }
 
                     .nome-professor {
                         position: absolute; /* Posição fixa em relação ao .backgroundFundo1 */
-                        top: 80px; /* Ajusta a posição no topo */
+                        top: 120px; /* Ajusta a posição no topo */
                         left: 50%; /* Centraliza horizontalmente */
                         transform: translateX(-50%); /* Centraliza horizontalmente em relação ao ponto central */
                         width: 200px; /* Defina uma largura para o elemento para garantir a quebra de linha */
@@ -283,7 +283,7 @@
 
                     .botaoinfo {
                         position: absolute;
-                        top: 210px;
+                        top: 277px;
                         left: 35%;
                         font-family: 'Poppins', sans-serif;
                         font-size: 18px;
@@ -294,7 +294,7 @@
                         width: 25px;
                         height: auto;
                         position: relative;
-                        top: 217px;
+                        top: 267px;
                         left: 19%;
                         cursor: pointer;
                     }
@@ -304,8 +304,10 @@
                         font-family: Arial, sans-serif;
                     }
 
-                    .Prof-foto{
+                    .Prof-foto img{
                         position: absolute;
-                        width: 100px;
-                        left: 90px;
+                        width: 200px;
+                        height: 100px;
+                        left: 25px;
+                        border-radius: 20px;
                     }
