@@ -27,7 +27,6 @@
                 <link rel="stylesheet" href="professorescss.css">
             </head>
             <body>
-
                 <div class="top-bar">
                     <div class="menu-container">
                         <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
