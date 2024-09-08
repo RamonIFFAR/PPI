@@ -4,7 +4,7 @@
     require('config.php');
     //variáveis para a execução normal do código
     $nome = "select nome from usuario where senha = '{$_SESSION["email"]}'";
-    $sql = "select usuario.id_us, usuario.Siape, usuario.nome, professor.id_prof from usuario inner join professor where usuario.id_us=professor.id_prof";
+    $sql = "select usuario.id_us, usuario.Siape, usuario.nome, professor.id_prof, usuario.foto from usuario inner join professor where usuario.id_us=professor.id_prof";
     $res = $conn->query($sql) or die($conn->error);
     $req = $conn->query($nome) or die($conn->error);
     $qtd = $res->num_rows;
@@ -399,6 +399,7 @@
                                     echo "<div class='professores-container'>"; // Adicionamos um contêiner flexível
                                     while($row = $res->fetch_object()){
                                         echo "<div class='backgroundFundo1'>";
+                                        echo "<br> <img src='".$row->foto."' alt='foto professor' width='170' height='170'> <br>";
                                         echo "<p class='nome-professor'>" . $row->nome . "</p>";
 
                                         echo "<div class='botaoinfo'>";
