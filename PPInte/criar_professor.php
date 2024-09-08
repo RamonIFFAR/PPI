@@ -60,13 +60,13 @@
                     $novoNome = $hoje."-".$nomeFoto;
                     if(move_uploaded_file($nomeTemporario, $caminho.$novoNome)) {
                         echo 'upload com sucesso';
+                        CadastrarProfessor($_POST['cpf'], $_POST['Siape'], $_POST['email'], $_POST['nome'], $_POST['senha'], $caminho.$novoNome);
                     }else {
                         echo "faha no upload";
                     }
                 }
 
             }
-            CadastrarProfessor($_POST['cpf'], $_POST['Siape'], $_POST['email'], $_POST['nome'], $_POST['senha'], $caminho.$novoNome);
         }
     ?>
     <form action="criar_professor.php" method="POST" enctype="multipart/form-data">
