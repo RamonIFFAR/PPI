@@ -30,6 +30,7 @@
     <?php
 
         while ($Crow = $Cres->fetch_object()){
+            echo "<br><img src='".$Crow->foto."'alt='foto curso' width='80' height='80'><br>";
             echo "<br> Nome do curso: " . $Crow->nome . "<br>";
             echo "<a href='curso.php?id=" . $Crow->id_curso ."'>Ver detalhes<a> <br>";
             echo "<a href='turmas.php?id=". $Crow->id_curso ."'>Ver turmas <a> <br>";
