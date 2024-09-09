@@ -4,8 +4,8 @@ require("config.php");
 
 function CadastrarProfessor($conn, $cpf, $Siape, $email, $nome, $senha, $foto){
     // Utilizar consultas preparadas para evitar SQL Injection
-    $stmt = $conn->prepare("INSERT INTO usuario (cpf, Siape, email, nome, senha, foto) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $cpf, $Siape, $email, $nome, $senha, $foto);
+    $stmt = $conn->prepare("INSERT INTO usuario (cpf, Siape, email, nome, senha, foto, fone) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $cpf, $Siape, $email, $nome, $senha, $foto, $fone);
     
     if ($stmt->execute()) {
         $last_id = $conn->insert_id;
@@ -13,7 +13,7 @@ function CadastrarProfessor($conn, $cpf, $Siape, $email, $nome, $senha, $foto){
         $stmt2->bind_param("i", $last_id);
         $stmt2->execute();
         echo "Sucesso";
-        echo "<script>location.href='professores.php'</script>";
+        // echo "<script>location.href='professores.php'</script>";
     } else {
         die($conn->error);
     }
@@ -54,7 +54,7 @@ if (isset($_POST["cadastro"])) {
             $novoNome = $hoje . "-" . $nomeFoto;
             if (move_uploaded_file($nomeTemporario, $caminho . $novoNome)) {
                 echo 'Upload com sucesso';
-                CadastrarProfessor($conn, $_POST['cpf'], $_POST['Siape'], $_POST['email'], $_POST['nome'], $_POST['senha'], $caminho . $novoNome);
+                CadastrarProfessor($conn, $_POST['cpf'], $_POST['Siape'], $_POST['email'], $_POST['nome'], $_POST['senha'], $caminho . $novoNome, $_POST['fone']);
             } else {
                 echo "Falha no upload";
             }
@@ -100,6 +100,11 @@ if (isset($_POST["cadastro"])) {
          <div class="Senha">
             <label>Insira uma senha:</label> <br>
             <input type="text" name="senha" value="<?php echo htmlspecialchars(@$_POST['senha'], ENT_QUOTES); ?>"> <br>
+        </div>
+
+        <div class="Senha">
+            <label>Insira o número de telefone:</label> <br>
+            <input type="text" name="fone" value="<?php echo htmlspecialchars(@$_POST['fone'], ENT_QUOTES); ?>"> <br>
         </div>
 
         <button type="submit" name="cadastro">Cadastrar</button>

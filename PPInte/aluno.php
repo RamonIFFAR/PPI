@@ -51,9 +51,9 @@
 
 
 
-    function Atualizar($id, $matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI){
+    function Atualizar($id, $matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acomp){
         include('config.php');
-        $sql = "UPDATE aluno SET matricula='{$matricula}', telefone='{$telefone}', email='{$email}', nome='{$nome}', genero='{$genero}', cidade='{$cidade}', dataNasc='{$dataNasc}', moradia='{$moradia}', cota='{$cota}', bolsa='{$bolsa}', orientador='{$orientador}', reprovacao='{$reprovacao}', equipTI='{$equipTI}' where matricula = '{$id}'";
+        $sql = "UPDATE aluno SET matricula='{$matricula}', telefone='{$telefone}', email='{$email}', nome='{$nome}', genero='{$genero}', cidade='{$cidade}', dataNasc='{$dataNasc}', moradia='{$moradia}', cota='{$cota}', bolsa='{$bolsa}', orientador='{$orientador}', reprovacao='{$reprovacao}', equipTI='{$equipTI}', estagio='{$estagio}', cpf='{$cpf}', acompanhamento='{$acomp}' where matricula = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> location.href='alunos.php'</script>";
     }
@@ -71,7 +71,7 @@
 <body>
     <?php 
         if(isset($_POST['atualizar'])){
-            Atualizar($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI']);
+            Atualizar($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento']);
         }
         similar_text($UsoC->tipo, "DE", $percent);
         if($percent  == 100) { ?>
@@ -103,6 +103,12 @@
                         <input type='text' name='reprovacao' value="<?php echo  $resSet['reprovacao'] ?>"> <br>
                         <label>Equipamento TI</label>
                         <input type='text' name='equipTI' value="<?php echo $resSet['equipTI'] ?>"> <br>
+                        <label>Estagio</label>
+                        <input type='text' name='estagio' value="<?php echo $resSet['estagio'] ?>"> <br>
+                        <label>CPF</label>
+                        <input type='text' name='cpf' value="<?php echo $resSet['cpf'] ?>"> <br>
+                        <label>Acompanhamento</label>
+                        <input type='text' name='acompanhamento' value="<?php echo $resSet['acompanhamento'] ?>"> <br>
                         <button type='submit' name='atualizar'>Cadastrar</button>
                     </form>
                     <button onclick="if(confirm('Tem certeza que deseja excluir esse aluno?')){location.href='aluno.php?id= <?php echo $aluno ?>&excluir=1'}">Excluir</button>
