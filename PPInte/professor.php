@@ -20,9 +20,9 @@
     $UsoC = $ConsultaC->fetch_object();
     $qtdChecagem = $ConsultaC->num_rows;
 
-    function Atualizar($id, $cpf, $Siape, $nome, $fone){
+    function Atualizar($id, $cpf, $Siape, $nome){
         include('config.php');
-        $sql = "UPDATE usuario SET cpf = '{$cpf}', Siape = '{$Siape}', nome = '{$nome}', fone = '{$fone}' where id_us = '{$id}'";
+        $sql = "UPDATE usuario SET cpf = '{$cpf}', Siape = '{$Siape}', nome = '{$nome}' where id_us = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> location.href='professores.php'</script>";
     }
@@ -55,7 +55,7 @@
                             </div>
                             <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
                             <ul>
-                                <li><a href="Pagina_Inicial.php">Início</a></li>
+                                <li><a href="painel.php">Início</a></li>
                                 <li><a href="cursos.php">Cursos</a></li>
                                 <li><a href="disciplinas.php">Disciplinas</a></li>
                                 <li><a href="alunos.php">Alunos</a></li>
@@ -140,9 +140,7 @@
                                                     <a type='text' name='siape'><?php echo $resSet->Siape ?></a><br>
                                                 </div>
 
-                                                <br>
-
-                                                <div class="SIAPE">
+                                                <div class="Fone">
                                                     <label>Número de Telefone:</label> <br>
                                                     <a type='text' name='fone'><?php echo $resSet->fone ?></a><br>
                                                 </div>
