@@ -116,11 +116,15 @@
                 <!-- Nova barra verde abaixo da nova barra cinza -->
                 <div class="new-green-bar">
                     <div class="Posicao">
+                        <?php if($qtdChecagem > 0){
+                            similar_text($UsoC->tipo, "DE", $percent);
+                                if($percent  == 100) { ?>
                         <button onclick="if(confirm('Tem certeza que deseja excluir esse curso?')){location.href='curso.php?id=<?php echo $curso ?>&excluir=1'}">
                             <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
                         </button>
+                        
                     </div>
-
+                    
                     <div class="Posicao2">
                         <a href="editarcurso.php?id_prof=<?php echo $curso ?>">
                             <button>
@@ -128,6 +132,10 @@
                             </button>
                         </a>
                     </div>
+                    <?php 
+                    }
+                    }
+                    ?>
 
                     <div class="Titulo-Professores">
                         <h1>Informações do Curso</h1>
