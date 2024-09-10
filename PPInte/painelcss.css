@@ -1,5 +1,4 @@
 
-                    
                     .top-bar {
                         width: 100%;
                         height: 50px;
@@ -10,35 +9,35 @@
                     /* Estilo para a barra verde */
                     .green-bar {
                         width: 100%;
-                        height: 10px; /* Ajuste a altura conforme necessário */
-                        background-color: #015d29; /* Cor verde */
+                        height: 10px; 
+                        background-color: #015d29;
                         position: relative;
-                        top: 0px; /* Alinhar a barra verde logo abaixo da barra cinza */
+                        top: 0px; 
                     }
 
-                    /* Estilo para a nova barra cinza */
+                    
                     .bottom-bar {
                         width: 100%;
-                        height: 60px; /* Ajuste a altura conforme necessário */
-                        background-color: #d2d6d3; /* Cor cinza */
+                        height: 60px; 
+                        background-color: #d2d6d3;
                         position: relative;
-                        top: 10px; /* Alinhar a nova barra cinza logo abaixo da barra verde */
+                        top: 10px; 
                     }
 
                     .new-green-bar {
                         width: 100%;
-                        height: 100px; /* Ajuste a altura conforme necessário */
-                        background-color: #015d29; /* Cor verde */
+                        height: 100px; 
+                        background-color: #015d29; 
                         position: relative;
-                        top: 20px; /* Alinhar a nova barra verde logo abaixo da nova barra cinza */
+                        top: 20px; 
                     }
 
                     .new-bottom-bar {
                         width: 100%;
-                        height: 75vh; /* Ajuste a altura conforme necessário */
-                        background-color: #d2d6d3; /* Cor cinza */
+                        height: 75vh; 
+                        background-color: #d2d6d3; 
                         position: relative;
-                        top: 20px; /* Alinhar a nova barra cinza logo abaixo da nova barra verde */
+                        top: 20px; 
                     }
 
                     .box-center {
