@@ -1,305 +1,116 @@
+<?php 
+    require("config.php");
 
-                    
-                    .top-bar {
-                        width: 100%;
-                        height: 50px;
-                        background-color: #d2d6d3; 
-                        position: relative;
+    session_start();
+
+    $sql = "select * from usuario inner join setor where usuario.senha = '{$_SESSION["senha"]}' and setor.id_set = '{$_SESSION["id_us"]}'";
+    $res = $conn->query($sql);
+    $row = $res->fetch_object();
+    $qtd = $res->num_rows;
+        ?>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="painelcss.css">
+            </head>
+            <body>
+
+                <div class="top-bar">
+                    <div class="menu-container">
+                        <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
+                        <div class="floating-menu">
+                            <div class="design-menu"></div>
+                            <div class="design-menu2"></div>
+                            <div class="design-menu3"></div>
+                            <div class="Titulo-menu">
+                                <img src="Imagens/TituloMenu.png">
+                            </div>
+                            <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
+                            <ul>
+                                <li><a href="painel.php">Início</a></li>
+                                <li><a href="cursos.php">Cursos</a></li>
+                                <li><a href="disciplinas.php">Disciplinas</a></li>
+                                <li><a href="alunos.php">Alunos</a></li>
+                                <li><a href="professores.php">Professores</a></li>
+                                <li><a href="turmas.php">Turmas</a></li>
+                            </ul>
+                            <a class="textPosition" href="index.php">Sair</a>
+
+                            <div class="imagem-menu2"><img src="Imagens/inicio.png"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barra verde -->
+                <div class="green-bar"></div>
+
+                <!-- Barra cinza 2 -->
+                <div class="bottom-bar">
+
+                <div class="iconeNotificacao">
+                        <img src="Imagens/Notificacao.png">
+                    </div>
+                    <div class="iconeTitulo">
+                        <img src="Imagens/Titulo.png">
+                    </div>
+                    <div class="iconePerfil">
+                        <img src="Imagens/Perfil.png">
+                    </div>
+                </div>
+
+                <!-- Barra Verde 2 -->
+                <div class="new-green-bar">
+                    <div class="arrumar-Favoritos">
+                        <p>Favoritos:</p>
+                    </div>
+                </div>
+
+                <!-- Barra Verde 3 -->
+                <div class="new-bottom-bar">
+                    <div class="box-center">
+                        <div class="arrumar-Importantes">
+                            <h1>Importante</h1>
+                        </div>
+                        <div class="linhaImportantes"></div>
+                        <div class="noticias-box"></div>
+
+                        <div class="linhaCursos"></div>
+                        <div class="arrumar-Cursos">
+                            <h1>Cursos</h1>
+                        </div>
+
+                        <div class="linhaLembretes"></div>
+                        <div class="arrumar-Lembretes">
+                            <h1>Lembretes</h1>
+                        </div>
+
+                        <div class="lembretes-box"></div>
+
+                        <div class="linhaTurmas"></div>
+                        <div class="arrumar-Turmas">
+                            <h1>Turmas</h1>
+                        </div>
+
+                        <div class="iconeiff">
+                            <img src="Imagens/LogoIffar.png">
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function openMenu() {
+                        var menu = document.querySelector('.floating-menu');
+                        menu.style.display = 'block';
                     }
 
-                    
-                    .green-bar {
-                        width: 100%;
-                        height: 10px; 
-                        background-color: #015d29; 
-                        position: relative;
-                        top: 0px; 
+                    function closeMenu() {
+                        var menu = document.querySelector('.floating-menu');
+                        menu.style.display = 'none';
                     }
-
-                    
-                    .bottom-bar {
-                        width: 100%;
-                        height: 60px; 
-                        background-color: #d2d6d3; 
-                        position: relative;
-                        top: 10px; 
-                    }
-
-                    .new-green-bar {
-                        width: 100%;
-                        height: 100px; 
-                        background-color: #015d29; 
-                        position: relative;
-                        top: 20px; 
-                    }
-
-                    .new-bottom-bar {
-                        width: 100%;
-                        height: 75vh; 
-                        background-color: #d2d6d3; 
-                        position: relative;
-                        top: 20px; 
-                    }
-
-                    .box-center {
-                        width: 90%;
-                        height: 750px;
-                        background-color: White;
-                        position: relative;
-                        top: 44%;
-                        left:50%;
-                        transform: translate(-50%, -50%);
-                        border-radius: 10px;
-                        
-                    }
-
-                    .iconeiff img {
-                        width: 250px;
-                        height: auto;
-                        position: absolute;
-                        top: 20px;
-                        left: 50px;
-                    }
-
-                    .linhaImportantes {
-                        width: 45%;
-                        height: 5px;
-                        background-color: #799183;
-                        position: absolute;
-                        top: 70px;
-                        left: 30%;
-                    }
-
-                    .arrumar-Importantes h1 {
-                        font-size: 25px;
-                        color: #15341a;
-                        position: absolute;
-                        top: 15px;
-                        left: 32%;
-                    }
-
-                    .noticias-box {
-                        width: 45%;
-                        height: 100px;
-                        background-color: #002d13;
-                        position: absolute;
-                        top: 90px;
-                        left: 30%;
-                    }
-
-                    .linhaCursos {
-                        width: 45%;
-                        height: 5px;
-                        background-color: #799183;
-                        position: absolute;
-                        top: 300px;
-                        left: 30%;
-                    }
-
-                    .arrumar-Cursos h1 {
-                        font-size: 25px;
-                        color: #15341a;
-                        position: absolute;
-                        top: 245px;
-                        left: 32%;
-                    }
-
-                    .linhaLembretes {
-                        width: 15%;
-                        height: 5px;
-                        background-color: #799183;
-                        position: absolute;
-                        top: 300px;
-                        left: 80%;
-                    }
-
-                    .arrumar-Lembretes h1 {
-                        font-size: 25px;
-                        color: #15341a;
-                        position: absolute;
-                        top: 245px;
-                        left: 82%;
-                    }
-
-                    .lembretes-box {
-                        width: 15%;
-                        height: 200px;
-                        background-color: #002d13;
-                        position: absolute;
-                        top: 320px;
-                        left: 80%;
-                    }
-
-                    .linhaTurmas {
-                        width: 45%;
-                        height: 5px;
-                        background-color: #799183;
-                        position: absolute;
-                        top: 540px;
-                        left: 30%;
-                    }
-
-                    .arrumar-Turmas h1 {
-                        font-size: 25px;
-                        color: #15341a;
-                        position: absolute;
-                        top: 480px;
-                        left: 32%;
-                    }
-
-                    .arrumar-Favoritos p{
-                        font-size: 15px;
-                        color: White;
-                        position: absolute;
-                        top: 0px;
-                        left: 1%;
-                    }
-
-                    .iconeTitulo img {
-                        width: 250px;
-                        height: auto;
-                        position: absolute;
-                        top: 10px;
-                        left: 50px;
-                    }
-
-                    .iconeNotificacao img {
-                        width: 25px;
-                        height: auto;
-                        position: absolute;
-                        top: 20px;
-                        left: 89%;
-                    }
-
-                    .iconePerfil img {
-                        width: 30px;
-                        height: auto;
-                        position: absolute;
-                        top: 20px;
-                        left: 93%;
-                    }
-
-                    .menu-container {
-                        position: absolute;
-                        display: inline-block;
-                    }
-
-                    .menu-abriricon {
-                        font-size: 24px;
-                        cursor: pointer;
-                        position: absolute;
-                        top: 10px;
-                        left: 10px;
-                    }
-
-                    .menu-fecharicon {
-                        font-size: 24px;
-                        color: white;
-                        cursor: pointer;
-                        position: absolute;
-                        top: 10px;
-                        left: 15px;
-                    }
-
-                    .floating-menu {
-                        width: 350px;
-                        height: 100vh;
-                        display: none;
-                        position: relative;
-                        top: 100%; 
-                        left: 0;
-                        background-color: #015d29;
-                        z-index: 1000;
-                    }
-
-                    .floating-menu ul {
-                        position: absolute;
-                        font-family: 'Poppins', sans-serif;
-                        font-weight: bold;
-                        top: 250px;
-                        left: 50px;
-                        list-style-type: none;
-                        padding: 0px;
-                        margin: 0;
-                    }
-
-                    .floating-menu ul li {
-                        padding: 15px 20px;
-                        transition: transform 0.3s ease;
-                    }
-
-                    .floating-menu ul li a {
-                        text-decoration: none;
-                        color: White;
-                        display: block;
-                    }
-
-                    a {
-                        font-size: 24px;
-                        font-family: Arial, sans-serif;
-                    }
-
-                    .floating-menu ul li:hover {
-                        background-color: #014a21;
-                        width: 240px;
-                        transform: scale(1.1);
-                    }
-
-                    .design-menu {
-                        width: 350px;
-                        height: 10px;
-                        position: absolute;
-                        background-color: White;
-                        top: 60px;
-                    }
-
-                    .Titulo-menu img{
-                        width: 300px;
-                        height: auto;
-                        position: absolute;
-                        top: 1px;
-                        left: 5%;
-                    }
-
-                    .design-menu2 {
-                        width: 350px;
-                        height: 3px;
-                        position: absolute;
-                        background-color: White;
-                        top: 780px;
-                    }
-
-                    .textPosition {
-                        text-decoration: none;
-                        color: White;
-                        display: block;
-                        font-weight: bold;
-                        font-family: 'Poppins', sans-serif;
-                        position:absolute;
-                        top: 89%;
-                        left: 20%;
-                    }
-
-                    .design-menu3 {
-                        width: 1555px;
-                        height: 100vh;
-                        position: absolute;
-                        background-color: White;
-                        opacity: 0.5;
-                        left: 100%;
-                        top: 0%;
-                    }
-
-                    .imagem-menu2 img {
-                        width: 30px;
-                        height: auto;
-                        position: absolute;
-                        top: 255px;
-                        left: 5px;
-                    }
-
-                    
-                    body {
-                        margin: 0;
-                        font-family: Arial, sans-serif;
-                    }
+                </script>
+            </body>
+            </html>
+        <?php
+?>
