@@ -1,66 +1,19 @@
 <?php
-session_start();
-require("config.php");
+    session_start();
 
-function CadastrarProfessor($conn, $cpf, $Siape, $email, $nome, $senha, $foto){
-    // Utilizar consultas preparadas para evitar SQL Injection
-    $stmt = $conn->prepare("INSERT INTO usuario (cpf, Siape, email, nome, senha, foto, fone) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $cpf, $Siape, $email, $nome, $senha, $foto, $fone);
-    
-    if ($stmt->execute()) {
-        $last_id = $conn->insert_id;
-        $stmt2 = $conn->prepare("INSERT INTO PROFESSOR (id_prof) VALUES (?)");
-        $stmt2->bind_param("i", $last_id);
-        $stmt2->execute();
-        echo "Sucesso";
-        // echo "<script>location.href='professores.php'</script>";
-    } else {
-        die($conn->error);
-    }
-}
-
-if (isset($_POST["cadastro"])) {
-    if (!empty($_FILES['foto']['name'])) {
-        $nomeFoto = $_FILES['foto']['name'];
-        $tipo = $_FILES['foto']['type'];
-        $nomeTemporario = $_FILES['foto']['tmp_name'];
-        $tamanho = $_FILES['foto']['size'];
-        $erros = array();  
-
-        $tamanhoMax = 1024 * 1024 * 50;
-
-        if ($tamanho > $tamanhoMax) {
-            $erros[] = "Tamanho do arquivo excedido";
-        }
-
-        $arquivosPermitidos = ["png", "jpeg", "jpg"];
-        $extensao = pathinfo($nomeFoto, PATHINFO_EXTENSION);
-        if (!in_array($extensao, $arquivosPermitidos)) {
-            $erros[] = "Arquivo inválido";
-        }
-
-        $tiposPermitidos = ["image/png", "image/jpeg", "image/jpg"];
-        if (!in_array($tipo, $tiposPermitidos)) {
-            $erros[] = "Tipo de arquivo inválido";
-        }
-
-        if (!empty($erros)) {
-            foreach ($erros as $erro) {
-                echo $erro;
-            }
+    function CadastrarProfessor($cpf, $Siape, $email, $nome, $senha, $foto, $fone){
+        require("config.php");
+        if(empty($_POST) || (empty($_POST["cpf"])) || empty($_POST["Siape"]) || empty($_POST["email"]) || empty($_POST["nome"]) || empty($_POST["senha"]) || empty($_POST["fone"])){
+            echo "É necessário preencher todos os campos para adicionar um novo professor";
         } else {
-            $caminho = "fotos/";
-            $hoje = date("d-m-Y");
-            $novoNome = $hoje . "-" . $nomeFoto;
-            if (move_uploaded_file($nomeTemporario, $caminho . $novoNome)) {
-                echo 'Upload com sucesso';
-                CadastrarProfessor($conn, $_POST['cpf'], $_POST['Siape'], $_POST['email'], $_POST['nome'], $_POST['senha'], $caminho . $novoNome, $_POST['fone']);
-            } else {
-                echo "Falha no upload";
-            }
-        }
+            $sql = "insert into usuario (cpf, Siape, email, nome, senha, foto, fone) values ('{$cpf}', '{$Siape}', '{$email}', '{$nome}', '{$senha}', '{$foto}', '{$fone}')";
+            $sql2 = "INSERT INTO PROFESSOR(id_prof) VALUES(LAST_INSERT_ID())";
+            $conn->query($sql) or die($conn->error);
+            $conn->query($sql2) or die($conn->error);
+            echo "sucesso";
+            print "<script> location.href='professores.php'</script>";
+        };
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +25,51 @@ if (isset($_POST["cadastro"])) {
     <link rel="stylesheet" href="criarprofcss.css">
 </head>
 <body class="Fundo">
+    <?php
+        if(isset($_POST["cadastro"])){
+            if (! empty($_FILES['foto']['name'])){
+                $nomeFoto = $_FILES['foto']['name'];
+                $tipo = $_FILES['foto']['type'];
+                $nomeTemporario = $_FILES['foto']['tmp_name'];
+                $tamanho = $_FILES['foto']['size'];
+                $erros = array();  
+
+                $tamanhoMax = 1024 * 1024 * 50;
+
+                if($tamanho > $tamanhoMax){
+                    $erros[] = "Tamanho do arquivo excedido";
+                }
+
+                $arquivosPermitidos = ["png", "jpeg", "jpg"];
+                $extensao = pathinfo($nomeFoto, PATHINFO_EXTENSION);
+                if ( ! in_array($extensao, $arquivosPermitidos)){
+                    $erros[] = "Arquivo inválido";
+                }
+
+                $tiposPermitidos = ["image/png", "image/jpeg", "image/jpg"];
+                if ( ! in_array($tipo, $tiposPermitidos)){
+                    $erros[] = "Tipo de arquivo inválido";
+                }
+
+                if (! empty($erros)) {
+                    foreach ($erros as $erro){
+                        echo $erro;
+                    }
+                } else {
+                    $caminho = "fotos/";
+                    $hoje = date("d-m-Y");
+                    $novoNome = $hoje."-".$nomeFoto;
+                    if(move_uploaded_file($nomeTemporario, $caminho.$novoNome)) {
+                        echo 'upload com sucesso';
+                        CadastrarProfessor($_POST['cpf'], $_POST['Siape'], $_POST['email'], $_POST['nome'], $_POST['senha'], $caminho.$novoNome, $_POST['fone']);
+                    }else {
+                        echo "faha no upload";
+                    }
+                }
+
+            }
+        }
+    ?>
     <div class="Background1"></div>
     
     <form action="criar_professor.php" method="POST" enctype="multipart/form-data">
@@ -102,7 +100,7 @@ if (isset($_POST["cadastro"])) {
             <input type="text" name="senha" value="<?php echo htmlspecialchars(@$_POST['senha'], ENT_QUOTES); ?>"> <br>
         </div>
 
-        <div class="Senha">
+        <div class="Fone">
             <label>Insira o número de telefone:</label> <br>
             <input type="text" name="fone" value="<?php echo htmlspecialchars(@$_POST['fone'], ENT_QUOTES); ?>"> <br>
         </div>
