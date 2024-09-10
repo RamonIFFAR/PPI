@@ -20,9 +20,9 @@
     $UsoC = $ConsultaC->fetch_object();
     $qtdChecagem = $ConsultaC->num_rows;
 
-    function Atualizar($id, $cpf, $Siape, $nome){
+    function Atualizar($id, $cpf, $Siape, $nome, $fone){
         include('config.php');
-        $sql = "UPDATE usuario SET cpf = '{$cpf}', Siape = '{$Siape}', nome = '{$nome}' where id_us = '{$id}'";
+        $sql = "UPDATE usuario SET cpf = '{$cpf}', Siape = '{$Siape}', nome = '{$nome}', fone='{$fone}' where id_us = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> location.href='professores.php'</script>";
     }
@@ -51,7 +51,7 @@
             <h1> Informações Professor(a)</h1>
             <?php
                 if(isset($_POST['atualiza'])){
-                    Atualizar($_POST['id_prof'], $_POST['cpf'], $_POST['siape'], $_POST['nome']);
+                    Atualizar($_POST['id_prof'], $_POST['cpf'], $_POST['siape'], $_POST['nome'], $_POST['fone']);
                 }
                 similar_text($UsoC->tipo, "DE", $percent);
                 if($percent  == 100) { ?>
