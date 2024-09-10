@@ -22,7 +22,7 @@
         $removercursosql = "DELETE FROM curso WHERE id_curso = '{$curso}'";
         $conn->query($removercursosql);
         print "<script>alert('Curso excluído com sucesso!')</script>";
-        print "<script>location.href='painel.php'</script>";
+        print "<script>location.href='cursos.php'</script>";
     }
     // XXXXXXXXXX If que confere se o usuário está logado XXXXXXXXXXXXXX
     if($procura > 0){
@@ -37,14 +37,14 @@
         include('config.php');
         $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}' where id_curso = '{$id}'";
         $conn->query($sql) or die($conn->error);
-        print "<script> location.href='painel.php'</script>";
+        print "<script> location.href='cursos.php'</script>";
     }
 
     function Atualizar2($id, $nome, $duracao, $descricao){
         include('config.php');
         $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}' where id_curso = '{$id}'";
         $conn->query($sql) or die($conn->error);
-        print "<script> location.href='painel.php'</script>";
+        print "<script> location.href='cursos.php'</script>";
     }
 
     function deletar($id){
@@ -52,7 +52,7 @@
         $sql = "DELETE FROM curso WHERE id_curso = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> alert('curso removido com sucesso')</script>";
-        print "<script> location.href='painel.php'</script>";
+        print "<script> location.href='cursos.php'</script>";
     }
 
     $sql = "select * from curso where id_curso = '{$curso}'";
@@ -61,85 +61,178 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Seja bem-vindo, aqui você poderá ver informações relacionadas ao curso</h1>
-    <?php 
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+                <link rel="stylesheet" href="cursocss.css">
+            </head>
+            <body>
+                
+                <div class="top-bar">
+                    <div class="menu-container">
+                        <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
+                        <div class="floating-menu">
+                            <div class="design-menu"></div>
+                            <div class="design-menu2"></div>
+                            <div class="design-menu3"></div>
+                            <div class="Titulo-menu">
+                                <img src="Imagens/TituloMenu.png">
+                            </div>
+                            <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
+                            <ul>
+                                <li><a href="painel.php">Início</a></li>
+                                <li><a href="cursos.php">Cursos</a></li>
+                                <li><a href="disciplinas.php">Disciplinas</a></li>
+                                <li><a href="alunos.php">Alunos</a></li>
+                                <li><a href="professores.php">Professores</a></li>
+                                <li><a href="turmas.php">Turmas</a></li>
+                            </ul>
+                            <a class="textPosition" href="index.php">Sair</a>
 
-        if(isset($_POST['atualiza'])){
-            if (! empty($_FILES['foto']['name'])){
-                $nomeFoto = $_FILES['foto']['name'];
-                $tipo = $_FILES['foto']['type'];
-                $nomeTemporario = $_FILES['foto']['tmp_name'];
-                $tamanho = $_FILES['foto']['size'];
-                $erros = array();  
+                            <div class="imagem-menu2"><img src="Imagens/inicio.png"></div>
+                        </div>
+                    </div>
+                </div>
 
-                $tamanhoMax = 1024 * 1024 * 50;
+                <!-- Barra verde -->
+                <div class="green-bar"></div>
 
-                if($tamanho > $tamanhoMax){
-                    $erros[] = "Tamanho do arquivo excedido";
-                }
+                <!-- Nova barra cinza -->
+                <div class="bottom-bar">
+                <div class="iconeNotificacao">
+                        <img src="Imagens/Notificacao.png">
+                    </div>
+                    <div class="iconeTitulo">
+                        <img src="Imagens/Titulo.png">
+                    </div>
+                    <div class="iconePerfil">
+                        <img src="Imagens/Perfil.png">
+                    </div>
+                </div>
 
-                $arquivosPermitidos = ["png", "jpeg", "jpg"];
-                $extensao = pathinfo($nomeFoto, PATHINFO_EXTENSION);
-                if ( ! in_array($extensao, $arquivosPermitidos)){
-                    $erros[] = "Arquivo inválido";
-                }
+                <!-- Nova barra verde abaixo da nova barra cinza -->
+                <div class="new-green-bar">
+                    <div class="Posicao">
+                        <button onclick="if(confirm('Tem certeza que deseja excluir esse curso?')){location.href='curso.php?id=<?php echo $curso ?>&excluir=1'}">
+                            <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
+                        </button>
+                    </div>
 
-                $tiposPermitidos = ["image/png", "image/jpeg", "image/jpg"];
-                if ( ! in_array($tipo, $tiposPermitidos)){
-                    $erros[] = "Tipo de arquivo inválido";
-                }
+                    <div class="Posicao2">
+                        <a href="editarcurso.php?id_prof=<?php echo $curso ?>">
+                            <button>
+                                <img src="Imagens/editar.png" alt="Editar" class="img-button">
+                            </button>
+                        </a>
+                    </div>
 
-                if (! empty($erros)) {
-                    foreach ($erros as $erro){
-                        echo $erro;
+                    <div class="Titulo-Professores">
+                        <h1>Informações do Curso</h1>
+                    </div>
+
+                    <div class="Nomear Classe">
+                        <?php
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Nova barra cinza abaixo da nova barra verde -->
+                <div class="new-bottom-bar">
+                    <div class="box-center">
+                        <?php 
+                            if(isset($_POST['atualiza'])){
+                                if (! empty($_FILES['foto']['name'])){
+                                    $nomeFoto = $_FILES['foto']['name'];
+                                    $tipo = $_FILES['foto']['type'];
+                                    $nomeTemporario = $_FILES['foto']['tmp_name'];
+                                    $tamanho = $_FILES['foto']['size'];
+                                    $erros = array();  
+
+                                    $tamanhoMax = 1024 * 1024 * 50;
+
+                                    if($tamanho > $tamanhoMax){
+                                        $erros[] = "Tamanho do arquivo excedido";
+                                    }
+
+                                    $arquivosPermitidos = ["png", "jpeg", "jpg"];
+                                    $extensao = pathinfo($nomeFoto, PATHINFO_EXTENSION);
+                                    if ( ! in_array($extensao, $arquivosPermitidos)){
+                                        $erros[] = "Arquivo inválido";
+                                    }
+
+                                    $tiposPermitidos = ["image/png", "image/jpeg", "image/jpg"];
+                                    if ( ! in_array($tipo, $tiposPermitidos)){
+                                        $erros[] = "Tipo de arquivo inválido";
+                                    }
+
+                                    if (! empty($erros)) {
+                                        foreach ($erros as $erro){
+                                            echo $erro;
+                                        }
+                                    } else {
+                                        $caminho = "fotos/";
+                                        $hoje = date("d-m-Y");
+                                        $novoNome = $hoje."-".$nomeFoto;
+                                        if(move_uploaded_file($nomeTemporario, $caminho.$novoNome)) {
+                                            echo 'upload com sucesso';
+                                            Atualizar($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao'], $caminho.$novoNome);
+                                        }else {
+                                            echo "faha no upload";
+                                        }
+                                    }
+                                } else {
+                                    Atualizar2($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao']);
+                                }
+                            }
+                            if ($qtdChecagem > 0){
+                                similar_text($UsoC->tipo, "DE", $percent);
+                                if($percent  == 100) { ?>
+                                    <form action='curso.php' method='POST'>
+
+                                        <div class="Nome">
+                                            <label>Nome:</label> <br>
+                                            <a type='text' name='nome'><?php echo $resSet->nome ?></a> <br>
+                                            <input type='hidden' name='id_curso' value="<?php echo $curso ?>"> <br>
+                                        </div>
+
+                                        <div class="CPF">
+                                            <label>Duração:</label> <br>
+                                            <a type='text' name='duracao'><?php echo $resSet->duracao ?></a><br>
+                                        </div>
+
+                                        <br>
+
+                                    <div class="SIAPE">
+                                        <label>Descrição:</label> <br>
+                                        <a type='text' name='descricao'><?php echo $resSet->descricao ?></a><br>
+                                    </div>
+                                    <br>
+                                    </form> <br>
+                                <?php } 
+                        }   else {
+                                    print $resSet->nome . "<br>";
+                                    print $resSet->duracao . "<br>";
+                                    print $resSet->descricao . "<br>";
+                                    print "<br> <img src='".$resSet->foto."' alt='foto curso'<br>";
+                        }
+
+                        ?>
+                    </div>
+                </div>
+
+                <script>
+                    function openMenu() {
+                        var menu = document.querySelector('.floating-menu');
+                        menu.style.display = 'block';
                     }
-                } else {
-                    $caminho = "fotos/";
-                    $hoje = date("d-m-Y");
-                    $novoNome = $hoje."-".$nomeFoto;
-                    if(move_uploaded_file($nomeTemporario, $caminho.$novoNome)) {
-                        echo 'upload com sucesso';
-                        Atualizar($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao'], $caminho.$novoNome);
-                    }else {
-                        echo "faha no upload";
-                    }
-                }
-            } else {
-                Atualizar2($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao']);
-            }
-        }
-        if ($qtdChecagem > 0){
-            similar_text($UsoC->tipo, "DE", $percent);
-            if($percent  == 100) { ?>
-                    <form action='curso.php' method='POST' enctype="multipart/form-data"> 
-                        <input type='hidden' name='id' value='<?php echo $curso ?>'>
-                        <label>Nome</label> <br>
-                        <input type='text' name='nome' value="<?php echo $resSet->nome ?>"> <br>
-                        <label>Duração</label> <br>
-                        <input type='text' name='duracao' value="<?php echo $resSet->duracao ?>"> <br>
-                        <label>Descrição</label> <br>
-                        <input type='text' name='descricao' value="<?php echo $resSet->descricao ?>"> <br>
-                        <label>Foto</label> <br>
-                        <input type="file" name="foto"> <br>
-                        <button type='submit' name='atualiza'>Salvar</button>
-                    </form>
-                    <button onclick="if(confirm('Tem certeza que deseja excluir este curso?')){location.href='curso.php?id=<?php echo $curso?> &excluir=1'};">excluir</button>
-             <?php }
-    } else {
-            print $resSet->nome . "<br>";
-            print $resSet->duracao . "<br>";
-            print $resSet->descricao . "<br>";
-            print "<br> <img src='".$resSet->foto."' alt='foto curso'<br>";
 
-    }
-?>
-</body>
-</html>
+                    function closeMenu() {
+                        var menu = document.querySelector('.floating-menu');
+                        menu.style.display = 'none';
+                    }
+                </script>
+            </body>
+            </html>
