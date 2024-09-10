@@ -57,7 +57,7 @@
                             <div class="imagem-menu2"><img src="Imagens/inicio.png"></div>
                         </div>
                     </div>
-                    
+                    <button class="sair" onclick="location.href='painel.php?sair=1'">Sair</button>
                 </div>
 
                 <!-- Barra verde -->
@@ -100,22 +100,26 @@
         <div class="inner-container">
             <div class="title">Técnico em Administração</div>
             <div class="info">
+                <?php
+                ?>
             </div>
         </div>
     </div>
     <div class="green-bar2"></div>
 
-    <div class="InformaçõesProf";>
+
+               <div class="InformaçõesProf";>
                             <?php 
 
                             if($qtd > 0){
                                 echo "<div class='alunos-container'>"; // Adicionamos um contêiner flexível
                                 while($row = $Ares->fetch_object()){
+                                    echo "<div class='backgroundFundo1'>";
                                     echo "<p class='nome-aluno'>" . $row->nome . "</p>";
-                                    echo "<a>Informações</a>";
                                     echo "<div class='botaoinfo'>";
+                                    echo "<a>Informações</a>";
                                     echo "<div class='imagemBotao'>";
-                                    echo "<img onclick=\"window.location.href='aluno.php?id_aluno=" . htmlspecialchars($row->matricula, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Informações'>";
+                                    echo "<img onclick=\"window.location.href='aluno.php?id=" . htmlspecialchars($row->matricula, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Informações'>";
                                     echo "</div>";
                                     echo "</div>";
                                 }
@@ -128,58 +132,54 @@
                         <div class="outer-container">
         <div class="inner-container">
             <div class="title">Técnico em Agropecuária</div>
-            
+            <div class="info">
+                <?php
+                if($qtd > 0){
+                    echo "<div class='alunos-container'>"; // Adicionamos um contêiner flexível
+                    while($row = $Ares->fetch_object()){
+                        echo "<div class='backgroundFundo1'>";
+                        echo "<p class='nome-aluno'>" . $row->nome . "</p>";
+                        echo "<div class='botaoinfo'>";
+                        echo "<a>Informações</a>";
+                        echo "</div>";
+                        echo "<div class='imagemBotao'>";
+                        echo "<img onclick=\"window.location.href='aluno.php?id=" . htmlspecialchars($row->matricula, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Informações'>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                    echo "</div>"; // Fechamos o contêiner flexível
+                }
+                ?>
+            </div>
         </div>
     </div>
     <div class="green-bar2"></div>
-    <div class="InformaçõesProf";>
-                            <?php 
-
-                            if($qtd > 0){
-                                echo "<div class='alunos-container'>"; // Adicionamos um contêiner flexível
-                                while($row = $Ares->fetch_object()){
-                                    echo "<p class='nome-aluno'>" . $row->nome . "</p>";
-                                    echo "<div class='botaoinfo'>";
-                                    echo "<a>Informações</a>";
-                                    echo "<div class='imagemBotao'>";
-                                    echo "<img onclick=\"window.location.href='aluno.php?id_aluno=" . htmlspecialchars($row->matricula, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Informações'>";
-                                    echo "</div>";
-                                    echo "</div>";
-                                }
-                                echo "</div>"; // Fechamos o contêiner flexível
-                            }
-                                
-                            ?>
-                        </div>
                   
     <div class="outer-container">
         <div class="inner-container">
             <div class="title">Técnico em Infornática</div>
-            
+            <div class="info">
+                <?php
+                if($qtd > 0){
+                    echo "<div class='alunos-container'>"; // Adicionamos um contêiner flexível
+                    while($row = $Ares->fetch_object()){
+                        echo "<div class='backgroundFundo1'>";
+                        echo "<p class='nome-aluno'>" . $row->nome . "</p>";
+                        echo "<div class='botaoinfo'>";
+                        echo "<a>Informações</a>";
+                        echo "</div>";
+                        echo "<div class='imagemBotao'>";
+                        echo "<img onclick=\"window.location.href='aluno.php?id=" . htmlspecialchars($row->matricula, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Informações'>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                    echo "</div>"; // Fechamos o contêiner flexível
+                }
+                ?>
+            </div>
         </div>
     </div>
     <div class="green-bar2"></div>
-
-    <div class="InformaçõesProf";>
-                            <?php 
-
-                            if($qtd > 0){
-                                echo "<div class='alunos-container'>"; // Adicionamos um contêiner flexível
-                                while($row = $Ares->fetch_object()){
-                                    echo "<p class='nome-aluno'>" . $row->nome . "</p>";
-                                    echo "<div class='botaoinfo'>";
-                                    echo "<a>Informações</a>";
-                                    echo "<div class='imagemBotao'>";
-                                    echo "<img onclick=\"window.location.href='aluno.php?id_aluno=" . htmlspecialchars($row->matricula, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Informações'>";
-                                    echo "</div>";
-                                    echo "</div>";
-                                }
-                                echo "</div>"; // Fechamos o contêiner flexível
-                            }
-                                
-                            ?>
-                        </div>
-    
 
                     </div> 
                 </div>

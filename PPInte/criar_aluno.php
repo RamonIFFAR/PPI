@@ -22,22 +22,20 @@
 
     function CadastrarAluno($matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento){
         require("config.php");
-        if(empty($_POST) || (empty($_POST["matricula"])) || empty($_POST["telefone"]) || empty($_POST["email"]) || empty($_POST["nome"]) || empty($_POST["genero"]) || empty($_POST["cidade"]) || empty($_POST["dataNasc"]) || empty($_POST["cpf"])){
+        if(empty($_POST) || (empty($_POST["matricula"])) || empty($_POST["telefone"]) || empty($_POST["email"]) || empty($_POST["nome"]) || empty($_POST["genero"]) || empty($_POST["cidade"]) || empty($_POST["dataNasc"]) || empty($_POST["moradia"]) || empty($_POST["cota"]) || empty($_POST["cpf"])){
             echo "É necessário preencher todos os campos para adicionar um novo professor";
         } else {
-            $sql = "INSERT INTO aluno (matricula, telefone, email, nome, genero, cidade, dataNasc, moradia, cota, bolsa, orientador, reprovacao, equipTI, estagio, cpf, acompanhamento) VALUES('{$matricula}','{$telefone}','{$email}','{$nome}','{$genero}','{$cidade}','{$dataNasc}','{$moradia}','{$cota}','{$bolsa}','{$orientador}','{$reprovacao}','{$equipTI}','{$estagio}','{$cpf}','{$acompanhamento}')";
+            $sql = "INSERT INTO aluno (matricula, telefone, email, nome, genero, cidade, dataNasc, moradia, cota, bolsa, orientador, reprovacao, equipTI, estagio, cpf, acompanhamento) VALUES('{$matricula}','{$telefone}','{$email}','{$nome}','{$genero}','{$cidade}','{$dataNasc}','{$moradia}','{$cota}','{$bolsa}','{$orientador}','{$reprovacao}','{$equipTI}', '{$estagio}','{$cpf}','{$acompanhamento}')";
             $conn->query($sql) or die($conn->error);
             echo "sucesso";
             echo $cpf;
-            echo $estagio;
-            echo $acompanhamento;
-            // print "<script> location.href='alunos.php'</script>";
+            print "<script> location.href='alunos.php'</script>";
         };
     }
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
