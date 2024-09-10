@@ -39,7 +39,7 @@
                             </div>
                             <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
                             <ul>
-                                <li><a href="Pagina_Inicial.php">Início</a></li>
+                                <li><a href="painel.php">Início</a></li>
                                 <li><a href="cursos.php">Cursos</a></li>
                                 <li><a href="disciplinas.php">Disciplinas</a></li>
                                 <li><a href="alunos.php">Alunos</a></li>
@@ -53,10 +53,10 @@
                     </div>
                 </div>
 
-                <!-- Barra verde -->
+                
                 <div class="green-bar"></div>
 
-                <!-- Nova barra cinza -->
+                
                 <div class="bottom-bar">
                 <div class="iconeNotificacao">
                         <img src="Imagens/Notificacao.png">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <!-- Nova barra verde abaixo da nova barra cinza -->
+                
                 <div class="new-green-bar">
                     <div class="Titulo-Professores">
                         <h1>PROFESSORES</h1>
@@ -82,13 +82,13 @@
                     </div>
                 </div>
 
-                <!-- Nova barra cinza abaixo da nova barra verde -->
+                
                 <div class="new-bottom-bar">
                     <div class="box-center">
                         <div class="InformaçõesProf";>
                             <?php 
                                 if($qtd > 0){
-                                    echo "<div class='professores-container'>"; // Adicionamos um contêiner flexível
+                                    echo "<div class='professores-container'>"; 
                                     while($row = $res->fetch_object()){
                                         echo "<div class='backgroundFundo1'>";
 
@@ -110,7 +110,7 @@
 
                                         echo "</div>";
                                     }
-                                    echo "</div>"; // Fechamos o contêiner flexível
+                                    echo "</div>"; 
                                 }
                             ?>
                         </div>
