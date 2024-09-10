@@ -67,7 +67,7 @@
 
         .EmailInsti input {
             position: absolute;
-            width: 1000px;
+            width: 600px;
             height: 50px;
         }
 
@@ -98,6 +98,20 @@
             height: 50px;
         }
 
+        /* Telefone */
+
+        .Fone {
+            position: absolute;
+            top: 450px;
+            left: 1000px;
+        }
+
+        .Fone input {
+            position: absolute;
+            width: 250px;
+            height: 50px;
+        }
+
         /* Foto */
 
         /* Posicionamento da div Foto */
@@ -112,7 +126,7 @@
             position: absolute;
             width: 117px;
             height: 100px;
-            left: 150px;
+            left: 152px;
             top: -20px;
             background-color: #004b21;
             display: flex;
@@ -149,7 +163,7 @@
         }
 
         button:hover {
-            background-color: #45a049; /* Cor de fundo ao passar o mouse */
+            background-color: #45a049;
         }
 
         label{
@@ -181,7 +195,7 @@
         }
 
         a:hover {
-            background-color: #730b01; /* Cor de fundo ao passar o mouse */
+            background-color: #730b01;
         }
 
 
