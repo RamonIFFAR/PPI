@@ -1,10 +1,10 @@
         .Fundo {
-            margin: 0; /* Remove margens padrão do body */
-            padding: 0; /* Remove preenchimento padrão do body */
-            background: url('Imagens/Fundo.png') no-repeat center center fixed; /* Adiciona a imagem de fundo */
-            background-size: cover; /* Faz a imagem cobrir toda a área */
-            position: relative; /* Necessário para posicionar elementos filhos */
-            min-height: 100vh; /* Garante que a altura mínima seja a altura da viewport */
+            margin: 0; 
+            padding: 0; 
+            background: url('Imagens/Fundo.png') no-repeat center center fixed; 
+            background-size: cover; 
+            position: relative; 
+            min-height: 100vh; 
         }
 
         .Background1 {
@@ -16,7 +16,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             opacity: 0.8;
-            z-index: 1; /* Define a camada de sobreposição para o Background1 */
+            z-index: 1; 
         }
 
         form {
