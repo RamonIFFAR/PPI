@@ -217,8 +217,8 @@
                     }
                     
                     .AdicionarProf {
-                        display: inline-block; /* Garante que o contêiner se ajuste ao tamanho do conteúdo */
-                        overflow: hidden; /* Garante que o aumento da escala não cause quebra de linha */
+                        display: inline-block; 
+                        overflow: hidden; 
                     }
 
                     .AdicionarProf a {
@@ -227,16 +227,16 @@
                         top: 30%;
                         font-size: 25px;
                         font-weight: bold;
-                        display: block; /* Garante que o link seja tratado como um bloco dentro do contêiner */
-                        text-decoration: none; /* Opcional: remove o sublinhado do link */
-                        color: White; /* Opcional: define a cor do texto */
-                        padding: 10px; /* Opcional: adiciona preenchimento ao link */
+                        display: block; 
+                        text-decoration: none; 
+                        color: White; 
+                        padding: 10px; 
                     }
 
                     .AdicionarProf a:hover {
                         background-color: #014a21;
                         transform: scale(1.1);
-                        transition: transform 0.3s ease, background-color 0.3s ease; /* Adiciona uma transição suave */
+                        transition: transform 0.3s ease, background-color 0.3s ease; 
                     }
 
                     /*
@@ -244,20 +244,19 @@
                     */
                     .professores-container {
                         display: flex;
-                        flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
-                        gap: 20px; /*
-                         Espaçamento entre os elementos */
+                        flex-wrap: wrap;
+                        gap: 20px;
                     }
                     
                     .backgroundFundo1 {
                         width: 250px;
                         height: 350px;
-                        position: relative; /* Para que os elementos absolutos fiquem posicionados dentro deste bloco */
+                        position: relative;
                         background-color: #003417;
                         border-radius: 50px;
                         box-sizing: border-box;
-                        padding: 10px; /* Espaço interno */
-                        overflow: hidden; /* Evita que elementos internos escapem da caixa */
+                        padding: 10px; 
+                        overflow: hidden;
                     }
 
                     .designFundoProf {
@@ -270,15 +269,15 @@
                     }
 
                     .nome-professor {
-                        position: absolute; /* Posição fixa em relação ao .backgroundFundo1 */
-                        top: 120px; /* Ajusta a posição no topo */
-                        left: 50%; /* Centraliza horizontalmente */
-                        transform: translateX(-50%); /* Centraliza horizontalmente em relação ao ponto central */
-                        width: 200px; /* Defina uma largura para o elemento para garantir a quebra de linha */
+                        position: absolute; 
+                        top: 140px; 
+                        left: 50%; 
+                        transform: translateX(-50%); 
+                        width: 200px; 
                         font-size: 27px;
                         font-family: 'Poppins', sans-serif;
-                        color: white; /* Certifica-se de que o texto seja visível */
-                        text-align: center; /* Centraliza o texto dentro do elemento */
+                        color: white; 
+                        text-align: center; 
                     }
 
                     .botaoinfo {
@@ -288,6 +287,11 @@
                         font-family: 'Poppins', sans-serif;
                         font-size: 18px;
                         color: white;
+                    }
+
+                    a {
+                        font-size: 24px;
+                        font-family: Arial, sans-serif;
                     }
 
                     .imagemBotao img {
@@ -306,8 +310,8 @@
 
                     .Prof-foto img{
                         position: absolute;
-                        width: 200px;
-                        height: 100px;
-                        left: 25px;
+                        width: 140px;
+                        height: 110px;
+                        left: 55px;
                         border-radius: 20px;
                     }
