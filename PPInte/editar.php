@@ -34,129 +34,68 @@
     if ($qtdChecagem > 0) {
 ?>
 
-            <!DOCTYPE html>
-            <html lang="pt-BR">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
-                <link rel="stylesheet" href="editarcss.css">
-            </head>
-            <body>
-                <div class="top-bar">
-                    <div class="menu-container">
-                        <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
-                        <div class="floating-menu">
-                            <div class="design-menu"></div>
-                            <div class="design-menu2"></div>
-                            <div class="design-menu3"></div>
-                            <div class="Titulo-menu">
-                                <img src="Imagens/TituloMenu.png">
-                            </div>
-                            <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
-                            <ul>
-                                <li><a href="Pagina_Inicial.php">Início</a></li>
-                                <li><a href="cursos.php">Cursos</a></li>
-                                <li><a href="disciplinas.php">Disciplinas</a></li>
-                                <li><a href="alunos.php">Alunos</a></li>
-                                <li><a href="professores.php">Professores</a></li>
-                                <li><a href="turmas.php">Turmas</a></li>
-                            </ul>
-                            <a class="textPosition" href="index.php">Sair</a>
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+        <link rel="stylesheet" href="editarcss.css">
+    </head>
 
-                            <div class="imagem-menu2"><img src="Imagens/inicio.png"></div>
-                        </div>
-                    </div>
-                </div>
+    <body class="Fundo">
 
-                <!-- Barra verde -->
-                <div class="green-bar"></div>
+        <div class="Background1"></div>
 
-                <!-- Nova barra cinza -->
-                <div class="bottom-bar">
-                <div class="iconeNotificacao">
-                        <img src="Imagens/Notificacao.png">
-                    </div>
-                    <div class="iconeTitulo">
-                        <img src="Imagens/Titulo.png">
-                    </div>
-                    <div class="iconePerfil">
-                        <img src="Imagens/Perfil.png">
-                    </div>
-                </div>
+        <form action="editar.php" method="POST" enctype="multipart/form-data">
+            <h1> Informações Professor(a)</h1>
+            <?php
+                if(isset($_POST['atualiza'])){
+                    Atualizar($_POST['id_prof'], $_POST['cpf'], $_POST['siape'], $_POST['nome']);
+                }
+                similar_text($UsoC->tipo, "DE", $percent);
+                if($percent  == 100) { ?>
+                    <form action='professor.php' method='POST'>
 
-                <!-- Nova barra verde abaixo da nova barra cinza -->
-                <div class="new-green-bar">
-
-                    <div class="Titulo-Professores">
-                        <h1>Informações do Professor</h1>
+                    <div class="NomeCompleto">
+                        <label>Nome:</label> <br>
+                        <input type='text' name='nome' value=" <?php echo $resSet->nome ?>"> <br>
+                        <input type='hidden' name='id_prof' value="<?php echo $prof ?>"> <br>
                     </div>
 
-                    <div class="Nomear Classe">
-                        <?php
-                        ?>
+                    <div class="CPF">
+                        <label>CPF:</label> <br>
+                        <input type='text' name='cpf' value=" <?php echo $resSet->cpf ?>"><br>
                     </div>
-                </div>
 
-                <!-- Nova barra cinza abaixo da nova barra verde -->
-                <div class="new-bottom-bar">
-                    <div class="box-center">
-                        <?php 
-                                if(isset($_POST['atualiza'])){
-                                    Atualizar($_POST['id_prof'], $_POST['cpf'], $_POST['siape'], $_POST['nome']);
-                                }
-                                similar_text($UsoC->tipo, "DE", $percent);
-                                if($percent  == 100) { ?>
-                                            <form action='professor.php' method='POST'>
-
-                                                <div class="Nome">
-                                                    <label>Nome:</label> <br>
-                                                    <input type='text' name='nome' value=" <?php echo $resSet->nome ?>"> <br>
-                                                    <input type='hidden' name='id_prof' value="<?php echo $prof ?>"> <br>
-                                                </div>
-
-                                                <div class="CPF">
-                                                    <label>CPF:</label> <br>
-                                                    <input type='text' name='cpf' value=" <?php echo $resSet->cpf ?>"><br>
-                                                </div>
-
-                                                <br>
-
-                                                <div class="SIAPE">
-                                                    <label>Matrícula SIAPE:</label> <br>
-                                                    <input type='text' name='siape' value=" <?php echo $resSet->Siape ?> "></a><br>
-                                                </div>
-
-                                                <br>
-                                                
-                                                <div class="Posicao">
-                                                    <button type=submit name='atualiza'>Salvar alterações</button>
-                                                </div>
-
-                                            </form> <br>
-                                <?php } else {
-                                        print $resSet->nome . "<br>";
-                                        print $resSet->Siape . "<br>";
-                                        print $resSet->email . "<br>";
-                                        print $resSet->cpf . "<br>";
-                            }
-                            } else {
-                                print "<script>location.href='index.php'</script>";
-                            }
-                        ?>
+                    <div class="MatriculaSiape">
+                        <label>Matrícula SIAPE:</label> <br>
+                        <input type='text' name='siape' value=" <?php echo $resSet->Siape ?> "></a><br>
                     </div>
-                </div>
 
-                <script>
-                    function openMenu() {
-                        var menu = document.querySelector('.floating-menu');
-                        menu.style.display = 'block';
+                    <div class="Fone">
+                        <label>Número de Telefone:</label> <br>
+                        <input type='text' name='fone' value=" <?php echo $resSet->fone ?> "></a><br>
+                    </div>
+
+                    <div class="Posicao">
+                        <button type="submit" name="atualiza">Salvar</button>
+                    </div>
+                    
+                    <a href="professor.php?id_prof=<?php echo $prof ?>">Cancelar</a>
+
+                
+
+                <?php } else {
+                    print $resSet->nome . "<br>";
+                    print $resSet->Siape . "<br>";
+                    print $resSet->email . "<br>";
+                    print $resSet->cpf . "<br>";
                     }
-
-                    function closeMenu() {
-                        var menu = document.querySelector('.floating-menu');
-                        menu.style.display = 'none';
-                    }
-                </script>
-            </body>
-            </html>
+                } else {
+                    print "<script>location.href='index.php'</script>";
+                }
+            ?>
+        </form>
+    </body>
+</html>
