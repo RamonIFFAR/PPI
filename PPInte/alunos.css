@@ -284,9 +284,9 @@
                     */
                     .alunos-container {
                         display: flex;
+                        flex-direction: column; /* Alinha os elementos em uma coluna, ou seja, um abaixo do outro */
                         flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
-                        gap: 20px; /*
-                         Espaçamento entre os elementos */
+                        gap: 5px; 
                     }
 
                     .cursi-container {
@@ -300,7 +300,6 @@
                         
                         display: table-row; /* Alinha os alunos em linha */
                         width: 100%; /* Preenche a largura disponível */
-                        
                         border-bottom: 1px solid #e0e0e0; /* Separador entre as linhas */
                        
                     }
@@ -316,15 +315,17 @@
 
                     .nome-aluno {
                         display: table-cell;
-                        vertical-align: middle;
                         padding-left: 20px;
-                       
+                        width: 350px;
+                        height: 20px;
+                        
+
                     }
 
                     .botaoinfo {
                         display: table-cell;
                         text-align: center;
-                        vertical-align: middle;
+                        
                     }
 
                     .imagemBotao img {
