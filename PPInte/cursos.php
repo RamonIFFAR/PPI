@@ -85,6 +85,7 @@
                         if ($percent == 100) {
                             echo "<a href='criar_curso.php'>Adicionar cursos</a>";
                         }
+                    }
                         echo "<div class='cursos-container'>"; 
                         while($Crow = $Cres->fetch_object()){
                             echo "<div class='backgroundFundo1'>";
@@ -112,7 +113,6 @@
                             echo "</div>";
                         }
                         echo "</div>"; 
-                    }
                 ?>
             </div>
         </div>
