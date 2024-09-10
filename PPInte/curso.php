@@ -116,8 +116,9 @@
                 Atualizar2($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao']);
             }
         }
-        similar_text($UsoC->tipo, "DE", $percent);
-        if($percent  == 100) { ?>
+        if ($qtdChecagem > 0){
+            similar_text($UsoC->tipo, "DE", $percent);
+            if($percent  == 100) { ?>
                     <form action='curso.php' method='POST' enctype="multipart/form-data"> 
                         <input type='hidden' name='id' value='<?php echo $curso ?>'>
                         <label>Nome</label> <br>
@@ -131,10 +132,13 @@
                         <button type='submit' name='atualiza'>Salvar</button>
                     </form>
                     <button onclick="if(confirm('Tem certeza que deseja excluir este curso?')){location.href='curso.php?id=<?php echo $curso?> &excluir=1'};">excluir</button>
-             <?php } else {
-                print $resSet->nome . "<br>";
-                print $resSet->duracao . "<br>";
-                print $resSet->descricao . "<br>";
+             <?php }
+    } else {
+            print $resSet->nome . "<br>";
+            print $resSet->duracao . "<br>";
+            print $resSet->descricao . "<br>";
+            print "<br> <img src='".$resSet->foto."' alt='foto curso'<br>";
+
     }
 ?>
 </body>
