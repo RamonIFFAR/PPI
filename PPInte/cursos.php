@@ -73,9 +73,6 @@
         </div>
 
         <div class="AdicionarProf">
-            <?php
-                echo "<a href='criar_curso.php'>Adicionar cursos</a>";
-            ?>
         </div>
     </div>
 
@@ -84,6 +81,10 @@
             
                 <?php 
                     if($qtd > 0){
+                        similar_text($row->tipo, "DE", $percent);
+                        if ($percent == 100) {
+                            echo "<a href='criar_curso.php'>Adicionar cursos</a>";
+                        }
                         echo "<div class='cursos-container'>"; 
                         while($Crow = $Cres->fetch_object()){
                             echo "<div class='backgroundFundo1'>";
