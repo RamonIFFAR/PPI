@@ -9,7 +9,7 @@
     
     if(isset($_REQUEST['excluir'])){
         $removerprofessorsql = "DELETE FROM professor WHERE id_prof = '{$prof}'";
-        $removerusuariosql = "DELETE FROM usuario WHERE id_prof = '{$prof}'";
+        $removerusuariosql = "DELETE FROM usuario WHERE id_us = '{$prof}'";
         $conn->query($removerprofessorsql);
         $conn->query($removerusuariosql);
         print "<script>location.href='professores.php'</script>";
