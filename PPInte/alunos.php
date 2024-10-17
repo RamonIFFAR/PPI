@@ -19,10 +19,8 @@
     $qtdChecagem = $ConsultaC->num_rows;
 
     // If utilizado para evitar que um usuário que não pertence à um setor entre
-    if ($qtdChecagem > 0) {
-        similar_text($PuxaC->tipo, "DE", $percent);
-        ?>
-            <!DOCTYPE html>
+    ?>
+    <!DOCTYPE html>
             <html lang="pt-BR">
             <head>
                 <meta charset="UTF-8">
@@ -45,7 +43,7 @@
                             </div>
                             <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
                             <ul>
-                                <li><a href="Pagina_Inicial.php">Início</a></li>
+                                <li><a href="painel.php">Início</a></li>
                                 <li><a href="cursos.php">Cursos</a></li>
                                 <li><a href="disciplinas.php">Disciplinas</a></li>
                                 <li><a href="alunos.php">Alunos</a></li>
@@ -57,7 +55,6 @@
                             <div class="imagem-menu2"><img src="Imagens/inicio.png"></div>
                         </div>
                     </div>
-                    <button class="sair" onclick="location.href='painel.php?sair=1'">Sair</button>
                 </div>
 
                 <!-- Barra verde -->
@@ -83,11 +80,13 @@
                     </div>
 
                     <div class="AdicionarAluno">
-                        <?php
-                        if ($percent == 100) {
-                            echo "<a href='criar_aluno.php'>Adicionar aluno(a)</a>";
-                        }
-                    }
+    <?php if ($qtdChecagem > 0) {
+        similar_text($PuxaC->tipo, "DE", $percent);
+        if ($percent == 100) {
+            echo "<a href='criar_aluno.php'>Adicionar aluno(a)</a>";
+        }
+    } 
+                        
                         ?>
                     </div>
                 </div>
@@ -110,21 +109,19 @@
 
                <div class="InformaçõesProf";>
                             <?php 
-
-                            if($qtd > 0){
-                                echo "<div class='alunos-container'>"; // Adicionamos um contêiner flexível
+                                echo "<div>"; // Adicionamos um contêiner flexível
                                 while($row = $Ares->fetch_object()){
-                                    echo "<div class='backgroundFundo1'>";
-                                    echo "<p class='nome-aluno'>" . $row->nome . "</p>";
+                                    echo "<div> <br>";
+                                    echo "<p>" . $row->nome . "</p>";
                                     echo "<div class='botaoinfo'>";
-                                    echo "<a>Informações</a>";
+                                    echo "<br>";
+                                    echo "<a href='aluno.php?id=". $row->matricula ."'>Informações</a>";
                                     echo "<div class='imagemBotao'>";
                                     echo "<img onclick=\"window.location.href='aluno.php?id=" . htmlspecialchars($row->matricula, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Informações'>";
                                     echo "</div>";
                                     echo "</div>";
                                 }
                                 echo "</div>"; // Fechamos o contêiner flexível
-                            }
                                 
                             ?>
                         </div>

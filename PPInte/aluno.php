@@ -25,7 +25,9 @@
 
     // Função usada para excluir aluno
     if(isset($_REQUEST['excluir'])){
+        $removercomentarioaluno = "DELETE FROM comentario WHERE matricula = '{$aluno}'";
         $removeralunosql = "DELETE FROM aluno WHERE matricula = '{$aluno}'";
+        $conn->query($removercomentarioaluno);
         $conn->query($removeralunosql);
         print "<script>location.href='alunos.php'</script>";
     }
@@ -64,17 +66,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGAE</title>
-</head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+                <link rel="stylesheet" href="cursocss.css">
+            </head>
 <body>
+<div class="top-bar">
+                    <div class="menu-container">
+                        <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
+                        <div class="floating-menu">
+                            <div class="design-menu"></div>
+                            <div class="design-menu2"></div>
+                            <div class="design-menu3"></div>
+                            <div class="Titulo-menu">
+                                <img src="Imagens/TituloMenu.png">
+                            </div>
+                            <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
+                            <ul>
+                                <li><a href="painel.php">Início</a></li>
+                                <li><a href="cursos.php">Cursos</a></li>
+                                <li><a href="disciplinas.php">Disciplinas</a></li>
+                                <li><a href="alunos.php">Alunos</a></li>
+                                <li><a href="professores.php">Professores</a></li>
+                                <li><a href="turmas.php">Turmas</a></li>
+                            </ul>
+                            <a class="textPosition" href="index.php">Sair</a>
+
+                            <div class="imagem-menu2"><img src="Imagens/inicio.png"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barra verde -->
+                <div class="green-bar"></div>
+
+                <!-- Nova barra cinza -->
+                <div class="bottom-bar">
+                <div class="iconeNotificacao">
+                        <img src="Imagens/Notificacao.png">
+                    </div>
+                    <div class="iconeTitulo">
+                        <img src="Imagens/Titulo.png">
+                    </div>
+                    <div class="iconePerfil">
+                        <img src="Imagens/Perfil.png">
+                    </div>
+                </div>
+                <div class="new-green-bar">
+                <div class="new-green-bar"></div>
+                <div class="new-bottom-bar">
+        <div class="box-center">
+        <div class="Posicao2">
     <?php 
         if(isset($_POST['atualizar'])){
             Atualizar($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento']);
         }
+        if ($qtdChecagem > 0) {
+
         similar_text($UsoC->tipo, "DE", $percent);
         if($percent  == 100) { ?>
+        <button onclick="if(confirm('Tem certeza que deseja excluir esse aluno?')){location.href='aluno.php?id= <?php echo $aluno ?>&excluir=1'}">
+        <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
+        </button>
+        </div>
+        
                     <form action='aluno.php' method='POST'>
                         <input type='hidden' name='id' value="<?php echo $aluno ?>"> <br>
                         <label>Matrícula</label>
@@ -109,23 +165,22 @@
                         <input type='text' name='cpf' value="<?php echo $resSet['cpf'] ?>"> <br>
                         <label>Acompanhamento</label>
                         <input type='text' name='acompanhamento' value="<?php echo $resSet['acompanhamento'] ?>"> <br>
-                        <button type='submit' name='atualizar'>Cadastrar</button>
+                        <button type="submit" name="atualizar">Salvar Informações</button>
                     </form>
-                    <button onclick="if(confirm('Tem certeza que deseja excluir esse aluno?')){location.href='aluno.php?id= <?php echo $aluno ?>&excluir=1'}">Excluir</button>
-        <?php } else {
+        <?php } }else {
                 print $resSet['matricula'] . "<br>";
                 print $resSet['telefone'] . "<br>";
                 print $resSet['email'] . "<br>";
                 print $resSet['nome'] . "<br>";
-                /* print $resSet->genero . "<br>";
-                print $resSet->cidade . "<br>";
-                print $resSet->dataNasc . "<br>";
-                print $resSet->moradia . "<br>";
-                print $resSet->cota . "<br>";
-                print $resSet->bolsa . "<br>";
-                print $resSet->orientador . "<br>";
-                print $resSet->reprovacao . "<br>";
-                print $resSet->equipTI . "<br>"; */
+                print $resSet['genero'] . "<br>";
+                print $resSet['cidade'] . "<br>";
+                print $resSet['dataNasc'] . "<br>";
+                print $resSet['moradia'] . "<br>";
+                print $resSet['cota'] . "<br>";
+                print $resSet['bolsa'] . "<br>";
+                print $resSet['orientador'] . "<br>";
+                print $resSet['reprovacao'] . "<br>";
+                print $resSet['equipTI'] . "<br>";
     }
 ?>
 <br> <span>Comentários</span> <br>
@@ -152,5 +207,20 @@
             }
             }
     ?>
+    </div>
+</div>
+
+<script>
+                    function openMenu() {
+                        var menu = document.querySelector('.floating-menu');
+                        menu.style.display = 'block';
+                    }
+
+                    function closeMenu() {
+                        var menu = document.querySelector('.floating-menu');
+                        menu.style.display = 'none';
+                    }
+                </script>
+
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <?php 
     require("config.php");
 
@@ -72,20 +73,21 @@
             <h1>CURSOS</h1>
         </div>
 
-        <div class="AdicionarProf">
-        </div>
+        <?php 
+            if($qtd > 0){
+                similar_text($row->tipo, "DE", $percent);
+                if ($percent == 100) {
+                    echo "<div class='AdicionarProf'>";
+                        echo "<a href='criar_curso.php'>Adicionar cursos</a>";
+                    echo "</div>";
+                }
+            }
+        ?>
     </div>
 
     <div class="new-bottom-bar">
         <div class="box-center">
-            
                 <?php 
-                    if($qtd > 0){
-                        similar_text($row->tipo, "DE", $percent);
-                        if ($percent == 100) {
-                            echo "<a href='criar_curso.php'>Adicionar cursos</a>";
-                        }
-                    }
                         echo "<div class='cursos-container'>"; 
                         while($Crow = $Cres->fetch_object()){
                             echo "<div class='backgroundFundo1'>";

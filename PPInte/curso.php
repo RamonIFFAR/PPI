@@ -122,29 +122,31 @@
                         <button onclick="if(confirm('Tem certeza que deseja excluir esse curso?')){location.href='curso.php?id=<?php echo $curso ?>&excluir=1'}">
                             <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
                         </button>
+                        <?php 
+                             }}
+                        ?>
                         
                     </div>
                     
                     <div class="Posicao2">
-                        <a href="editarcurso.php?id_prof=<?php echo $curso ?>">
+                    <?php if($qtdChecagem > 0){
+                            similar_text($UsoC->tipo, "DE", $percent);
+                                if($percent  == 100) { ?>
+                        <a href="editarcurso.php?id=<?php echo $curso ?>">
                             <button>
                                 <img src="Imagens/editar.png" alt="Editar" class="img-button">
                             </button>
                         </a>
+                        <?php 
+                                }
+                            }
+                        ?>
                     </div>
-                    <?php 
-                    }
-                    }
-                    ?>
 
                     <div class="Titulo-Professores">
                         <h1>Informações do Curso</h1>
                     </div>
 
-                    <div class="Nomear Classe">
-                        <?php
-                        ?>
-                    </div>
                 </div>
 
                 <!-- Nova barra cinza abaixo da nova barra verde -->
@@ -201,9 +203,9 @@
                                     <form action='curso.php' method='POST'>
 
                                         <div class="Nome">
-                                            <label>Nome:</label> <br>
-                                            <a type='text' name='nome'><?php echo $resSet->nome ?></a> <br>
-                                            <input type='hidden' name='id_curso' value="<?php echo $curso ?>"> <br>
+                                        <label>Nome:</label> <br>
+                                        <a type='text' name='nome'><?php echo $resSet->nome ?></a> <br>
+                                        <input type='hidden' name='id_curso' value="<?php echo $curso ?>"> <br>
                                         </div>
 
                                         <div class="CPF">
@@ -221,10 +223,26 @@
                                     </form> <br>
                                 <?php } 
                         }   else {
-                                    print $resSet->nome . "<br>";
-                                    print $resSet->duracao . "<br>";
-                                    print $resSet->descricao . "<br>";
-                                    print "<br> <img src='".$resSet->foto."' alt='foto curso'<br>";
+                                    print 
+                                    "<div class='Nome'>
+                                    <label>Nome:</label> <br>
+                                    <a type='text' name='nome'>". $resSet->nome ."</a> <br>
+                                    </div>";
+                                    print 
+                                    "<div class='CPF'>
+                                    <label>Duracao:</label> <br>
+                                    <a type='text' name='nome'>". $resSet->duracao ."</a> <br>
+                                    </div>";
+                                    print 
+                                    "<div class='SIAPE'>
+                                    <label>Descrição:</label> <br>
+                                    <a type='text' name='nome'>". $resSet->descricao ."</a> <br>
+                                    </div>";
+                                    print 
+                                    "<div class='Fone'>
+                                    <label>Foto:</label> <br>
+                                    <img src='".$resSet->foto."'></img> <br>
+                                    </div>";
                         }
 
                         ?>
