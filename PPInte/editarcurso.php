@@ -17,6 +17,10 @@
     $UsoC = $ConsultaC->fetch_object();
     $qtdChecagem = $ConsultaC->num_rows;
 
+    // Procura os professores disponpiveis para serem coordenadores
+    $PProfessor = "select usuario.nome, professor.id_prof from usuario inner join professor on usuario.id_us = professor.id_prof inner join curso on not professor.id_prof = curso.id_coord";
+    $Cres = $conn->query($PProfessor);
+
     // Função usada para excluir curso
     if(isset($_REQUEST['excluir'])){
         $removercursosql = "DELETE FROM curso WHERE id_curso = '{$curso}'";
@@ -33,18 +37,32 @@
     }
 
     // Funções referentes à alteração das informações do curso
-    function Atualizar($id, $nome, $duracao, $descricao, $foto){
+    function Atualizar($id, $nome, $duracao, $descricao, $foto, $id_coord){
         include('config.php');
-        $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}' where id_curso = '{$id}'";
-        $conn->query($sql) or die($conn->error);
+        if($id_coord == 'none'){
+            $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}' where id_curso = '{$id}'";
+            $conn->query($sql) or die($conn->error);
+            echo "<script>alert('Atualização feita com sucesso')</script>";
+        } else {
+            $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}', id_coord='{$id_coord}' where id_curso = '{$id}'";
+            $conn->query($sql) or die($conn->error);
+            echo "<script>alert('Atualização feita com sucesso')</script>";
+        }
         echo $foto;
         print "<script> location.href='cursos.php'</script>";
     }
 
-    function Atualizar2($id, $nome, $duracao, $descricao){
+    function Atualizar2($id, $nome, $duracao, $descricao, $id_coord){
         include('config.php');
-        $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}' where id_curso = '{$id}'";
-        $conn->query($sql) or die($conn->error);
+        if($id_coord == 'none'){
+            $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}' where id_curso = '{$id}'";
+            $conn->query($sql) or die($conn->error);
+            echo "<script>alert('Atualização feita com sucesso')</script>";
+        } else {
+            $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', id_coord='{$id_coord}' where id_curso = '{$id}'";
+            $conn->query($sql) or die($conn->error);
+            echo "<script>alert('Atualização feita com sucesso')</script>";
+        }
         print "<script> location.href='cursos.php'</script>";
     }
 
@@ -113,13 +131,13 @@
                                         $novoNome = $hoje."-".$nomeFoto;
                                         if(move_uploaded_file($nomeTemporario, $caminho.$novoNome)) {
                                             echo 'upload com sucesso';
-                                            Atualizar($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao'], $caminho.$novoNome);
+                                            Atualizar($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao'], $caminho.$novoNome, $_POST['coordenador']);
                                         }else {
                                             echo "faha no upload";
                                         }
                                     }
                                 } else {
-                                    Atualizar2($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao']);
+                                    Atualizar2($_POST['id'], $_POST['nome'], $_POST['duracao'], $_POST['descricao'], $_POST['coordenador']);
                                 }
                             }
                             if ($qtdChecagem > 0){
@@ -151,7 +169,17 @@
                                             <img src="Imagens/Foto.png" alt="Escolher arquivo"> <!-- Imagem que funciona como botão -->
                                         </label>
                                     </div>
-
+                                    <div>
+                                    <label>Definir coordenador do curso:</label>
+                                        <select id='coord' name='coordenador'>
+                                            <option value='none' selected>--------</option>
+                                            <?php 
+                                                while($Crow = $Cres->fetch_object()){
+                                                    echo "<option value='" . $Crow->id_prof . "'>" . $Crow->nome . "</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
                                     <div class="Posicao">
                                         <button type="submit" name="atualiza">Salvar</button>
                                     </div>

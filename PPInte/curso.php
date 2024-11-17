@@ -59,6 +59,10 @@
     $res = $conn->query($sql);
     $resSet = $res->fetch_object();
 
+    $sqlC = "select * from curso inner join usuario where curso.id_curso = '{$curso}' and curso.id_coord = usuario.id_us";
+    $resC = $conn->query($sqlC);
+    $resSetC = $resC->fetch_object();
+
 ?>
 
             <!DOCTYPE html>
@@ -219,6 +223,10 @@
                                         <label>Descrição:</label> <br>
                                         <a type='text' name='descricao'><?php echo $resSet->descricao ?></a><br>
                                     </div>
+                                    
+                                    <span> Coordenador:
+                                    <?php echo $resSetC->nome?>
+                                    </span>
                                     <br>
                                     </form> <br>
                                 <?php } 
