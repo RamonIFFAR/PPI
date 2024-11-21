@@ -18,15 +18,15 @@
     $qtdT = $resT->num_rows;
 
     if(isset($_REQUEST['favorita'])){
+        $favorita = $_REQUEST['favorita'];
         if($qtdT == 0){
-            $favorita = $_REQUEST['favorita'];
             if($favorita == 1){
                 $sqlF = "insert into favorita(id_us, id_turma) values('{$_SESSION['id_us']}', '{$id_turma}')";
                 $resF = $conn->query($sqlF) or die($conn->error);
-            } else if($favorita== 0){
-                $sqlF = "delete from favorita where id_turma = '{$id_turma}' and id_us = '{$_SESSION['id_us']}'";
-                $resF = $conn->query($sqlF) or die($conn->error);
             }
+    }   else if($favorita== 0){
+        $sqlF = "delete from favorita where id_turma = '{$id_turma}' and id_us = '{$_SESSION['id_us']}'";
+        $resF = $conn->query($sqlF) or die($conn->error);
     }
     } else {
         
@@ -49,7 +49,7 @@
 
     } else {
         print"<script>alert('Você precisa estar logado para poder acessar o sistema')</script>";
-        print"<script>location.href=index.php</script>";
+        print"<script>location.href='index.php'</script>";
     }
 
     //  XXXXXXXXXX If que confere se o usuário é um setor DE XXXXXXXXXXXXXX
@@ -58,8 +58,6 @@
         <button onclick="location.href='ed_turma.php?id_turma=<?php echo $id_turma;?>'">Editar turma</button> <br> <br>
         <?php 
     } else{
-        print"<script>alert('Você não tem permissão para estar aqui')</script>";
-        print"<script>location.href=index.php</script>";
     }
 
     $sql = "select * from turma where id = '{$id_turma}'";
@@ -68,25 +66,26 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGAE: Turma</title>
 </head>
 <body>
+    <a href='add_notas.php?id_turma=<?php echo $id_turma?>'>Adicionar notas</a><br>
     <?php 
         if($qtdT > 0){ 
             ?>
-            <button onclick="location.href='turma.php?id=<?php echo $id_turma?>&favorita=0'">Favoritar</button> <br>
+            <button onclick="location.href='turma.php?id=<?php echo $id_turma?>&favorita=0'">Desfavoritar</button> <br>
             <?php
         } else {
     ?>
     <button onclick="location.href='turma.php?id=<?php echo $id_turma?>&favorita=1'">Favoritar</button> <br>
     <?php }
-    echo "Turma" $row->nome."<br><br>";
-    echo "Sala" $row->sala."<br><br>";
-    echo "Sobre" $row->descricao."<br><br>";
+        echo "Turma: ". $row->nome."<br><br>";
+        echo "Sala: ". $row->sala."<br><br>";
+        echo "Sobre:<br>". $row->descricao."<br><br>";
     ?>
 </body>
 </html>
