@@ -53,6 +53,7 @@
 </head>
 <body>
     <a href="painel.php">Voltar para o início</a><br> <br>
+    <a href="add_turma.php">Adicionar turma</a><br><br>
     <?php 
         //  XXXXXXXXXX If que confere se o usuário é um setor DE XXXXXXXXXXXXXX
         if($qtdChecagem > 0){
