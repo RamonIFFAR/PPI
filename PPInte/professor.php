@@ -8,11 +8,16 @@
     $prof = $_REQUEST['id_prof'];
     
     if(isset($_REQUEST['excluir'])){
+        $removerprofessorturma = "DELETE FROM professor_turma WHERE id_prof = '{$prof}'";
+        $removerprofessordisciplina = "DELETE FROM professor_disciplina WHERE id_prof = '{$prof}'";
         $removerprofessorsql = "DELETE FROM professor WHERE id_prof = '{$prof}'";
         $removerusuariosql = "DELETE FROM usuario WHERE id_us = '{$prof}'";
+        
+        $conn->query($removerprofessorturma);
+        $conn->query($removerprofessordisciplina);
         $conn->query($removerprofessorsql);
         $conn->query($removerusuariosql);
-        print "<script>location.href='professores.php'</script>";
+       print "<script>location.href='professores.php'</script>";
     }
 
     $Checagem = "select * from setor where id_set = '{$_SESSION['id_us']}'";
@@ -20,9 +25,9 @@
     $UsoC = $ConsultaC->fetch_object();
     $qtdChecagem = $ConsultaC->num_rows;
 
-    function Atualizar($id, $cpf, $Siape, $nome){
+    function Atualizar($id, $cpf, $Siape, $nome, $fone){
         include('config.php');
-        $sql = "UPDATE usuario SET cpf = '{$cpf}', Siape = '{$Siape}', nome = '{$nome}' where id_us = '{$id}'";
+        $sql = "UPDATE usuario SET cpf = '{$cpf}', Siape = '{$Siape}', nome = '{$nome}', fone='{$fone}' where id_us = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> location.href='professores.php'</script>";
     }
@@ -30,6 +35,14 @@
     $sql = "select * from usuario where id_us = '{$prof}'";
     $res = $conn->query($sql);
     $resSet = $res->fetch_object();
+
+    // Seleciona as turma atuais do professor
+    $sqlTurma = "select * from professor_turma inner join turma where professor_turma.id_prof ='{$prof}'";
+    $resTurma = $conn->query($sqlTurma);
+
+    // Seleciona as disciplinas atuais do professor
+    $sqlDisciplina = "select * from professor_disciplina inner join disciplina where professor_disciplina.id_prof = '{$prof}'";
+    $resDisciplina = $conn->query($sqlDisciplina);
 
     if ($qtdChecagem > 0) {
 ?>
@@ -68,7 +81,8 @@
                         </div>
                     </div>
                 </div>
-
+                <a href='PTurmas.php?id_prof=<?php echo $prof?>'>Ver turmas do professor</a>
+                <a href='PDisciplinas.php?id_prof=<?php echo $prof?>'>Ver disciplinas do professor</a>
                 <!-- Barra verde -->
                 <div class="green-bar"></div>
 
@@ -116,7 +130,7 @@
                     <div class="box-center">
                         <?php 
                                 if(isset($_POST['atualiza'])){
-                                    Atualizar($_POST['id_prof'], $_POST['cpf'], $_POST['siape'], $_POST['nome']);
+                                    Atualizar($_POST['id_prof'], $_POST['cpf'], $_POST['siape'], $_POST['nome'], $_POST['fone']);
                                 }
                                 similar_text($UsoC->tipo, "DE", $percent);
                                 if($percent  == 100) { ?>
@@ -144,6 +158,20 @@
                                                     <label>Número de Telefone:</label> <br>
                                                     <a type='text' name='fone'><?php echo $resSet->fone ?></a><br>
                                                 </div>
+
+                                                <label>Turmas do professor: </label> <br>
+                                                <?php 
+                                                while ($rowTurma = $resTurma->fetch_object()){
+                                                        echo $rowTurma->nome . "<br>";
+                                                }
+                                                ?>
+
+                                                <label>Disciplinas do professor: </label> <br>
+                                                <?php 
+                                                while ($rowDisciplina = $resDisciplina->fetch_object()){
+                                                        echo $rowDisciplina->nome . "<br>";
+                                                }
+                                                ?>
 
                                                 <br>
 
