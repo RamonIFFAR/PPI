@@ -18,15 +18,15 @@
     $qtdT = $resT->num_rows;
 
     if(isset($_REQUEST['favorita'])){
+        $favorita = $_REQUEST['favorita'];
         if($qtdT == 0){
-            $favorita = $_REQUEST['favorita'];
             if($favorita == 1){
                 $sqlF = "insert into favorita(id_us, id_turma) values('{$_SESSION['id_us']}', '{$id_turma}')";
                 $resF = $conn->query($sqlF) or die($conn->error);
-            } else if($favorita== 0){
-                $sqlF = "delete from favorita where id_turma = '{$id_turma}' and id_us = '{$_SESSION['id_us']}'";
-                $resF = $conn->query($sqlF) or die($conn->error);
             }
+    }   else if($favorita== 0){
+        $sqlF = "delete from favorita where id_turma = '{$id_turma}' and id_us = '{$_SESSION['id_us']}'";
+        $resF = $conn->query($sqlF) or die($conn->error);
     }
     } else {
         
@@ -61,14 +61,22 @@
 
     //  XXXXXXXXXX If que confere se o usuário é um setor DE XXXXXXXXXXXXXX
     if($qtdChecagem > 0){
+        ?>
+        <button onclick="location.href='ed_turma.php?id_turma=<?php echo $id_turma;?>'">Editar turma</button> <br> <br>
+        <?php 
     } else{
-        print"<script>alert('Você não tem permissão para estar aqui')</script>";
-        print"<script>location.href=index.php</script>";
     }
 
     $sql = "select * from turma where id = '{$id_turma}'";
     $res = $conn->query($sql);
     $row = $res->fetch_object();
+
+    $sqlFP = "select professor_disciplina.id_prof, professor_disciplina.id_disc, disciplina.nome from professor_disciplina 
+inner join professor_turma on professor_disciplina.id_prof = professor_turma.id_prof
+inner join disciplina_turma on professor_turma.id_turma = disciplina_turma.id_turma and professor_disciplina.id_disc = disciplina_turma.id_disc
+inner join disciplina on disciplina.id = professor_disciplina.id_disc and disciplina.id = disciplina_turma.id_disc
+where professor_disciplina.id_prof = '{$_SESSION['id_us']}' and disciplina_turma.id_turma = '{$id_turma}'";
+    $resFP = $conn->query($sqlFP) or die($conn->error);
 
 ?>
 
@@ -81,6 +89,19 @@
                 <link rel="stylesheet" href="turmacss.css">
             </head>
             <body>
+            <span>Cadastrar notas</span><br>
+            <form method="POST" action='add_notas.php'>
+                <input type='hidden' name='id_turma' value='<?php echo $id_turma?>'>
+                <label>Disciplina</label><br>
+                <select id="disc" name='id_disc'>
+                        <option value="hollow" selected>       </option>
+                        <?php
+                            while($rowFP = $resFP->fetch_object()){
+                                echo "<option value='" . $rowFP->id_disc . "'>" . $rowFP->nome . "</option>";
+                            }
+                        ?> 
+                </select> <br> <button type='submit' name='cadastrar'>Cadastrar notas da turma</button><br><br>
+            </form>
                 
                 <div class="top-bar">
                     <div class="menu-container">
@@ -216,6 +237,16 @@
                         ?>
                     </div>
                 </div>
+                <?php 
+                if($qtdT > 0){ 
+                    ?>
+                    <button onclick="location.href='turma.php?id=<?php echo $id_turma?>&favorita=0'">Desfavoritar</button> <br>
+                    <?php
+                } else {
+                ?>
+                <button onclick="location.href='turma.php?id=<?php echo $id_turma?>&favorita=1'">Favoritar</button> <br>
+                <?php }
+                ?>
 
                 <script>
                     function openMenu() {
