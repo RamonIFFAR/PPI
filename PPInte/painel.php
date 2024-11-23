@@ -84,6 +84,7 @@
                         <div class="linhaLembretes"></div>
                         <div class="arrumar-Lembretes">
                             <h1>Lembretes</h1>
+                            <a href='lembretes.php'>Ver mais (Colocar perto dos lembretes)</a>
                         </div>
 
                         <div class="lembretes-box"></div>
