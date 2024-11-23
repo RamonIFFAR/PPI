@@ -63,7 +63,7 @@
                 <!-- Barra Verde 2 -->
                 <div class="new-green-bar">
                     <div class="arrumar-Favoritos">
-                        <p>Favoritos:</p>
+                        <a href='t_favoritas.php'>Favoritos:</a>
                     </div>
                 </div>
 
