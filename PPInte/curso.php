@@ -225,7 +225,13 @@
                                     </div>
                                     
                                     <span> Coordenador:
-                                    <?php echo $resSetC->nome?>
+                                    <?php 
+                                        if($qtdSetC > 0){
+                                            echo $resSetC->nome;
+                                        } else{
+                                            echo "Curso sem coordenador";
+                                        }
+                                    ?>
                                     </span>
                                     <br>
                                     </form> <br>
