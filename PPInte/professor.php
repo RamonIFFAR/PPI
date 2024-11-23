@@ -8,16 +8,23 @@
     $prof = $_REQUEST['id_prof'];
     
     if(isset($_REQUEST['excluir'])){
-        $removerprofessorturma = "DELETE FROM professor_turma WHERE id_prof = '{$prof}'";
+        $removerprofessorcoordenador = "UPDATE curso SET id_coord = null WHERE id_coord = '{$prof}'";
         $removerprofessordisciplina = "DELETE FROM professor_disciplina WHERE id_prof = '{$prof}'";
+        $removerprofessorturma = "DELETE FROM professor_turma WHERE id_prof = '{$prof}'";
+        $removerprofessorfavorita = "DELETE FROM favorita WHERE id_us = '{$prof}'";
+        $removerprofessorcomentario = "DELETE FROM comentario WHERE id_us = '{$prof}'";
         $removerprofessorsql = "DELETE FROM professor WHERE id_prof = '{$prof}'";
         $removerusuariosql = "DELETE FROM usuario WHERE id_us = '{$prof}'";
         
-        $conn->query($removerprofessorturma);
-        $conn->query($removerprofessordisciplina);
-        $conn->query($removerprofessorsql);
-        $conn->query($removerusuariosql);
-       print "<script>location.href='professores.php'</script>";
+        $conn->query($removerprofessorcoordenador) or die($conn->error);
+        $conn->query($removerprofessorturma) or die($conn->error);
+        $conn->query($removerprofessordisciplina) or die($conn->error);
+        $conn->query($removerprofessorfavorita) or die($conn->error);
+        $conn->query($removerprofessorcomentario) or die($conn->error);
+        $conn->query($removerprofessorsql) or die($conn->error);
+        $conn->query($removerusuariosql) or die($conn->error);
+        print "<script>alert('Professor removido com sucesso!')</script>";
+        print "<script>location.href='professores.php'</script>";
     }
 
     $Checagem = "select * from setor where id_set = '{$_SESSION['id_us']}'";
