@@ -13,6 +13,10 @@
     $res = $conn->query($sql) or die($conn->error);
     $qtd = $res->num_rows;
 
+    // Seleciona a turma
+    $sqlTurma = "select * from turma";
+    $resTurma = $conn->query($sqlTurma);
+
     if($procura > 0){
 
     } else {
@@ -20,12 +24,17 @@
         print"<script>location.href=index.php</script>";
     }
 
-    function CadastrarAluno($matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento){
+    function CadastrarAluno($matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento, $turma){
         require("config.php");
-        if(empty($_POST) || (empty($_POST["matricula"])) || empty($_POST["telefone"]) || empty($_POST["email"]) || empty($_POST["nome"]) || empty($_POST["genero"]) || empty($_POST["cidade"]) || empty($_POST["dataNasc"]) || empty($_POST["moradia"]) || empty($_POST["cota"]) || empty($_POST["cpf"])){
-            echo "É necessário preencher todos os campos para adicionar um novo professor";
-        } else {
+        if(empty($_POST) || (empty($_POST["matricula"])) || empty($_POST["telefone"]) || empty($_POST["email"]) || empty($_POST["nome"]) || empty($_POST["genero"]) || empty($_POST["cidade"]) || empty($_POST["dataNasc"]) || empty($_POST["moradia"]) || empty($_POST["cota"]) || empty($_POST["cpf"]) || empty($_POST['turma'])){
+            echo "É necessário preencher todos os campos para adicionar um novo aluno";
+        } else if($turma == 'none'){
             $sql = "INSERT INTO aluno (matricula, telefone, email, nome, genero, cidade, dataNasc, moradia, cota, bolsa, orientador, reprovacao, equipTI, estagio, cpf, acompanhamento) VALUES('{$matricula}','{$telefone}','{$email}','{$nome}','{$genero}','{$cidade}','{$dataNasc}','{$moradia}','{$cota}','{$bolsa}','{$orientador}','{$reprovacao}','{$equipTI}', '{$estagio}','{$cpf}','{$acompanhamento}')";
+            $conn->query($sql) or die($conn->error);
+            echo "sucesso";
+            print "<script> location.href='alunos.php'</script>";
+        } else {
+            $sql = "INSERT INTO aluno (matricula, telefone, email, nome, genero, cidade, dataNasc, moradia, cota, bolsa, orientador, reprovacao, equipTI, estagio, cpf, acompanhamento, id_turma) VALUES('{$matricula}','{$telefone}','{$email}','{$nome}','{$genero}','{$cidade}','{$dataNasc}','{$moradia}','{$cota}','{$bolsa}','{$orientador}','{$reprovacao}','{$equipTI}', '{$estagio}','{$cpf}','{$acompanhamento}','{$turma}')";
             $conn->query($sql) or die($conn->error);
             echo "sucesso";
             print "<script> location.href='alunos.php'</script>";
@@ -34,7 +43,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +54,7 @@
 <body class="Fundo">
     <?php
         if(isset($_POST["cadastro"])){
-            CadastrarAluno($_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento']);
+            CadastrarAluno($_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento'], $_POST['turma']);
         }
     ?>
 
@@ -130,6 +139,15 @@
         
         <label>Acompanhamento</label>
         <input type="text" name="acompanhamento" value="<?php echo @$_POST['acompanhamento']?>"> <br>
+
+        <select id='tur' name='turma'>
+                    <option value='none' selected>--------</option>
+                        <?php 
+                            while($rowTurma = $resTurma->fetch_object()){
+                                echo "<option value='" . $rowTurma->id . "'>" . $rowTurma->nome . "</option>";
+                            }
+                        ?>
+        </select>
         
         <button type="submit" name="cadastro">Cadastrar</button>
         <a href="alunos.php">Cancelar</a>
