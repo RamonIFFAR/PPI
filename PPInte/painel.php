@@ -7,6 +7,10 @@
     $res = $conn->query($sql);
     $row = $res->fetch_object();
     $qtd = $res->num_rows;
+
+    $sqlD = "select * from lembrete where dt >= ". date("Y-m-d") ." order by dt asc limit 3";
+    $resD = $conn->query($sqlD);
+    $rowD = $resD->fetch_object();
         ?>
             <!DOCTYPE html>
             <html lang="pt-BR">
@@ -72,6 +76,10 @@
                     <div class="box-center">
                         <div class="arrumar-Importantes">
                             <h1>Importante</h1>
+                            <?php 
+                                echo "<br>".$rowD->nome."<br>";
+                                echo $rowD->dt."<br>";
+                            ?>
                         </div>
                         <div class="linhaImportantes"></div>
                         <div class="noticias-box"></div>
@@ -85,6 +93,12 @@
                         <div class="arrumar-Lembretes">
                             <h1>Lembretes</h1>
                             <a href='lembretes.php'>Ver mais (Colocar perto dos lembretes)</a>
+                           <?php 
+                                while($row = $resD->fetch_object()){
+                                    echo "<br><span>". $row->nome ."</span><br>";
+                                    echo "<span>". $row->dt ."</span><br>";
+                                }
+                            ?>
                         </div>
 
                         <div class="lembretes-box"></div>
