@@ -4,10 +4,6 @@
     // Inicia a sessão
     session_start();
 
-    echo $_POST['numero'];
-    echo $_POST['sala'];
-    echo $_POST['descricao'];
-
     // XXXXXXXXXX Confere se o usuário está logado XXXXXXXXXXXXXX
     $Checagem = "select * from usuario where senha = '{$_SESSION['senha']}' and email= '{$_SESSION['email']}'";
     $QChecagem = $conn->query($Checagem);
@@ -36,9 +32,9 @@
         print"<script>location.href=index.php</script>";
     }
 
-    function addTurma($numero, $sala, $descricao){
+    function addTurma($numero, $sala, $descricao, $curso){
         include('config.php');
-        $sql = "insert into turma(nome, sala, descricao) values(". $numero . ",".$sala.", '".$descricao."')";
+        $sql = "insert into turma(nome, sala, descricao, id_curso) values('{$numero}', '{$sala}', '{$descricao}', '{$curso}')";
         $conn->query($sql) or die($conn->error);
         echo "<script>alert('Turma cadastrada com sucesso')</script>";
         echo "<script>location.href='turmas.php'</script>";
@@ -46,8 +42,16 @@
 
     if(isset($_POST['adicionar'])){
         echo 'chegou';
-        addTurma($_POST['numero'], $_POST['sala'], $_POST['descricao']);
+        echo $_POST['numero'];
+        echo $_POST['sala'];
+        echo $_POST['descricao'];
+        echo $_POST['curso'];
+        addTurma($_POST['numero'], $_POST['sala'], $_POST['descricao'], $_POST['curso']);
     }
+
+    $sqlC = "select id_curso, nome from curso";
+    $resC = $conn->query($sqlC);
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +68,14 @@
         <label>Sala</label> <br>
         <input type='number' name='sala'> <br> <br>
         <label>Descrição</label> <br>
-        <textarea name='descricao' rows='10' cols='30'></textarea> <br> <br>
+        <textarea name='descricao' rows='10' cols='30'></textarea> <br>
+        <select id="c" name="curso">
+            <?php 
+                while($rowC = $resC->fetch_object()){
+                    echo "<option value='". $rowC->id_curso ."'>". $rowC->nome ."</option>";
+                }
+            ?>
+        </select> <br><br>
         <button type='submit' name='adicionar'>Salvar</button>
     </form>
 </body>
