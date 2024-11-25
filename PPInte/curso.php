@@ -4,7 +4,7 @@
     session_start();
 
     $curso = $_REQUEST['id'];
-    
+
     // XXXXXXXXXX Confere se o usuário está logado XXXXXXXXXXXXXX
     $Checagem = "select * from usuario where senha = '{$_SESSION['senha']}' and email= '{$_SESSION['email']}'";
     $QChecagem = $conn->query($Checagem);
@@ -61,6 +61,7 @@
 
     $sqlC = "select * from curso inner join usuario where curso.id_curso = '{$curso}' and curso.id_coord = usuario.id_us";
     $resC = $conn->query($sqlC);
+    $qtdSetC = $resC ? $resC->num_rows : 0;
     $resSetC = $resC->fetch_object();
 
 ?>
@@ -71,10 +72,10 @@
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
-                <link rel="stylesheet" href="cursocss.css">
+                <link rel="stylesheet" href="cursocss.css?v=<?php echo time(); ?>">
             </head>
             <body>
-                
+
                 <div class="top-bar">
                     <div class="menu-container">
                         <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
@@ -129,9 +130,9 @@
                         <?php 
                              }}
                         ?>
-                        
+
                     </div>
-                    
+
                     <div class="Posicao2">
                     <?php if($qtdChecagem > 0){
                             similar_text($UsoC->tipo, "DE", $percent);
@@ -205,6 +206,7 @@
                                 similar_text($UsoC->tipo, "DE", $percent);
                                 if($percent  == 100) { ?>
                                     <form action='curso.php' method='POST'>
+
                                         <div class="Nome">
                                         <label>Nome:</label> <br>
                                         <a type='text' name='nome'><?php echo $resSet->nome ?></a> <br>
@@ -218,16 +220,22 @@
 
                                         <br>
 
-                                        <div class="SIAPE">
-                                            <label>Descrição:</label> <br>
-                                            <a type='text' name='descricao'><?php echo $resSet->descricao ?></a><br>
-                                        </div>
-                                        
-                                        <div class="h1Cord">
-                                            <label>Coordenador:</label> <br>
-                                            <a type='text' name='coordenador'><?php echo $resSetC->nome?></a><br>
-                                        </div>
-                                        
+                                    <div class="SIAPE">
+                                        <label>Descrição:</label> <br>
+                                        <a type='text' name='descricao'><?php echo $resSet->descricao ?></a><br>
+                                    </div>
+                                    <div class="Coordenador">
+                                        <span> Coordenador: <br>
+                                            <?php 
+                                                if ($qtdSetC > 0) {
+                                                    echo $resSetC->nome;
+                                                } else{
+                                                    echo "Curso sem coordenador";
+                                                }
+                                            ?>
+                                        </span>
+                                    </div>
+                                    <br>
                                     </form> <br>
                                 <?php } 
                         }   else {
@@ -247,9 +255,9 @@
                                     <a type='text' name='nome'>". $resSet->descricao ."</a> <br>
                                     </div>";
                                     print 
-                                    "<div class='h1Cord'>
-                                    <label>Coordenador:</label> <br>
-                                    <a type='text' name='coordenador'>". $resSetC->nome ."</a> <br>
+                                    "<div class='Fone'>
+                                    <label>Foto:</label> <br>
+                                    <img src='".$resSet->foto."'></img> <br>
                                     </div>";
                         }
 
@@ -269,4 +277,4 @@
                     }
                 </script>
             </body>
-            </html>
+        </html>
