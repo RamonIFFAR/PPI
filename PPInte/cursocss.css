@@ -234,15 +234,9 @@ body {
     top: 250px;
 }
 
-.Fone {
+.h1Cord {
     position: absolute;
     top: 350px;
-}
-
-.Fone img{
-    width: 300px;
-    height: auto;
-    border-radius: 20px;
 }
 
 .Posicao {
