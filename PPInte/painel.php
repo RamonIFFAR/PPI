@@ -11,6 +11,12 @@
     $sqlD = "select * from lembrete where dt >= ". date("Y-m-d") ." order by dt asc limit 3";
     $resD = $conn->query($sqlD);
     $rowD = $resD->fetch_object();
+
+    $sqlT = "select * from turma inner join professor_turma on turma.id = professor_turma.id_turma where professor_turma.id_prof = '{$_SESSION['id_us']}'";
+    $resT = $conn->query($sqlT);
+
+    $sqlC = "select curso.nome, curso.id_curso from curso inner join turma on turma.id_curso = curso.id_curso inner join professor_turma on turma.id = professor_turma.id_turma where professor_turma.id_prof = '{$_SESSION['id_us']}'";
+    $resC = $conn->query($sqlC);
         ?>
             <!DOCTYPE html>
             <html lang="pt-BR">
@@ -87,6 +93,13 @@
                         <div class="linhaCursos"></div>
                         <div class="arrumar-Cursos">
                             <h1>Cursos</h1>
+                            <?php
+                                while($rowC = $resC->fetch_object()){
+                                    echo "<br><span>Curso ".$rowC->nome."</span><br>";
+                                    echo "<a href='curso.php?id=". $rowC->id_curso ."'>Botão de info</a><br>";
+                                }
+                            
+                            ?>
                         </div>
 
                         <div class="linhaLembretes"></div>
@@ -106,6 +119,12 @@
                         <div class="linhaTurmas"></div>
                         <div class="arrumar-Turmas">
                             <h1>Turmas</h1>
+                            <?php
+                                while($rowT = $resT->fetch_object()){
+                                    echo "<br><span>Turma ".$rowT->nome."</span><br>";
+                                    echo "<a href='turma.php?id=". $rowT->id_turma ."'>Botão de info</a><br>";
+                                }
+                            ?>
                         </div>
 
                         <div class="iconeiff">
