@@ -205,7 +205,6 @@
                                 similar_text($UsoC->tipo, "DE", $percent);
                                 if($percent  == 100) { ?>
                                     <form action='curso.php' method='POST'>
-
                                         <div class="Nome">
                                         <label>Nome:</label> <br>
                                         <a type='text' name='nome'><?php echo $resSet->nome ?></a> <br>
@@ -219,21 +218,16 @@
 
                                         <br>
 
-                                    <div class="SIAPE">
-                                        <label>Descrição:</label> <br>
-                                        <a type='text' name='descricao'><?php echo $resSet->descricao ?></a><br>
-                                    </div>
-                                    
-                                    <span> Coordenador:
-                                    <?php 
-                                        if($qtdSetC > 0){
-                                            echo $resSetC->nome;
-                                        } else{
-                                            echo "Curso sem coordenador";
-                                        }
-                                    ?>
-                                    </span>
-                                    <br>
+                                        <div class="SIAPE">
+                                            <label>Descrição:</label> <br>
+                                            <a type='text' name='descricao'><?php echo $resSet->descricao ?></a><br>
+                                        </div>
+                                        
+                                        <div class="h1Cord">
+                                            <label>Coordenador:</label> <br>
+                                            <a type='text' name='coordenador'><?php echo $resSetC->nome?></a><br>
+                                        </div>
+                                        
                                     </form> <br>
                                 <?php } 
                         }   else {
@@ -253,9 +247,9 @@
                                     <a type='text' name='nome'>". $resSet->descricao ."</a> <br>
                                     </div>";
                                     print 
-                                    "<div class='Fone'>
-                                    <label>Foto:</label> <br>
-                                    <img src='".$resSet->foto."'></img> <br>
+                                    "<div class='h1Cord'>
+                                    <label>Coordenador:</label> <br>
+                                    <a type='text' name='coordenador'>". $resSetC->nome ."</a> <br>
                                     </div>";
                         }
 
