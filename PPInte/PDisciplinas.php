@@ -84,7 +84,7 @@
         }
     }
 
-    // Seleciona as turma atuais do professor
+    // Seleciona as disciplinas atuais do professor
     $sqlTurma = "select professor_disciplina.id, disciplina.nome, professor_disciplina.id_disc, professor_disciplina.id_prof from professor_disciplina inner join disciplina on professor_disciplina.id_disc = disciplina.id where professor_disciplina.id_prof = '{$prof}'";
     $resTurma = $conn->query($sqlTurma);
 
@@ -107,7 +107,7 @@
         ?>
             <input type='hidden' name='r<?php echo $i?>' value='<?php echo $rowTurma->id?>'>
             <select id='tur' name='turma<?php echo $i?>'>
-                    <option value='<?php echo $rowTurma->id_turma ?>' selected><?php echo $rowTurma->nome?></option>
+                    <option value='<?php echo $rowTurma->id_disc ?>' selected><?php echo $rowTurma->nome?></option>
                         <?php 
                             listarTurmas($prof);
                         ?>
