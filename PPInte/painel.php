@@ -17,13 +17,20 @@
 
     $sqlC = "select curso.nome, curso.id_curso from curso inner join turma on turma.id_curso = curso.id_curso inner join professor_turma on turma.id = professor_turma.id_turma where professor_turma.id_prof = '{$_SESSION['id_us']}'";
     $resC = $conn->query($sqlC);
-        ?>
+
+    $sqlSet = "select * from turma";
+    $resSet = $conn->query($sqlSet);
+
+    $sqlSetC = "select * from curso";
+    $resSetC = $conn->query($sqlSetC);
+
+?>
             <!DOCTYPE html>
             <html lang="pt-BR">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="painelcss.css">
+                <link rel="stylesheet" href="painelcss.css?v=<?php echo time(); ?>">
             </head>
             <body>
 
@@ -59,6 +66,9 @@
                 <!-- Barra cinza 2 -->
                 <div class="bottom-bar">
 
+                <div class="arrumar-Favoritos">
+                    <a href='t_favoritas.php'>Favoritos</a>
+                </div>
                 <div class="iconeNotificacao">
                         <img src="Imagens/Notificacao.png">
                     </div>
@@ -68,63 +78,111 @@
                     <div class="iconePerfil">
                         <img src="Imagens/Perfil.png">
                     </div>
+                    <!--
+                    <div class="menu-abrirPerf" onclick="abrirPerfil()">⭣</div>
+                    <div class="perfil">
+        
+                    </div>
+                    <div class="menu-fecharPerf" onclick="fecharPerfil()">⭣</div>-->
                 </div>
 
                 <!-- Barra Verde 2 -->
                 <div class="new-green-bar">
-                    <div class="arrumar-Favoritos">
-                        <a href='t_favoritas.php'>Favoritos:</a>
-                    </div>
                 </div>
 
                 <!-- Barra Verde 3 -->
                 <div class="new-bottom-bar">
                     <div class="box-center">
-                        <div class="arrumar-Importantes">
-                            <h1>Importante</h1>
-                            <?php 
-                                echo "<br>".$rowD->nome."<br>";
-                                echo $rowD->dt."<br>";
-                            ?>
-                        </div>
+        
                         <div class="linhaImportantes"></div>
-                        <div class="noticias-box"></div>
+                        <div class="ImportantesTi">
+                            <h1>Importante</h1>
+                        </div>
+                        <div class="noticias-box">
+                            <div class="arrumar-Importantes">
+                                <?php 
+                                    echo "<br>".$rowD->nome."<br>";
+                                    echo $rowD->dt."<br>";
+                                ?>
+                            </div>
+                        </div>
 
                         <div class="linhaCursos"></div>
-                        <div class="arrumar-Cursos">
+                        <div class="CursosH1">
                             <h1>Cursos</h1>
-                            <?php
-                                while($rowC = $resC->fetch_object()){
-                                    echo "<br><span>Curso ".$rowC->nome."</span><br>";
-                                    echo "<a href='curso.php?id=". $rowC->id_curso ."'>Botão de info</a><br>";
-                                }
-                            
-                            ?>
+                        </div>
+                        <div class="cursos-box">
+                            <div class="arrumar-Cursos">
+                                <?php
+                                    if($row->tipo != "DE"){
+                                            while($rowC = $resC->fetch_object()){
+                                            echo "<br><span>Curso ".$rowC->nome."</span><br>";
+                                            echo "<div class='botaoCurso'>";
+                                            echo "<img onclick=\"window.location.href='curso.php?id=" . htmlspecialchars($rowC->id_curso, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
+                                            echo "</div>";
+                                            echo "<div class='LinhaParaSeparar1'></div>";
+                                        }
+                                    } else if($row->tipo == "DE"){
+                                            while($rowSetC = $resSetC->fetch_object()){
+                                                echo "<br><span>Curso ".$rowSetC->nome."</span><br>";
+                                                echo "<div class='botaoCurso'>";
+                                                echo "<img onclick=\"window.location.href='curso.php?id=" . htmlspecialchars($rowSetC->id_curso, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
+                                                echo "</div>";
+                                                echo "<div class='LinhaParaSeparar1'></div>";
+                                        }
+                                    }
+                                ?>
+                            </div>
                         </div>
 
                         <div class="linhaLembretes"></div>
-                        <div class="arrumar-Lembretes">
+                        <div class="TituloLembretes">
                             <h1>Lembretes</h1>
-                            <a href='lembretes.php'>Ver mais (Colocar perto dos lembretes)</a>
-                           <?php 
-                                while($row = $resD->fetch_object()){
-                                    echo "<br><span>". $row->nome ."</span><br>";
-                                    echo "<span>". $row->dt ."</span><br>";
-                                }
-                            ?>
                         </div>
 
-                        <div class="lembretes-box"></div>
+                        <div class="LembretesA">
+                            <a href='lembretes.php'>Ver mais</a>
+                            <div class="lembretes-box">
+                                <div class="arrumar-Lembretes">
+                                    <?php 
+                                        while($rowL = $resD->fetch_object()){
+                                            echo "<br><span>". $rowL->nome ."</span><br>";
+                                            echo "<span>". $rowL->dt ."</span><br><br>";
+                                            echo "<div class='linhadivisoria'></div>";
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="linhaTurmas"></div>
-                        <div class="arrumar-Turmas">
+                        <div class="TituloTurmas">
                             <h1>Turmas</h1>
-                            <?php
-                                while($rowT = $resT->fetch_object()){
-                                    echo "<br><span>Turma ".$rowT->nome."</span><br>";
-                                    echo "<a href='turma.php?id=". $rowT->id_turma ."'>Botão de info</a><br>";
+                        </div>
+                        <div class="turmas-box">
+                            <div class="arrumar-Turmas">
+                                <?php
+                                if ($row->tipo != "DE" ){
+                                    while($rowT = $resT->fetch_object()){
+                                        echo "<br><span>Turma ".$rowT->nome."</span><br>";
+                                        echo "<div class='botaoTurma'>";
+                                        echo "<img onclick=\"window.location.href='turma.php?id=" . htmlspecialchars($rowT->id_turma, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
+                                        echo "</div>";
+                                        echo "<div class='LinhaParaSeparar2'></div>";
+        
+                                    }
+                                } else if($row->tipo == "DE"){
+                                    while($rowSet = $resSet->fetch_object()){
+                                        echo "<br><span>Turma ".$rowSet->nome."</span><br>";
+                                        echo "<div class='botaoTurma'>";
+                                        echo "<img onclick=\"window.location.href='turma.php?id=" . htmlspecialchars($rowSet->id, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
+                                        echo "</div>";
+                                        echo "<div class='LinhaParaSeparar2'></div>";
+        
+                                    }
                                 }
-                            ?>
+                                ?>
+                        </div>
                         </div>
 
                         <div class="iconeiff">
@@ -134,6 +192,16 @@
                 </div>
 
                 <script>
+                    //
+                    function abrirPerfil() {
+                        var menu = document.querySelector('.perfil');
+                        menu.style.display = 'block';
+                    }
+
+                    function fecharPerfil() {
+                        var menu = document.querySelector('.perfil');
+                        menu.style.display = 'none';
+                    }
                     function openMenu() {
                         var menu = document.querySelector('.floating-menu');
                         menu.style.display = 'block';
