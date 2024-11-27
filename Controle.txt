@@ -20,7 +20,7 @@ X turmas.php (v) (Feito)
 X add_turma.php (v) (Feito)
 X ed_turma.php (v) (Feito)
 
-X PTurmas.php (v) (Arrumar melhor o css)
+X PTurmas.php (v) (Feito)
 X PDisciplinas.php (v)
 X DTurmas.php (v)
 
