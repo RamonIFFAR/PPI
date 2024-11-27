@@ -11,6 +11,7 @@
     $sqlD = "select * from lembrete where dt >= ". date("Y-m-d") ." order by dt asc limit 3";
     $resD = $conn->query($sqlD);
     $rowD = $resD->fetch_object();
+    $qtdD = $resD->num_rows;
 
     $sqlT = "select * from turma inner join professor_turma on turma.id = professor_turma.id_turma where professor_turma.id_prof = '{$_SESSION['id_us']}'";
     $resT = $conn->query($sqlT);
@@ -101,8 +102,10 @@
                         <div class="noticias-box">
                             <div class="arrumar-Importantes">
                                 <?php 
+                                if($qtdD > 0){
                                     echo "<br>".$rowD->nome."<br>";
                                     echo $rowD->dt."<br>";
+                                }
                                 ?>
                             </div>
                         </div>
