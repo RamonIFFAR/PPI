@@ -1,0 +1,45 @@
+*********APLICAR CSS*********
+
+X Curso.php -> 228 (Feito)
+X editarcurso.php -> 173 (Feito)
+X aluno.php -> 172 (Feito)
+X professor.php -> 84 e 85 (Feito) (Erro ao tentar adicionar mais uma disciplina)
+
+X painel.php (v) (Feito) (Turmas e Cursos aparece apenas como usuario de professor)
+
+X edicao_perfil.php (v) 
+X edicao_senha.php (v) 
+
+X add_disciplina.php (v) (Feito)
+X ed_disciplina.php (v) (Feito)
+X disciplinas.php (v) (Feito)
+X disciplina.php (v) (Feito)
+
+X turma.php (v) (Feito)
+X turmas.php (v) (Feito)
+X add_turma.php (v) (Feito)
+X ed_turma.php (v) (Feito)
+
+X PTurmas.php (v) (Arrumar melhor o css)
+X PDisciplinas.php (v)
+X DTurmas.php (v)
+
+X add_lembrete.php (v)
+X lembrete.php (v)
+X lembretes.php (v)
+- Mostrar lembrete no painel inicial (x) (Feito)
+
+(O gerenciar notas ainda não está pronto, mas sexta feira já estará no github. Qualquer dúvida, me mandem mensagem)
+
+*****************************
+
+-Gerenciar Notas
+-Gerenciar Turmas (V)
+-Gerenciar disciplinas (V)
+++ Conferir relações no banco de dados
+-Gerenciar lembretes (V)
+++ Editar lembretes
+-Favoritar Turmas (V)
+-Definir professor coordenador do curso (V)
+++ Um curso pode ter apenas um professor como coordenador e um professor pode coordenar no máximo um curso (Linha 158 editando)
+-Alteração de informação de perfil (V)
