@@ -107,7 +107,7 @@
         ?>
             <input type='hidden' name='r<?php echo $i?>' value='<?php echo $rowTurma->id?>'>
             <select id='tur' name='turma<?php echo $i?>'>
-                    <option value='<?php echo $rowTurma->id_turma ?>' selected><?php echo $rowTurma->nome?></option>
+                    <option value='<?php echo $rowTurma->id_disc ?>' selected><?php echo $rowTurma->nome?></option>
                         <?php 
                             listarTurmas($prof);
                         ?>
