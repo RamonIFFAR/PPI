@@ -3,7 +3,7 @@
 X Curso.php -> 228 (Feito)
 X editarcurso.php -> 173 (Feito)
 X aluno.php -> 172 (Feito)
-X professor.php -> 84 e 85 (Feito) (Erro ao tentar adicionar mais uma disciplina)
+X professor.php -> 84 e 85 (Feito) (Erro corrigido)
 
 X painel.php (v) (Feito) (Turmas e Cursos aparece apenas como usuario de professor)
 
