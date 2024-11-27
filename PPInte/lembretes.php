@@ -37,17 +37,21 @@
     <title>SGAE: Lembretes</title>
 </head>
 <body>
-    <a href='add_lembrete.php'>Adicionar lembrete</a> <br>
+    
     <?php 
+    if($qtdSET > 0){
+        echo "<a href='add_lembrete.php'>Adicionar lembrete</a> <br>";
+    }
         if($Lqtd > 0){
             while($Lrow = $Lres->fetch_object()){
                 echo "<br>" . $Lrow->nome . "<br>";
                 echo $Lrow->descricao . "<br>";
-                echo $Lrow->dt . "<br>";
+                echo $Lrow->dt . "<br>"; ?>
+                <button onclick="location.href='lembrete.php?id_lemb=<?php echo $Lrow->id ?>'">Visualizar lembrete</button> <br>
+                <?php 
                 if ($qtdSET > 0 || $Lrow->id_us == $_SESSION['id_us']){
                     ?>
                     <button onclick="if(confirm('Tem certeza que deseja apagar esse lembrete? Uma fez feita, essa ação não pode ser desfeita')){location.href='lembretes.php?id_lemb=<?php echo $Lrow->id ?>&excluir=1'}">Excluir lembrete</button> <br>
-                    <button onclick="location.href='lembrete.php?id_lemb=<?php echo $Lrow->id ?>'">Editar lembrete</button> <br>
                     <?php
                 }
             }
