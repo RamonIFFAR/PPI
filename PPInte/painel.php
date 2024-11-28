@@ -11,20 +11,12 @@
     $sqlD = "select * from lembrete where dt >= ". date("Y-m-d") ." order by dt asc limit 3";
     $resD = $conn->query($sqlD);
     $rowD = $resD->fetch_object();
-    $qtdD = $resD->num_rows;
 
     $sqlT = "select * from turma inner join professor_turma on turma.id = professor_turma.id_turma where professor_turma.id_prof = '{$_SESSION['id_us']}'";
     $resT = $conn->query($sqlT);
 
     $sqlC = "select curso.nome, curso.id_curso from curso inner join turma on turma.id_curso = curso.id_curso inner join professor_turma on turma.id = professor_turma.id_turma where professor_turma.id_prof = '{$_SESSION['id_us']}'";
     $resC = $conn->query($sqlC);
-
-    $sqlSet = "select * from turma";
-    $resSet = $conn->query($sqlSet);
-
-    $sqlSetC = "select * from curso";
-    $resSetC = $conn->query($sqlSetC);
-
 ?>
             <!DOCTYPE html>
             <html lang="pt-BR">
@@ -33,9 +25,9 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="stylesheet" href="painelcss.css?v=<?php echo time(); ?>">
             </head>
-            <body>
-
+            <body>  
                 <div class="top-bar">
+                    
                     <div class="menu-container">
                         <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
                         <div class="floating-menu">
@@ -66,11 +58,10 @@
 
                 <!-- Barra cinza 2 -->
                 <div class="bottom-bar">
-
-                <div class="arrumar-Favoritos">
-                    <a href='t_favoritas.php'>Favoritos</a>
-                </div>
-                <div class="iconeNotificacao">
+                    <div class="arrumar-Favoritos">
+                        <a href='t_favoritas.php'>Favoritos</a>
+                    </div>
+                    <div class="iconeNotificacao">
                         <img src="Imagens/Notificacao.png">
                     </div>
                     <div class="iconeTitulo">
@@ -79,12 +70,8 @@
                     <div class="iconePerfil">
                         <img src="Imagens/Perfil.png">
                     </div>
-                    <!--
-                    <div class="menu-abrirPerf" onclick="abrirPerfil()">⭣</div>
-                    <div class="perfil">
-        
-                    </div>
-                    <div class="menu-fecharPerf" onclick="fecharPerfil()">⭣</div>-->
+                    <div class="menu-abrirPerf" onclick="abrirPerfil()">></div>
+                    <div class="menu-fecharPerf" onclick="fecharPerfil()">></div>
                 </div>
 
                 <!-- Barra Verde 2 -->
@@ -94,7 +81,13 @@
                 <!-- Barra Verde 3 -->
                 <div class="new-bottom-bar">
                     <div class="box-center">
-        
+                        <div class="perfil">
+                            <a href="edicao_perfil.php">Minha conta</a>
+                            <div class='linhaPerf'></div>
+                            <div class='Sair'>
+                                <a class="Sair" href="index.php">Sair</a>
+                            </div>
+                        </div>
                         <div class="linhaImportantes"></div>
                         <div class="ImportantesTi">
                             <h1>Importante</h1>
@@ -102,10 +95,8 @@
                         <div class="noticias-box">
                             <div class="arrumar-Importantes">
                                 <?php 
-                                if($qtdD > 0){
                                     echo "<br>".$rowD->nome."<br>";
                                     echo $rowD->dt."<br>";
-                                }
                                 ?>
                             </div>
                         </div>
@@ -117,22 +108,12 @@
                         <div class="cursos-box">
                             <div class="arrumar-Cursos">
                                 <?php
-                                    if($row->tipo != "DE"){
-                                            while($rowC = $resC->fetch_object()){
-                                            echo "<br><span>Curso ".$rowC->nome."</span><br>";
-                                            echo "<div class='botaoCurso'>";
-                                            echo "<img onclick=\"window.location.href='curso.php?id=" . htmlspecialchars($rowC->id_curso, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
-                                            echo "</div>";
-                                            echo "<div class='LinhaParaSeparar1'></div>";
-                                        }
-                                    } else if($row->tipo == "DE"){
-                                            while($rowSetC = $resSetC->fetch_object()){
-                                                echo "<br><span>Curso ".$rowSetC->nome."</span><br>";
-                                                echo "<div class='botaoCurso'>";
-                                                echo "<img onclick=\"window.location.href='curso.php?id=" . htmlspecialchars($rowSetC->id_curso, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
-                                                echo "</div>";
-                                                echo "<div class='LinhaParaSeparar1'></div>";
-                                        }
+                                    while($rowC = $resC->fetch_object()){
+                                        echo "<br><span>Curso ".$rowC->nome."</span><br>";
+                                        echo "<div class='botaoCurso'>";
+                                        echo "<img onclick=\"window.location.href='curso.php?id=" . htmlspecialchars($rowC->id_curso, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
+                                        echo "</div>";
+                                        echo "<div class='LinhaParaSeparar1'></div>";
                                     }
                                 ?>
                             </div>
@@ -148,9 +129,9 @@
                             <div class="lembretes-box">
                                 <div class="arrumar-Lembretes">
                                     <?php 
-                                        while($rowL = $resD->fetch_object()){
-                                            echo "<br><span>". $rowL->nome ."</span><br>";
-                                            echo "<span>". $rowL->dt ."</span><br><br>";
+                                        while($row = $resD->fetch_object()){
+                                            echo "<br><span>". $row->nome ."</span><br>";
+                                            echo "<span>". $row->dt ."</span><br><br>";
                                             echo "<div class='linhadivisoria'></div>";
                                         }
                                     ?>
@@ -165,7 +146,6 @@
                         <div class="turmas-box">
                             <div class="arrumar-Turmas">
                                 <?php
-                                if ($row->tipo != "DE" ){
                                     while($rowT = $resT->fetch_object()){
                                         echo "<br><span>Turma ".$rowT->nome."</span><br>";
                                         echo "<div class='botaoTurma'>";
@@ -174,16 +154,6 @@
                                         echo "<div class='LinhaParaSeparar2'></div>";
         
                                     }
-                                } else if($row->tipo == "DE"){
-                                    while($rowSet = $resSet->fetch_object()){
-                                        echo "<br><span>Turma ".$rowSet->nome."</span><br>";
-                                        echo "<div class='botaoTurma'>";
-                                        echo "<img onclick=\"window.location.href='turma.php?id=" . htmlspecialchars($rowSet->id, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
-                                        echo "</div>";
-                                        echo "<div class='LinhaParaSeparar2'></div>";
-        
-                                    }
-                                }
                                 ?>
                         </div>
                         </div>
@@ -198,12 +168,22 @@
                     //
                     function abrirPerfil() {
                         var menu = document.querySelector('.perfil');
+                        var AbrirBtn = document.querySelector('.menu-abrirPerf');
+                        var FecharBtn = document.querySelector('.menu-fecharPerf');
                         menu.style.display = 'block';
+
+                        AbrirBtn.style.display = 'none';
+                        FecharBtn.style.display = 'block';
                     }
 
                     function fecharPerfil() {
                         var menu = document.querySelector('.perfil');
+                        var AbrirBtn = document.querySelector('.menu-abrirPerf');
+                        var FecharBtn = document.querySelector('.menu-fecharPerf');
                         menu.style.display = 'none';
+
+                        AbrirBtn.style.display = 'block';
+                        FecharBtn.style.display = 'none';
                     }
                     function openMenu() {
                         var menu = document.querySelector('.floating-menu');
