@@ -25,9 +25,9 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="stylesheet" href="painelcss.css?v=<?php echo time(); ?>">
             </head>
-            <body>
-
+            <body>  
                 <div class="top-bar">
+                    
                     <div class="menu-container">
                         <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
                         <div class="floating-menu">
@@ -58,11 +58,10 @@
 
                 <!-- Barra cinza 2 -->
                 <div class="bottom-bar">
-
-                <div class="arrumar-Favoritos">
-                    <a href='t_favoritas.php'>Favoritos</a>
-                </div>
-                <div class="iconeNotificacao">
+                    <div class="arrumar-Favoritos">
+                        <a href='t_favoritas.php'>Favoritos</a>
+                    </div>
+                    <div class="iconeNotificacao">
                         <img src="Imagens/Notificacao.png">
                     </div>
                     <div class="iconeTitulo">
@@ -71,12 +70,8 @@
                     <div class="iconePerfil">
                         <img src="Imagens/Perfil.png">
                     </div>
-                    <!--
-                    <div class="menu-abrirPerf" onclick="abrirPerfil()">⭣</div>
-                    <div class="perfil">
-        
-                    </div>
-                    <div class="menu-fecharPerf" onclick="fecharPerfil()">⭣</div>-->
+                    <div class="menu-abrirPerf" onclick="abrirPerfil()">></div>
+                    <div class="menu-fecharPerf" onclick="fecharPerfil()">></div>
                 </div>
 
                 <!-- Barra Verde 2 -->
@@ -86,7 +81,13 @@
                 <!-- Barra Verde 3 -->
                 <div class="new-bottom-bar">
                     <div class="box-center">
-        
+                        <div class="perfil">
+                            <a href="edicao_perfil.php">Minha conta</a>
+                            <div class='linhaPerf'></div>
+                            <div class='Sair'>
+                                <a class="Sair" href="index.php">Sair</a>
+                            </div>
+                        </div>
                         <div class="linhaImportantes"></div>
                         <div class="ImportantesTi">
                             <h1>Importante</h1>
@@ -167,12 +168,22 @@
                     //
                     function abrirPerfil() {
                         var menu = document.querySelector('.perfil');
+                        var AbrirBtn = document.querySelector('.menu-abrirPerf');
+                        var FecharBtn = document.querySelector('.menu-fecharPerf');
                         menu.style.display = 'block';
+
+                        AbrirBtn.style.display = 'none';
+                        FecharBtn.style.display = 'block';
                     }
 
                     function fecharPerfil() {
                         var menu = document.querySelector('.perfil');
+                        var AbrirBtn = document.querySelector('.menu-abrirPerf');
+                        var FecharBtn = document.querySelector('.menu-fecharPerf');
                         menu.style.display = 'none';
+
+                        AbrirBtn.style.display = 'block';
+                        FecharBtn.style.display = 'none';
                     }
                     function openMenu() {
                         var menu = document.querySelector('.floating-menu');

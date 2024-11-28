@@ -23,7 +23,7 @@
         } else{
             echo "<script>alert('As duas senhas não correspondem')</script>";
         }
-        echo "<script>location.href='perfil.php'</script>";
+        echo "<script>location.href='edicao_perfil.php'</script>";
     }
 
     $sql = "SELECT * FROM usuario WHERE senha = '{$_SESSION["senha"]}' and email = '{$_SESSION["email"]}'";
@@ -42,19 +42,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar senha</title>
-    <form method='POST' action=''>
-        <input type='hidden' name='id' value='<?php echo $row->id_us ?>'>
-        <label>Insira sua senha</label>
-        <input type='password' name='senha'>
-        <label>Insira sua senha novamente</label>
-        <input type='password' name='senha2'>
-        <button type='submit' name='atSenha'>atualizar</button>
-    </form>
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+    <link rel="stylesheet" href="edicao_senhacss.css?v=<?php echo time(); ?>">
 </head>
-<body>
-    
+<body class='Fundo'>
+    <div class="Background1"></div>
+        <form method='POST' action=''>
+            <h1>Mudar Senha</h1>
+            <div class="ConfigurarTurmas">
+                <input type='hidden' name='id' value='<?php echo $row->id_us ?>'>
+                <label>Insira sua senha:</label>
+                <input type='password' name='senha'>
+            </div>
+            <div class="ConfigurarTurmas2">
+                <label>Insira sua senha novamente:</label>
+                <input type='password' name='senha2'>
+            </div>
+            <button type='submit' name='atSenha'>Atualizar</button>
+            <a href="edicao_perfil.php">Cancelar</a>
+        </form>
+    </div>
 </body>
 </html>

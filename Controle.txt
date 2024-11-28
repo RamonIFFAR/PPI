@@ -3,12 +3,12 @@
 X Curso.php -> 228 (Feito)
 X editarcurso.php -> 173 (Feito)
 X aluno.php -> 172 (Feito)
-X professor.php -> 84 e 85 (Feito) (Erro corrigido)
+X professor.php -> 84 e 85 (Feito)
 
-X painel.php (v) (Feito) (Turmas e Cursos aparece apenas como usuario de professor)
+X painel.php (v) (Feito)
 
-X edicao_perfil.php (v) 
-X edicao_senha.php (v) 
+X edicao_perfil.php (v) (Feito)
+X edicao_senha.php (v) (Feito)
 
 X add_disciplina.php (v) (Feito)
 X ed_disciplina.php (v) (Feito)
@@ -21,12 +21,12 @@ X add_turma.php (v) (Feito)
 X ed_turma.php (v) (Feito)
 
 X PTurmas.php (v) (Feito)
-X PDisciplinas.php (v)
-X DTurmas.php (v)
+X PDisciplinas.php (v) (Feito H)
+X DTurmas.php (v) (Feito H)
 
-X add_lembrete.php (v)
-X lembrete.php (v)
-X lembretes.php (v)
+X add_lembrete.php (v) (Feito)
+X lembrete.php (v) 
+X lembretes.php (v) (Feito H)
 - Mostrar lembrete no painel inicial (x) (Feito)
 
 (O gerenciar notas ainda não está pronto, mas sexta feira já estará no github. Qualquer dúvida, me mandem mensagem)
