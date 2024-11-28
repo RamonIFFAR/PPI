@@ -95,11 +95,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGAE: Disciplinas do professor</title>
-</head>
-<body>
-    <button onclick="location.href='PDisciplinas.php?sair=1'">Sair</button> <br>
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+    <link rel="stylesheet" href="PDisciplinascss.css?v=<?php echo time(); ?>">
+</head>     
+<body class='Fundo'>
+<div class="Background1"></div>
     <form method="POST" action='PDisciplinas.php'>
+    <h1> Atualizar Disciplinas</h1>
+    <div class="ConfigurarTurmas">
         <input type='hidden' name='id_prof' value='<?php echo $prof?>'>
         <?php 
             $i = 1;
@@ -129,8 +132,9 @@
             </select> <br> <br>
 
         <input type='hidden' name='nTurmas' value='<?php echo $i?>'>
-        <button type='submit' name='atualizar'>Atualizar disciplinas</button>
+        </div>
+        <button type='submit' name='atualizar'>Atualizar turmas</button>
+            <a href="professor.php?id_prof=<?php echo $prof ?>">Cancelar</a>
     </form>
-        <br><br><button onclick="location.href='professor.php?id_prof=<?php echo $prof?>'">Cancelar</button>
 </body>
 </html>
