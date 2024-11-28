@@ -39,14 +39,18 @@
     <title>SGAE:Editando Perfil</title>
 </head>
 <body>
+    <button onclick="location.href='edicao_senha.php'">Editar senha</button><br>
+    <img src="<?php echo $row->foto?>"></img><br>
     <form method='POST' enctype="multipart/form-data" action="edicao_perfil.php">
         <input type='hidden' name='id_us' value='<?php echo $row->id_us ?>'>
-        <label>Nome</label>
-        <input type='text' name='nome' value='<?php echo $row->nome?>'>
-        <label>Telefone</label>
-        <input type='text' name='fone' value='<?php echo $row->fone?>'>
-        <button type='submit' name='editar'>Salvar</button>
+        <label>Nome</label><br>
+        <input type='text' name='nome' value='<?php echo $row->nome?>'><br>
+        <label>Telefone</label><br>
+        <input type='text' name='fone' value='<?php echo $row->fone?>'> <br>
+        <button type='submit' name='editar'>Salvar</button> <br>
     </form>
+    <span><?php echo $row->email ?></span><br>
+    <span><?php echo $row->Siape ?></span><br>
     
 </body>
 </html>
