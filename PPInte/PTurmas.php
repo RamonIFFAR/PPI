@@ -92,41 +92,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGAE: Turmas do professor</title>
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+    <link rel="stylesheet" href="PTurmascss.css?v=<?php echo time(); ?>">
 </head>
-<body>
-    <form method="POST" action='PTurmas.php'>
-        <input type='hidden' name='id_prof' value='<?php echo $prof?>'>
-        <?php 
-            $i = 1;
-            while($rowTurma = $resTurma->fetch_object()){
-        ?>
-            <input type='hidden' name='r<?php echo $i?>' value='<?php echo $rowTurma->id?>'>
-            <select id='tur' name='turma<?php echo $i?>'>
-                    <option value='<?php echo $rowTurma->id_turma ?>' selected><?php echo $rowTurma->nome?></option>
+<body class='Fundo'>
+    <div class="Background1"></div>
+        <form method="POST" action='PTurmas.php'>
+            <h1> Atualizar Turmas</h1>
+            <div class="ConfigurarTurmas">
+                <input type='hidden' name='id_prof' value='<?php echo $prof?>'>
+                <?php 
+                    $i = 1;
+                    while($rowTurma = $resTurma->fetch_object()){
+                ?>
+                    <input type='hidden' name='r<?php echo $i?>' value='<?php echo $rowTurma->id?>'>
+                    <select id='tur' name='turma<?php echo $i?>'>
+                            <option value='<?php echo $rowTurma->id_turma ?>' selected><?php echo $rowTurma->nome?></option>
+                                <?php 
+                                    listarTurmas($prof);
+                                ?>
+                            <option value='hollow'> </option>
+                    </select> <br> <br><br>
+                <?php $i++;
+            }?> 
+                    <select id='turN1' name='turmaN1' value='hollow'>
+                        <option value='hollow' selected>     </option>
                         <?php 
                             listarTurmas($prof);
                         ?>
-                    <option value='hollow'> </option>
-            </select> <br> <br>
-        <?php $i++;
-    }?> 
-            <select id='turN1' name='turmaN1' value='hollow'>
-                <option value='hollow' selected>     </option>
-                <?php 
-                    listarTurmas($prof);
-                ?>
-            </select> <br> <br>
-            <select id='turN2' name='turmaN2' value='hollow'>
-                <option value='hollow' selected>     </option>
-                <?php 
-                    listarTurmas($prof);
-                ?>
-            </select> <br> <br>
+                    </select> <br> <br><br>
+                    <select id='turN2' name='turmaN2' value='hollow'>
+                        <option value='hollow' selected>     </option>
+                        <?php 
+                            listarTurmas($prof);
+                        ?>
+                    </select> <br> <br><br>
 
-        <input type='hidden' name='nTurmas' value='<?php echo $i?>'>
-        <button type='submit' name='atualizar'>Atualizar turmas</button>
-    </form>
-        <br><br><button onclick="location.href='professor.php?id_prof=<?php echo $prof?>'">Cancelar</button>
+                <input type='hidden' name='nTurmas' value='<?php echo $i?>'>
+            </div>
+            <button type='submit' name='atualizar'>Atualizar turmas</button>
+            <a href="professor.php?id_prof=<?php echo $prof ?>">Cancelar</a>
+        </form>
+    </div>
 </body>
 </html>
