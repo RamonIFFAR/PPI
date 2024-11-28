@@ -45,26 +45,26 @@
         $rowN = $resN->fetch_object();
         $qtdN = $resN->num_rows;
         if ($qtdN > 0){
-            echo "<td class='Nota1'>";
+            echo "<td class='Nomes'>";
                 echo "<input type='number' name='NOTA1-". $n ."' value='". $rowN->NOTA1 ."'>";
             echo "</td>";
-            echo "<td class='AISS'>";
+            echo "<td class='Nomes'>";
                 echo "<input type='number' name='AIS-". $n ."' value='". $rowN->AIS ."'>";
             echo "</td>";
-            echo "<td class='Nota2'>";
+            echo "<td class='Nomes'>";
                 echo "<input type='number' name='NOTA2-". $n ."' value='". $rowN->NOTA2 ."'>";
             echo "</td>";
-            echo "<td class='MCC'>";
+            echo "<td class='Nomes'>";
                 echo "<input type='number' name='MC-". $n ."' value='". $rowN->MC ."'>";
             echo "</td>";
-            echo "<td class='PPII'>";
+            echo "<td class='Nomes'>";
                 echo "<input type='number' name='PPI-". $n ."' value='". $rowN->PPI ."'>";
             echo "</td>";
-            echo "<td class='AIAA'>";
+            echo "<td class='Nomes'>";
                 echo "<input type='number' name='AIA-". $n ."' value='". $rowN->AIA ."'>";
             echo "</td>";
         } else{
-            echo "<td class='Nota1'>";
+            echo "<td class='N1'>";
             echo "<input type='number' name='NOTA1-". $n ."' value=''>";
             echo "</td>";
             echo "<td class='AISS'>";
@@ -133,21 +133,22 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
-    <link rel="stylesheet" href="add_notascss.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="addnotascss2.css?v=<?php echo time(); ?>">
 </head>
 <body class='Fundo'>
     <div class="Background1"></div>
         <form method="POST" action="add_notas.php">
             <h1> Notas</h1>
-            <table class='Tabela'>
+            <div>
+            <table class='formulario'>
             <tr>
-                <th class='Titulo'><label >Alunos</label></th>
-                <th class='NotaS1'><label >1° Semestre</label> </th>
-                <th class='AIS'><label >AIS</label></th>
-                <th class='NotaS2'><label >2° Semestre</label></th>
-                <th class='MostraC'><label >Mostra de Ciências</label></th>
-                <th class='PPI'><label >PPI</label></th>
-                <th class='AIA'><label >AIA</label></th>
+                <th class='Infos'><label >Alunos</label></th>
+                <th class='Infos'><label >1° Semestre</label> </th>
+                <th class='Infos'><label >AIS</label></th>
+                <th class='Infos'><label >2° Semestre</label></th>
+                <th class='Infos'><label >Mostra de Ciências</label></th>
+                <th class='Infos'><label >PPI</label></th>
+                <th class='Infos'><label >AIA</label></th>
             </tr>
             <input type='hidden' name='id_disc' value='<?php echo $id_disc ?>'>
             <input type='hidden' name='id_turma' value='<?php echo $id_turma ?>'>
@@ -157,7 +158,7 @@
                 while($row = $res->fetch_object()){
                     echo "<tr>";
                     echo "";
-                    echo "<td class='Nome'><label>".$row->nome."</label></td>";
+                    echo "<td class='Nomes'><label>".$row->nome."</label></td>";
                     echo "";
                     
                    
@@ -171,6 +172,7 @@
                     echo "<td><input type='hidden' name ='nNotas' value='". $i ."'><td>";
             ?>
             </table>
+            </div>
             <br>
             <a href='turma.php?id=<?php echo $id_turma?>'>Cancelar</a><br> 
             <button type='submit' name='atNotas'>Atualizar notas</button><br>
