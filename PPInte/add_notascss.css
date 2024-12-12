@@ -20,7 +20,7 @@
 }
 
 form {
-    position: relative;
+    position: absolute;
     z-index: 2;
     background: #003417;
     position: absolute;
@@ -208,7 +208,6 @@ h1 {
     color: #09341b;
     position: relative;
     background-color: #d9d9d9;
-    font-size: 20px;
     width: 210px;
     height: 48px;
     font-size: 22px;
