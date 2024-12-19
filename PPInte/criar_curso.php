@@ -68,7 +68,7 @@
                        echo 'Upload com sucesso';
                        CriarCurso($_POST['nome'], $_POST['duracao'], $_POST['descricao'], $caminho.$novoNome);
                    } else {
-                       echo "Falha no upload";
+                       echo "<script>alert('Falha no upload')</script>";
                    }
                }
            } else {
