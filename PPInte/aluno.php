@@ -50,14 +50,24 @@
     $resComentario = $conn->query($sqlComentario);
     $ComentInfo = $res->fetch_assoc();
 
+    // Seleciona a turma
+    $sqlTurma = "select * from turma where not id = any (select id_turma from aluno where matricula = '{$aluno}') ";
+    $resTurma = $conn->query($sqlTurma);
 
 
 
-    function Atualizar($id, $matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento){
+
+    function Atualizar($id, $matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento, $turma){
         include('config.php');
-        $sql = "UPDATE aluno SET matricula='{$matricula}', telefone='{$telefone}', email='{$email}', nome='{$nome}', genero='{$genero}', cidade='{$cidade}', dataNasc='{$dataNasc}', moradia='{$moradia}', cota='{$cota}', bolsa='{$bolsa}', orientador='{$orientador}', reprovacao='{$reprovacao}', equipTI='{$equipTI}', estagio='{$estagio}', cpf='{$cpf}', acompanhamento='{$acompanhamento}' where matricula = '{$id}'";
-        $conn->query($sql) or die($conn->error);
-        print "<script> location.href='alunos.php'</script>";
+        if($turma == 'none'){
+            $sql = "UPDATE aluno SET matricula='{$matricula}', telefone='{$telefone}', email='{$email}', nome='{$nome}', genero='{$genero}', cidade='{$cidade}', dataNasc='{$dataNasc}', moradia='{$moradia}', cota='{$cota}', bolsa='{$bolsa}', orientador='{$orientador}', reprovacao='{$reprovacao}', equipTI='{$equipTI}', estagio='{$estagio}', cpf='{$cpf}', acompanhamento='{$acompanhamento}' where matricula = '{$id}'";
+            $conn->query($sql) or die($conn->error);
+            print "<script> location.href='alunos.php'</script>";
+        } else {
+            $sql = "UPDATE aluno SET matricula='{$matricula}', telefone='{$telefone}', email='{$email}', nome='{$nome}', genero='{$genero}', cidade='{$cidade}', dataNasc='{$dataNasc}', moradia='{$moradia}', cota='{$cota}', bolsa='{$bolsa}', orientador='{$orientador}', reprovacao='{$reprovacao}', equipTI='{$equipTI}', estagio='{$estagio}', cpf='{$cpf}', acompanhamento='{$acompanhamento}', id_turma='{$turma}'  where matricula = '{$id}'";
+            $conn->query($sql) or die($conn->error);
+            print "<script> location.href='alunos.php'</script>";
+        }
     }
 
 
@@ -120,7 +130,7 @@
         <div class="Posicao2">
     <?php 
         if(isset($_POST['atualizar'])){
-            Atualizar($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento']);
+            Atualizar($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento'], $_POST['turma']);
         }
         if ($qtdChecagem > 0) {
 
@@ -133,14 +143,14 @@
         
                     <form action='aluno.php' method='POST'>
                         <input type='hidden' name='id' value="<?php echo $aluno ?>"> <br>
+                        <label>Nome</label>
+                        <input type='text' name='nome' value="<?php echo $resSet['nome'] ?>"> <br>
                         <label>Matrícula</label>
                         <input type='text' name='matricula' value="<?php echo $aluno ?>"> <br>
                         <label>Telefone</label>
                         <input type='text' name='telefone' value="<?php echo $resSet['telefone'] ?>"> <br>
                         <label>Email</label>
                         <input type='email' name='email' value="<?php echo $resSet['email'] ?>"> <br>
-                        <label>Nome</label>
-                        <input type='text' name='nome' value="<?php echo $resSet['nome'] ?>"> <br>
                         <label>Gênero</label>
                         <input type='text' name='genero' value="<?php echo $resSet['genero'] ?>"> <br>
                         <label>Cidade</label>
@@ -165,6 +175,14 @@
                         <input type='text' name='cpf' value="<?php echo $resSet['cpf'] ?>"> <br>
                         <label>Acompanhamento</label>
                         <input type='text' name='acompanhamento' value="<?php echo $resSet['acompanhamento'] ?>"> <br>
+                        <select id='tur' name='turma'>
+                                <option value='none' selected>--------</option>
+                                    <?php 
+                                        while($rowTurma = $resTurma->fetch_object()){
+                                            echo "<option value='" . $rowTurma->id . "'>" . $rowTurma->nome . "</option>";
+                                        }
+                                    ?>
+                        </select>
                         <button type="submit" name="atualizar">Salvar Informações</button>
                     </form>
         <?php } }else {
