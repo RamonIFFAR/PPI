@@ -18,7 +18,7 @@
     $qtdChecagem = $ConsultaC->num_rows;
 
     // Procura os professores disponpiveis para serem coordenadores
-    $PProfessor = "select usuario.nome, professor.id_prof from usuario inner join professor on professor.id_prof = usuario.id_us left join curso on curso.id_coord = professor.id_prof where curso.id_coord is null";
+    $PProfessor = "select usuario.nome, professor.id_prof from usuario inner join professor on usuario.id_us = professor.id_prof inner join curso on not professor.id_prof = curso.id_coord";
     $Cres = $conn->query($PProfessor);
 
     // Função usada para excluir curso
@@ -43,12 +43,7 @@
             $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}' where id_curso = '{$id}'";
             $conn->query($sql) or die($conn->error);
             echo "<script>alert('Atualização feita com sucesso')</script>";
-        } else if($id_coord == 'hollow'){
-            $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}', id_coord= NULL where id_curso = 9";
-            $conn->query($sql) or die($conn->error);
-            echo "<script>alert('Atualização feita com sucesso')</script>";
-        } 
-        else {
+        } else {
             $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}', id_coord='{$id_coord}' where id_curso = '{$id}'";
             $conn->query($sql) or die($conn->error);
             echo "<script>alert('Atualização feita com sucesso')</script>";
@@ -63,12 +58,7 @@
             $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}' where id_curso = '{$id}'";
             $conn->query($sql) or die($conn->error);
             echo "<script>alert('Atualização feita com sucesso')</script>";
-        } else if($id_coord == 'hollow'){
-            $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}', id_coord= NULL where id_curso = 9";
-            $conn->query($sql) or die($conn->error);
-            echo "<script>alert('Atualização feita com sucesso')</script>";
-        } 
-        else {
+        } else {
             $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', id_coord='{$id_coord}' where id_curso = '{$id}'";
             $conn->query($sql) or die($conn->error);
             echo "<script>alert('Atualização feita com sucesso')</script>";
@@ -178,11 +168,12 @@
                                             <img src="Imagens/Foto.png" alt="Escolher arquivo"> <!-- Imagem que funciona como botão -->
                                         </label>
                                     </div>
-                                    <div>
-                                    <label>Definir coordenador do curso:</label>
+                                    
+                                    <div class="DefinirCod">
+                                        <label>Definir coordenador do curso:</label>
+                                        <br>
                                         <select id='coord' name='coordenador'>
                                             <option value='none' selected>--------</option>
-                                            <option value='hollow'></option>
                                             <?php 
                                                 while($Crow = $Cres->fetch_object()){
                                                     echo "<option value='" . $Crow->id_prof . "'>" . $Crow->nome . "</option>";
