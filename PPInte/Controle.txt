@@ -1,31 +1,33 @@
 *********APLICAR CSS*********
 
-X Curso.php -> 228
-X editarcurso.php -> 173 
-X aluno.php -> 172
-X professor.php -> 84 e 85
+X Curso.php -> 228 (Feito)
+X editarcurso.php -> 173 (Feito)
+X aluno.php -> 172 (Feito)
+X professor.php -> 84 e 85 (Feito)
 
-X edicao_perfil.php (v)
-X edicao_senha.php (v)
+X painel.php (v) (Feito)
 
-X add_disciplina.php (v)
-X ed_disciplina.php (v)
-X disciplinas.php (v)
-X disciplina.php (v)
+X edicao_perfil.php (v) (Feito)
+X edicao_senha.php (v) (Feito)
 
-X turma.php (v)
-X turmas.php (v)
-X add_turma.php (v)
-X ed_turma.php (v)
+X add_disciplina.php (v) (Feito)
+X ed_disciplina.php (v) (Feito)
+X disciplinas.php (v) (Feito)
+X disciplina.php (v) (Feito)
 
-X PTurmas.php (v)
-X PDisciplinas.php (v)
-X DTurmas.php (v)
+X turma.php (v) (Feito)
+X turmas.php (v) (Feito)
+X add_turma.php (v) (Feito)
+X ed_turma.php (v) (Feito)
 
-X add_lembrete.php (v)
-X lembrete.php (v)
-X lembretes.php (v)
-- Mostrar lembrete no painel inicial (x)
+X PTurmas.php (v) (Feito)
+X PDisciplinas.php (v) (Feito H)
+X DTurmas.php (v) (Feito H)
+
+X add_lembrete.php (v) (Feito)
+X lembrete.php (v) 
+X lembretes.php (v) (Feito H)
+- Mostrar lembrete no painel inicial (x) (Feito)
 
 (O gerenciar notas ainda não está pronto, mas sexta feira já estará no github. Qualquer dúvida, me mandem mensagem)
 
@@ -41,3 +43,18 @@ X lembretes.php (v)
 -Definir professor coordenador do curso (V)
 ++ Um curso pode ter apenas um professor como coordenador e um professor pode coordenar no máximo um curso (Linha 158 editando)
 -Alteração de informação de perfil (V)
+
+
+
+
+Arrumar e problemas:
+criar_curso.php (Não estava adicionando curso) (Feito)
+curso.php (remover o negócio que informa o id do curso) (Feito)
+editarcurso.php (remover o negócio que informa o id do curso) (Feito)
+curso.php (excluir curso não precisa) (Feito)
+cursos.php ()
+criar_aluno.php (É necessário corrigir o erro para caso não tenha uma turma para a qual associar o aluno)
+aluno.php (Está editando) - não está no git
+aluno.php (O CSS não permite a visualização do botão para excluir)
+alunos.php (Está listando, mas precisa corrigir a listagem para se adequar à separação)
+curso.php ()
