@@ -48,7 +48,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
-    <link rel="stylesheet" href="criaraluno.css">
+    <link rel="stylesheet" href="criar_alunocss.css?v=<?php echo time(); ?>">
     <title>SGAE</title>
 </head>
 <body class="Fundo">
@@ -60,86 +60,87 @@
 
     <div class="Background1"></div>
     <form action="criar_aluno.php" method="POST">
-    <h1>Adicionar Aluno</h1>
+        <h1>Adicionar Aluno</h1>
+        <div class="Matricula">
+            <label>Matrícula</label> <br>
+            <input type="text" name="matricula" value="<?php echo @$_POST['matricula']?>"> <br>
+        </div>
+        
+        <div class="Telefone">
+            <label>Telefone</label> <br>
+            <input type="text" name="telefone" value="<?php echo @$_POST['telefone']?>"> <br>
+        </div>
+        
+        
+        <div class="Email">
+            <label>Email</label> <br>
+            <input type="email" name="email" value="<?php echo @$_POST['email']?>"> <br>
+        </div>
+        
+        <div class="Nome">
+            <label>Nome</label> <br>
+            <input type="text" name="nome" value="<?php echo @$_POST['nome']?>"> <br>
+        </div>
+        
+        <div class="Genero">
+            <label>Gênero</label> <br>
+            <input type="text" name="genero" value="<?php echo @$_POST['genero']?>"> <br>
+        </div>
+        
+        <div class="Cidade">
+            <label>Cidade</label> <br>
+            <input type="text" name="cidade" value="<?php echo @$_POST['cidade']?>"> <br>
+        </div>
+        
+        <div class="DataNascimento">
+            <label>Data de Nascimento</label> <br>
+            <input type="text" name="dataNasc" value="<?php echo @$_POST['dataNasc']?>"> <br>
+        </div>
+        
+        <div class="Moradia">
+            <label>Moradia</label> <br>
+            <input type="text" name="moradia" value="<?php echo @$_POST['moradia']?>"> <br>
+        </div>
+        
+        <div class="Cota">
+            <label>Cota</label> <br>
+            <input type="text" name="cota" value="<?php echo @$_POST['cota']?>"> <br>
+        </div>
+        
+        <div class="Bolsa">
+            <label>Bolsa</label>
+            <input type="text" name="bolsa" value="<?php echo @$_POST['bolsa']?>"> <br>
+        </div>
+        
+        <div class="Orientador">
+            <label>Orientador</label> <br>
+            <input type="text" name="orientador" value="<?php echo @$_POST['orientador']?>"> <br>
+        </div>
+        
+        <div class="Reprovacao">
+            <label>Reprovação</label> <br>
+            <input type="text" name="reprovacao" value="<?php echo @$_POST['reprovacao']?>"> <br>
+        </div>
 
-        <label>Matrícula</label>
-        <input type="text" name="matricula" value="<?php echo @$_POST['matricula']?>"> <br>
-        
-        
-        
-        <label>Telefone</label>
-        <input type="text" name="telefone" value="<?php echo @$_POST['telefone']?>"> <br>
-        
-        
-        
-        <label>Email</label>
-        <input type="email" name="email" value="<?php echo @$_POST['email']?>"> <br>
-        
-        
-        
-        <label>Nome</label>
-        <input type="text" name="nome" value="<?php echo @$_POST['nome']?>"> <br>
-        
-        
-        
-        <label>Gênero</label>
-        <input type="text" name="genero" value="<?php echo @$_POST['genero']?>"> <br>
-        
-        
-        
-        <label>Cidade</label>
-        <input type="text" name="cidade" value="<?php echo @$_POST['cidade']?>"> <br>
-        
-        
-        
-        <label>Data de Nascimento</label>
-        <input type="text" name="dataNasc" value="<?php echo @$_POST['dataNasc']?>"> <br>
-        
-        
-        
-        <label>Moradia</label>
-        <input type="text" name="moradia" value="<?php echo @$_POST['moradia']?>"> <br>
-        
-        
-        
-        <label>Cota</label>
-        <input type="text" name="cota" value="<?php echo @$_POST['cota']?>"> <br>
-        
-        
-        
-        <label>Bolsa</label>
-        <input type="text" name="bolsa" value="<?php echo @$_POST['bolsa']?>"> <br>
-        
-        
-        
-        <label>Orientador</label>
-        <input type="text" name="orientador" value="<?php echo @$_POST['orientador']?>"> <br>
-        
-        
-        
-        <label>Reprovação</label>
-        <input type="text" name="reprovacao" value="<?php echo @$_POST['reprovacao']?>"> <br>
-        
+        <div class="EquipamentoTI">
+            <label>Equipamento TI</label> <br>
+            <input type="text" name="equipTI" value="<?php echo @$_POST['equipTI']?>"> <br>
+        </div>
 
+        <div class="Estagio">
+            <label>Estágio</label> <br>
+            <input type="text" name="estagio" value="<?php echo @$_POST['estagio']?>"> <br>
+        </div>
         
-        <label>Equipamento TI</label>
-        <input type="text" name="equipTI" value="<?php echo @$_POST['equipTI']?>"> <br>
+        <div class="CPF">
+            <label>CPF</label>
+            <input type="text" name="cpf" value="<?php echo @$_POST['cpf']?>"> <br>
+        </div>
         
-
-        
-        <label>Estágio</label>
-        <input type="text" name="estagio" value="<?php echo @$_POST['estagio']?>"> <br>
-        
-        
-        
-        <label>CPF</label>
-        <input type="text" name="cpf" value="<?php echo @$_POST['cpf']?>"> <br>
-        
-        
-        
-        <label>Acompanhamento</label>
-        <input type="text" name="acompanhamento" value="<?php echo @$_POST['acompanhamento']?>"> <br>
-
+        <div class="Acompanhamento">
+            <label>Acompanhamento</label>
+            <input type="text" name="acompanhamento" value="<?php echo @$_POST['acompanhamento']?>"> <br>
+        </div>
         <select id='tur' name='turma'>
                     <option value='none' selected>--------</option>
                         <?php 
