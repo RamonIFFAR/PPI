@@ -4,7 +4,7 @@
     session_start();
 
     $curso = $_REQUEST['id'];
-    
+
     // XXXXXXXXXX Confere se o usuário está logado XXXXXXXXXXXXXX
     $Checagem = "select * from usuario where senha = '{$_SESSION['senha']}' and email= '{$_SESSION['email']}'";
     $QChecagem = $conn->query($Checagem);
@@ -19,27 +19,8 @@
 
     // Função usada para excluir curso
     if(isset($_REQUEST['excluir'])){
-
-
-        $removercursosql = "UPDATE curso SET nome='nada', duracao='nada', descricao='descricao', foto='foto', id_coord= NULL where id_curso = '{$curso}'";
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "delete from comentario where matricula = any(select matricula from aluno where id_turma = any(select id from turma where id_curso = '{$curso}'))";
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "delete from avaliacao where id_aluno = any(select matricula from aluno where id_turma = any(select id from turma where id_curso = '{$cursp}'))";
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "delete from aluno where id_turma = any(select id from turma where id_curso = '{$curso}')";
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "delete from disciplina_turma where id_turma = any(select id from turma where id_curso = '{$curso}')";
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "delete from favorita where id_turma = any(select id from turma where id_curso = '{$curso}')"; 
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "delete from professor_turma where id_turma = any(select id from turma where id_curso = '{$curso}')";
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "DELETE from turma WHERE id_curso = '{$curso}'";
-        $conn->query($removercursosql) or die($conn->error);
-        $removercursosql = "delete from curso where id_curso = '{$curso}'";
-        $conn->query($removercursosql) or die($conn->error);
-
+        $removercursosql = "DELETE FROM curso WHERE id_curso = '{$curso}'";
+        $conn->query($removercursosql);
         print "<script>alert('Curso excluído com sucesso!')</script>";
         print "<script>location.href='cursos.php'</script>";
     }
@@ -71,17 +52,17 @@
         $sql = "DELETE FROM curso WHERE id_curso = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> alert('curso removido com sucesso')</script>";
-       // print "<script> location.href='cursos.php'</script>";
+        print "<script> location.href='cursos.php'</script>";
     }
 
     $sql = "select * from curso where id_curso = '{$curso}'";
     $res = $conn->query($sql);
     $resSet = $res->fetch_object();
 
-    $sqlC = "select * from curso inner join usuario on curso.id_coord = usuario.id_us where curso.id_curso = '{$curso}'";
+    $sqlC = "select * from curso inner join usuario where curso.id_curso = '{$curso}' and curso.id_coord = usuario.id_us";
     $resC = $conn->query($sqlC);
+    $qtdSetC = $resC ? $resC->num_rows : 0;
     $resSetC = $resC->fetch_object();
-    $qtdSetC = $resC->num_rows;
 
 ?>
 
@@ -91,10 +72,10 @@
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
-                <link rel="stylesheet" href="cursocss.css">
+                <link rel="stylesheet" href="cursocss.css?v=<?php echo time(); ?>">
             </head>
             <body>
-                
+
                 <div class="top-bar">
                     <div class="menu-container">
                         <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
@@ -143,15 +124,15 @@
                         <?php if($qtdChecagem > 0){
                             similar_text($UsoC->tipo, "DE", $percent);
                                 if($percent  == 100) { ?>
-                        <button onclick="if(confirm('Tem certeza que deseja excluir esse curso?')){location.href='curso.php?id=<?php echo $curso ?>&excluir=1'}">
+                        <!--<button onclick="if(confirm('Tem certeza que deseja excluir esse curso?')){location.href='curso.php?id=<?php echo $curso ?>&excluir=1'}">
                             <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
-                        </button>
+                        </button>-->
                         <?php 
                              }}
                         ?>
-                        
+
                     </div>
-                    
+
                     <div class="Posicao2">
                     <?php if($qtdChecagem > 0){
                             similar_text($UsoC->tipo, "DE", $percent);
@@ -243,16 +224,17 @@
                                         <label>Descrição:</label> <br>
                                         <a type='text' name='descricao'><?php echo $resSet->descricao ?></a><br>
                                     </div>
-                                    
-                                    <span> Coordenador:
-                                    <?php 
-                                        if($qtdSetC > 0){
-                                            echo $resSetC->nome;
-                                        } else{
-                                            echo "Curso sem coordenador";
-                                        }
-                                    ?>
-                                    </span>
+                                    <div class="Coordenador">
+                                        <span> Coordenador: <br>
+                                            <?php 
+                                                if ($qtdSetC > 0) {
+                                                    echo $resSetC->nome;
+                                                } else{
+                                                    echo "Curso sem coordenador";
+                                                }
+                                            ?>
+                                        </span>
+                                    </div>
                                     <br>
                                     </form> <br>
                                 <?php } 
@@ -295,4 +277,4 @@
                     }
                 </script>
             </body>
-            </html>
+        </html>
