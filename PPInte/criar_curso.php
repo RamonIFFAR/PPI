@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
-    <link rel="stylesheet" href="criarcurso.css">
+    <link rel="stylesheet" href="criarcurso.css?v=<?php echo time(); ?>">
     <title>SGAE</title>
 </head>
 <body class="Fundo">
@@ -68,7 +68,7 @@
                        echo 'Upload com sucesso';
                        CriarCurso($_POST['nome'], $_POST['duracao'], $_POST['descricao'], $caminho.$novoNome);
                    } else {
-                       echo "<script>alert('Falha no upload')</script>";
+                       echo "Falha no upload";
                    }
                }
            } else {
@@ -105,7 +105,7 @@
             <input id="foto" type="file" name="foto" style="display: none;"> <!-- Campo de input escondido -->
         </div>
 
-        <button type="submit" name="cadastro">Criar curso</button>
+        <button type="submit" name="cadastro">Adicionar curso</button>
         <a href="cursos.php">Cancelar</a>
     </form>
 
