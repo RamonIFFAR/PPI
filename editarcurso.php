@@ -142,7 +142,6 @@
                             }
                             if ($qtdChecagem > 0){
                                 similar_text($UsoC->tipo, "DE", $percent);
-                                echo $curso;
                                 if($percent  == 100) { ?>
                                     <form action='editarcurso.php' method='POST'>
 
