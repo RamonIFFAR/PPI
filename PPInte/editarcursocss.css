@@ -195,3 +195,15 @@ h1 {
     max-height: 80%;
     vertical-align: middle;
 }
+
+.DefinirCod {
+    position: absolute;
+    left: 1150px;
+    top: 200px;
+}
+
+.DefinirCod select {
+    width: 300px;
+    height: 55px;
+    border-radius: 5px;
+}
