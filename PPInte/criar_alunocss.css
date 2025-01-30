@@ -1,10 +1,10 @@
 .Fundo {
-    margin: 0; 
-    padding: 0; 
-    background: url('Imagens/Fundo.png') no-repeat center center fixed; 
-    background-size: cover; 
-    position: relative; 
-    min-height: 100vh; 
+    margin: 0;
+    padding: 0;
+    background: url('Imagens/Fundo.png') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    min-height: 100vh;
 }
 
 .Background1 {
@@ -32,24 +32,24 @@ form {
     padding: 20px;
 }
 
-
+/* Matricula */
 .Matricula {
     position: absolute;
     top: 200px;
-    left: 300px;
+    left: 400px;
 }
 
 .Matricula input {
     position: absolute;
-    width: 200px;
-    height: 30px;
+    width: 230px;
+    height: 50px;
 }
 
-
+/* Telefone */
 .Telefone {
     position: absolute;
     top: 330px;
-    left: 300px;
+    left: 100px;
 }
 
 .Telefone input {
@@ -58,90 +58,177 @@ form {
     height: 50px;
 }
 
-
+/* Email Institucional */
 .Email {
     position: absolute;
     top: 450px;
-    left: 300px;
+    left: 100px;
 }
 
 .Email input {
     position: absolute;
-    width: 600px;
+    width: 300px;
     height: 50px;
 }
 
-
+/* CPF */
 .Nome {
     position: absolute;
-    top: 330px;
-    left: 650px;
+    top: 200px;
+    left: 100px;
 }
 
 .Nome input {
     position: absolute;
-    width: 250px;
+    width: 200px;
     height: 50px;
 }
-
-
 
 .Genero {
     position: absolute;
     top: 330px;
-    left: 1000px;
+    left: 400px;
 }
 
-.Genero input {
+.Genero input{
     position: absolute;
     width: 250px;
     height: 50px;
 }
 
-
-
-.Fone {
+.Cidade {
     position: absolute;
     top: 450px;
-    left: 1000px;
+    left: 435px;
 }
 
-.Fone input {
+.Cidade input {
     position: absolute;
-    width: 250px;
+    width: 230px;
     height: 50px;
 }
 
-/* Foto */
-
-/* Posicionamento da div Foto */
-
-.Foto {
+.Data-De-Nascimento {
     position: absolute;
     top: 200px;
-    left: 890px;
+    left: 700px;
 }
 
-.custom-file-upload {
+.Data-De-Nascimento input {
     position: absolute;
-    width: 117px;
-    height: 100px;
-    left: 152px;
-    top: -20px;
-    background-color: #004b21;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-align: center;
+    width: 230px;
+    height: 50px;
 }
 
-/* Estilizar a imagem dentro do label */
-.custom-file-upload img {
-    max-width: 100%;
-    max-height: 80%;
-    vertical-align: middle;
+.Moradia {
+    position: absolute;
+    top: 330px;
+    left: 700px;
 }
+
+.Moradia input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.Cota {
+    position: absolute;
+    top: 450px;
+    left: 700px;
+}
+
+.Cota input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.Bolsa {
+    position: absolute;
+    top: 200px;
+    left: 990px;
+}
+
+.Bolsa input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.Orientador {
+    position: absolute;
+    top: 330px;
+    left: 990px;
+}
+
+.Orientador input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.Reprovacao {
+    position: absolute;
+    top: 450px;
+    left: 990px;
+}
+
+.Reprovacao input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.EquipamentoTI {
+    position: absolute;
+    top: 200px;
+    left: 1290px;
+}
+
+.EquipamentoTI input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.Estagio {
+    position: absolute;
+    top: 330px;
+    left: 1290px;
+}
+
+.Estagio input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.CPF {
+    position: absolute;
+    top: 450px;
+    left: 1290px;
+}
+
+.CPF input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+.Acompanhamento {
+    position: absolute;
+    top: 550px;
+    left: 700px;
+}
+
+.Acompanhamento input {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+
 
 /*Botao Cadastrar*/
 
@@ -158,8 +245,8 @@ button {
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 5px;
-    top: 600px;
-    left: 17%;
+    top: 690px;
+    left: 600px;
 }
 
 button:hover {
@@ -190,8 +277,8 @@ a {
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 5px;
-    top: 600px;
-    left: 33%;
+    top: 690px;
+    left: 930px;
 }
 
 a:hover {
@@ -200,18 +287,65 @@ a:hover {
 
 
 h1 {
-    font-size: 30px;
+    font-size: 35px;
     color: White;
     position: absolute;
     font-family: 'Anton';
     font-style: Italic;
     letter-spacing: 1px;
-    top: 10%;
-    left: 17%;
+    top: 5%;
+    left: 40%;
 }   
 
 .message {
     color: red;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.Foto {
+    position: absolute;
+    top: 430px;
+    left: 950px;
+}
+
+.custom-file-upload {
+    position: absolute;
+    width: 117px;
+    height: 100px;
+    left: 20px;
+    top: 40px;
+    background-color: #004b21;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Estilizar a imagem dentro do label */
+.custom-file-upload img {
+    max-width: 100%;
+    max-height: 80%;
+    vertical-align: middle;
+}
+
+/* CPF */
+.DefinirCod {
+    position: absolute;
+    top: 430px;
+    left: 600px;
+}
+
+.DefinirCod option {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+}
+
+Select {
+    position: relative;
+    top: 550px;
+    left: 23%;
+    width: 245px;
 }
