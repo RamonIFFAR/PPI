@@ -49,109 +49,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
     <link rel="stylesheet" href="criar_alunocss.css?v=<?php echo time(); ?>">
-    <title>SGAE</title>
 </head>
 <body class="Fundo">
-    <?php
-        if(isset($_POST["cadastro"])){
-            CadastrarAluno($_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento'], $_POST['turma']);
-        }
-    ?>
 
     <div class="Background1"></div>
-    <form action="criar_aluno.php" method="POST">
-        <h1>Adicionar Aluno</h1>
-        <div class="Matricula">
-            <label>Matrícula</label> <br>
-            <input type="text" name="matricula" value="<?php echo @$_POST['matricula']?>"> <br>
-        </div>
-        
-        <div class="Telefone">
-            <label>Telefone</label> <br>
-            <input type="text" name="telefone" value="<?php echo @$_POST['telefone']?>"> <br>
-        </div>
-        
-        
-        <div class="Email">
-            <label>Email</label> <br>
-            <input type="email" name="email" value="<?php echo @$_POST['email']?>"> <br>
-        </div>
-        
-        <div class="Nome">
-            <label>Nome</label> <br>
-            <input type="text" name="nome" value="<?php echo @$_POST['nome']?>"> <br>
-        </div>
-        
-        <div class="Genero">
-            <label>Gênero</label> <br>
-            <input type="text" name="genero" value="<?php echo @$_POST['genero']?>"> <br>
-        </div>
-        
-        <div class="Cidade">
-            <label>Cidade</label> <br>
-            <input type="text" name="cidade" value="<?php echo @$_POST['cidade']?>"> <br>
-        </div>
-        
-        <div class="DataNascimento">
-            <label>Data de Nascimento</label> <br>
-            <input type="text" name="dataNasc" value="<?php echo @$_POST['dataNasc']?>"> <br>
-        </div>
-        
-        <div class="Moradia">
-            <label>Moradia</label> <br>
-            <input type="text" name="moradia" value="<?php echo @$_POST['moradia']?>"> <br>
-        </div>
-        
-        <div class="Cota">
-            <label>Cota</label> <br>
-            <input type="text" name="cota" value="<?php echo @$_POST['cota']?>"> <br>
-        </div>
-        
-        <div class="Bolsa">
-            <label>Bolsa</label>
-            <input type="text" name="bolsa" value="<?php echo @$_POST['bolsa']?>"> <br>
-        </div>
-        
-        <div class="Orientador">
-            <label>Orientador</label> <br>
-            <input type="text" name="orientador" value="<?php echo @$_POST['orientador']?>"> <br>
-        </div>
-        
-        <div class="Reprovacao">
-            <label>Reprovação</label> <br>
-            <input type="text" name="reprovacao" value="<?php echo @$_POST['reprovacao']?>"> <br>
-        </div>
+        <?php
+            if(isset($_POST["cadastro"])){
+                CadastrarAluno($_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento'], $_POST['turma']);
+            }
+        ?>
+        <form action="criar_aluno.php" method="POST" enctype="multipart/form-data">
+        <h1> Informações Aluno(a)</h1>
+            <form action='criar_aluno.php' method='POST'>
+                <div class="Matricula">
+                    <label>Matrícula:</label> <br>
+                    <input type='text' name='matricula' value="<?php echo @$_POST['matricula']?>"></a>
+                </div>
 
-        <div class="EquipamentoTI">
-            <label>Equipamento TI</label> <br>
-            <input type="text" name="equipTI" value="<?php echo @$_POST['equipTI']?>"> <br>
-        </div>
+                <div class="Telefone">
+                    <label>Telefone:</label> <br>
+                    <input type='text' name='telefone' value="<?php echo @$_POST['telefone']?>"></a>
+                </div>
 
-        <div class="Estagio">
-            <label>Estágio</label> <br>
-            <input type="text" name="estagio" value="<?php echo @$_POST['estagio']?>"> <br>
+                    <div class="Email">
+                        <label>Email:</label> <br>
+                        <input type='email' name='email' value="<?php echo @$_POST['email']?>"></a>
+                    </div>
+
+                    <div class="Nome">
+                        <label>Nome:</label> <br>
+                        <input type='text' name='nome' value="<?php echo @$_POST['nome']?>"></a>
+                    </div>
+
+                    <div class="Genero">
+                        <label>Gênero:</label> <br>
+                        <input type='text' name='genero' value="<?php echo @$_POST['genero']?>"></a>
+                    </div>
+
+                    <div class="Cidade">
+                        <label>Cidade:</label> <br>
+                        <input type='text' name='cidade' value="<?php echo @$_POST['cidade']?>"></a>
+                    </div>
+
+                    <div class="Data-De-Nascimento">
+                        <label>Data de Nascimento:</label> <br>
+                        <input type='date' name='dataNasc'value="<?php echo @$_POST['dataNasc']?>"></a>
+                    </div>
+
+                    <div class="Moradia">
+                        <label>Moradia:</label> <br>
+                        <input type='text' name='moradia' value="<?php echo @$_POST['moradia']?>"></a>
+                    </div>
+                            
+                    <div class="Cota">
+                        <label>Cota:</label> <br>
+                        <input type='text' name='cota' value="<?php echo @$_POST['cota']?>"></a>
+                    </div>
+
+                    <div class="Bolsa">
+                        <label>Bolsa:</label> <br>
+                        <input type='text' name='bolsa' value="<?php echo @$_POST['bolsa']?>"></a>
+                    </div>
+
+                    <div class="Orientador">
+                        <label>Orientador:</label> <br>
+                        <input type='text' name='orientador' value="<?php echo @$_POST['orientador']?>"></a>
+                    </div>
+
+                    <div class="Reprovacao">
+                        <label>Reprovação:</label> <br>
+                        <input type='text' name='reprovacao' value="<?php echo @$_POST['reprovacao']?>"></a>
+                    </div>
+                
+                    <div class="EquipamentoTI">
+                        <label>Equipamento TI:</label> <br>
+                        <input type='text' name='equipTI' value="<?php echo @$_POST['equipTI']?>"></a>
+                    </div>
+                            
+                    <div class="Estagio">
+                        <label>Estágio:</label> <br>
+                        <input type='text' name='estagio' value="<?php echo @$_POST['estagio']?>"></a>
+                    </div>
+
+                    <div class="CPF">
+                        <label>CPF:</label> <br>
+                        <input type='text' name='cpf' value="<?php echo @$_POST['cpf']?>"></a>
+                    </div>
+                            
+                    <div class="Acompanhamento">
+                        <label>Acompanhamento:</label> <br>
+                        <input type='text' name='acompanhamento' value="<?php echo @$_POST['acompanhamento']?>"></a> <br>
+                    </div>
+                    <div class="Posicao">
+                        <button type="submit" name="cadastro">Salvar</button>
+                    </div>
+
+                    <div class='Select'>
+                        <select id='tur' name='turma'>
+                        <option value='none' selected>Turma</option>
+                            <?php 
+                                while($rowTurma = $resTurma->fetch_object()){
+                                    echo "<option value='" . $rowTurma->id . "'>" . $rowTurma->nome . "</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <a href="alunos.php">Cancelar</a>
+                </form>
+            </div>
         </div>
-        
-        <div class="CPF">
-            <label>CPF</label>
-            <input type="text" name="cpf" value="<?php echo @$_POST['cpf']?>"> <br>
-        </div>
-        
-        <div class="Acompanhamento">
-            <label>Acompanhamento</label>
-            <input type="text" name="acompanhamento" value="<?php echo @$_POST['acompanhamento']?>"> <br>
-        </div>
-        <select id='tur' name='turma'>
-                    <option value='none' selected>--------</option>
-                        <?php 
-                            while($rowTurma = $resTurma->fetch_object()){
-                                echo "<option value='" . $rowTurma->id . "'>" . $rowTurma->nome . "</option>";
-                            }
-                        ?>
-        </select>
-        
-        <button type="submit" name="cadastro">Cadastrar</button>
-        <a href="alunos.php">Cancelar</a>
-    </form>
 </body>
 </html>
