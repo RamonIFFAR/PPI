@@ -8,6 +8,14 @@
     $prof = $_REQUEST['id_prof'];
     
     if(isset($_REQUEST['excluir'])){
+
+        $busca = "select * from usuario where id_us = '{$prof}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao, dat) values ('{$_SESSION['id_us']}', 'Usuário excluiu o professor de nome ".$mostra->nome."', '". $hoje ."')";
+        $QHist = $conn->query($sqlH) or die($conn->error);
+
         $removerprofessorcoordenador = "UPDATE curso SET id_coord = null WHERE id_coord = '{$prof}'";
         $removerprofessordisciplina = "DELETE FROM professor_disciplina WHERE id_prof = '{$prof}'";
         $removerprofessorturma = "DELETE FROM professor_turma WHERE id_prof = '{$prof}'";

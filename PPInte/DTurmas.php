@@ -65,6 +65,14 @@
 
     function atRelacionamento($idr, $idt){
         include('config.php');
+
+        $busca = "select * from disciplina where id = '{$idt}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na disciplina de nome ".$mostra->nome."', '". $hoje ."')";
+        $conn->query($sqlH) or die($conn->error);
+
         if($idt != 'hollow'){
             $sqlat = "update disciplina_turma set id_turma = '{$idt}' where id = '{$idr}'";
             $conn->query($sqlat);
@@ -75,8 +83,17 @@
     }
 
     function addRelacionamento($idd, $idt){
+        include('config.php');
+
+        $busca = "select * from disciplina where id = '{$idt}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na disciplina de nome ".$mostra->nome."', '". $hoje ."')";
+        $conn->query($sqlH) or die($conn->error);
+
         if($idt != 'hollow'){
-            include('config.php');
+            
             $sqlad = "insert into disciplina_turma(id_disc, id_turma) values('{$idd}', '{$idt}')";
             $conn->query($sqlad);
         }

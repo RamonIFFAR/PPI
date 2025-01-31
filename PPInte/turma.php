@@ -33,6 +33,14 @@
     }
 
     if(isset($_REQUEST['excluir'])){
+
+        $busca = "select * from turma where id_curso = '{$id_turma}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou a exclusão da turma de nome " . $mostra->nome ."', '". $hoje ."')";
+        $QHist = $conn->query($sqlH) or die($conn->error);
+
         $removerturmasql = "DELETE FROM turma WHERE id = '{$id_turma}'";
         $conn->query($removerturmasql);
         print "<script>alert('Curso excluído com sucesso!')</script>";

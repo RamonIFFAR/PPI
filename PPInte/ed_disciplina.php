@@ -43,6 +43,14 @@
 
     function edDisciplina($id, $nome, $descricao){
         include('config.php');
+
+        $busca = "select * from disciplina where id = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na disciplina de nome ".$mostra->nome."', '". $hoje ."')";
+        $conn->query($sqlH) or die($conn->error);
+
         $sqlat = "update disciplina set nome = '{$nome}', descricao = '{$descricao}' where id = '{$id}'";
         $conn->query($sqlat) or die($conn->error);
         echo "<script>alert('Disciplina atualizada com sucesso!')</script>";
@@ -51,6 +59,14 @@
 
     function exDisciplina($id){
         include('config.php');
+
+        $busca = "select * from disciplina where id = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou a exclusão da disciplina de nome ".$mostra->nome."', '". $hoje ."')";
+        $conn->query($sqlH) or die($conn->error);
+
         $sqlrm = "delete from disciplina where id ='{$id}'";
         $conn->query($sqlrm) or die($conn->error);
         echo "<script>alert('Disciplina removida com sucesso!')</script>";

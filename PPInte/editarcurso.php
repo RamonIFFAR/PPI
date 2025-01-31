@@ -23,10 +23,17 @@
 
     // Função usada para excluir curso
     if(isset($_REQUEST['excluir'])){
+        $buscacurso = "select from curso where id_curso = '{$curso}'";
+        $resultado = $conn->query($buscacurso);
+        $identificador = $resultado->fetch_object();
+
         $removercursosql = "DELETE FROM curso WHERE id_curso = '{$curso}'";
         $conn->query($removercursosql);
         print "<script>alert('Curso excluído com sucesso!')</script>";
         print "<script>location.href='cursos.php'</script>";
+
+        $sqlH = "Insert into curso (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou a exclusão do curso de nome '{$identificador->nome}'')";
+        $QHist = $conn->query($sqlH);
     }
     // XXXXXXXXXX If que confere se o usuário está logado XXXXXXXXXXXXXX
     if($procura > 0){
@@ -39,6 +46,14 @@
     // Funções referentes à alteração das informações do curso
     function Atualizar($id, $nome, $duracao, $descricao, $foto, $id_coord){
         include('config.php');
+
+        $busca = "select * from curso where id_curso = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no curso de nome " . $mostra->nome ."', '". $hoje ."')";
+        $QHist = $conn->query($sqlH) or die($conn->error);
+
         if($id_coord == 'none'){
             $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}' where id_curso = '{$id}'";
             $conn->query($sql) or die($conn->error);
@@ -48,12 +63,21 @@
             $conn->query($sql) or die($conn->error);
             echo "<script>alert('Atualização feita com sucesso')</script>";
         }
+        
         echo $foto;
         print "<script> location.href='cursos.php'</script>";
     }
 
     function Atualizar2($id, $nome, $duracao, $descricao, $id_coord){
         include('config.php');
+
+        $busca = "select * from curso where id_curso = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no curso de nome ".$mostra->nome."')";
+        $QHist = $conn->query($sqlH) or die($conn->error);
+
         if($id_coord == 'none'){
             $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}' where id_curso = '{$id}'";
             $conn->query($sql) or die($conn->error);
@@ -142,23 +166,24 @@
                             }
                             if ($qtdChecagem > 0){
                                 similar_text($UsoC->tipo, "DE", $percent);
+                                echo $curso;
                                 if($percent  == 100) { ?>
                                     <form action='editarcurso.php' method='POST'>
 
                                     <div class="NomeCompleto">
                                         <label>Nome do curso:</label> <br>
-                                        <input type='text' name='nome' value=" <?php echo $resSet->nome ?>"> <br>
+                                        <input type='text' name='nome' value="<?php echo $resSet->nome ?>"> <br>
                                         <input type='hidden' name='id' value="<?php echo $curso ?>"> <br>
                                     </div>
 
                                     <div class="CPF">
                                         <label>Duração do curso:</label> <br>
-                                        <input type='text' name='duracao' value=" <?php echo $resSet->duracao ?>"><br>
+                                        <input type='text' name='duracao' value="<?php echo $resSet->duracao ?>"><br>
                                     </div>
 
                                     <div class="MatriculaSiape">
                                         <label>Descrição:</label> <br>
-                                        <input type='text' name='descricao' value=" <?php echo $resSet->descricao ?> "></a><br>
+                                        <input type='text' name='descricao' value="<?php echo $resSet->descricao ?>"></a><br>
                                     </div>
 
                                     <div class="Foto">

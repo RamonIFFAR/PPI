@@ -49,6 +49,14 @@
 
     function edTurma($id_turma, $nome, $sala, $descricao){
         include('config.php');
+
+        $busca = "select * from turma where id = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na turma de nome ".$mostra->nome."', '". $hoje ."')";
+        $conn->query($sqlH) or die($conn->error);
+
         $sqlat = "update turma set nome = '{$nome}', sala = '{$sala}', descricao = '{$descricao}' where id= '{$id_turma}'";
         $conn->query($sqlat) or die($conn->error);
         echo "<script>alert('Turma editada com sucesso')</script>";

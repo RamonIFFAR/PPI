@@ -8,11 +8,19 @@
     $prof = $_REQUEST['id_prof'];
     
     if(isset($_REQUEST['excluir'])){
+
+        $busca = "select * from usuario where id_us = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao, dat) values ('{$_SESSION['id_us']}', 'Usuário excluiu o professor de nome ".$mostra->nome."', '". $hoje ."')";
+        $QHist = $conn->query($sqlH) or die($conn->error);
+
         $removerprofessorsql = "DELETE FROM professor WHERE id_prof = '{$prof}'";
         $removerusuariosql = "DELETE FROM usuario WHERE id_prof = '{$prof}'";
         $conn->query($removerprofessorsql);
         $conn->query($removerusuariosql);
-        print "<script>location.href='professores.php'</script>";
+        //print "<script>location.href='professores.php'</script>";
     }
 
     $Checagem = "select * from setor where id_set = '{$_SESSION['id_us']}'";
@@ -22,9 +30,17 @@
 
     function Atualizar($id, $cpf, $Siape, $nome, $fone){
         include('config.php');
+
+        $busca = "select * from usuario where id_us = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no professor de nome ".$mostra->nome."', '". $hoje ."')";
+        $conn->query($sqlH) or die($conn->error);
+
         $sql = "UPDATE usuario SET cpf = '{$cpf}', Siape = '{$Siape}', nome = '{$nome}', fone='{$fone}' where id_us = '{$id}'";
         $conn->query($sql) or die($conn->error);
-        print "<script> location.href='professores.php'</script>";
+        //print "<script> location.href='professores.php'</script>";
     }
     // Variáveis para a conferência do usuário
     $sql = "select * from usuario where id_us = '{$prof}'";
@@ -59,23 +75,23 @@
 
                     <div class="NomeCompleto">
                         <label>Nome:</label> <br>
-                        <input type='text' name='nome' value=" <?php echo $resSet->nome ?>"> <br>
+                        <input type='text' name='nome' value="<?php echo $resSet->nome ?>"> <br>
                         <input type='hidden' name='id_prof' value="<?php echo $prof ?>"> <br>
                     </div>
 
                     <div class="CPF">
                         <label>CPF:</label> <br>
-                        <input type='text' name='cpf' value=" <?php echo $resSet->cpf ?>"><br>
+                        <input type='text' name='cpf' value="<?php echo $resSet->cpf ?>"><br>
                     </div>
 
                     <div class="MatriculaSiape">
                         <label>Matrícula SIAPE:</label> <br>
-                        <input type='text' name='siape' value=" <?php echo $resSet->Siape ?> "></a><br>
+                        <input type='text' name='siape' value="<?php echo $resSet->Siape ?> "></a><br>
                     </div>
 
                     <div class="Fone">
                         <label>Número de Telefone:</label> <br>
-                        <input type='text' name='fone' value=" <?php echo $resSet->fone ?> "></a><br>
+                        <input type='text' name='fone' value="<?php echo $resSet->fone ?> "></a><br>
                     </div>
 
                     <div class="Posicao">
