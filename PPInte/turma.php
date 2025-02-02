@@ -71,6 +71,7 @@
     if($qtdChecagem > 0){
         ?>
         <button onclick="location.href='ed_turma.php?id_turma=<?php echo $id_turma;?>'">Editar turma</button> <br> <br>
+        <button onclick="location.href='gerar_parecer.php?id_turma=<?php echo $id_turma;?>'">Gerar parecer</button> <br> <br>
         <?php 
     } else{
     }
