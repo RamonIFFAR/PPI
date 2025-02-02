@@ -65,22 +65,22 @@
             echo "</td>";
         } else{
             echo "<td class='N1'>";
-            echo "<input type='number' name='NOTA1-". $n ."' value=''>";
+            echo "<input type='number' name='NOTA1-". $n ."'>";
             echo "</td>";
             echo "<td class='AISS'>";
-            echo "<input type='number' name='AIS-". $n ."' value=''>";
+            echo "<input type='number' name='AIS-". $n ."'>";
             echo "</td>";
             echo "<td class='Nota2'>";
-            echo "<input type='number' name='NOTA2-". $n ."' value=''>";
+            echo "<input type='number' name='NOTA2-". $n ."'>";
             echo "</td>";
             echo "<td class='MCC'>";
-                echo "<input type='number' name='MC-". $n ."' value=''>";
+                echo "<input type='number' name='MC-". $n ."'>";
             echo "</td>";
             echo "<td class='PPII'>";
-            echo "<input type='number' name='PPI-". $n ."' value=''>";
+            echo "<input type='number' name='PPI-". $n ."'>";
             echo "</td>";
             echo "<td class='AIAA'>";
-            echo "<input type='number' name='AIA-". $n ."' value=''>";
+            echo "<input type='number' name='AIA-". $n ."'>";
             echo "</td>";
         }
     }
@@ -105,25 +105,33 @@
         if($MC == ""){
             $MC="";
         }
-        $sqlC = "select * from avaliacao where id_aluno = '{$id_aluno}'";
+        $sqlC = "select * from avaliacao where id_aluno = '{$id_aluno}' and id_disc = '{$id_d}'";
         $resC = $conn->query($sqlC);
         $qtdC = $resC->num_rows;
         if($qtdC > 0){
             $sql = "update avaliacao set PPI = NULLIF('{$PPI}',''), AIS = NULLIF('{$AIS}', ''), AIA = NULLIF('{$AIA}', ''), NOTA1 = NULLIF('{$N1}', ''), NOTA2 = NULLIF('{$N2}', ''), MC = NULLIF('{$MC}', '') where id_aluno = '{$id_aluno}' and id_disc = '{$id_d}'";
-            $conn->query($sql);
+            $conn->query($sql) or die($conn->error);
         } else{
             $sql = "insert into avaliacao(id_disc, id_aluno, PPI, AIS, AIA, NOTA1, NOTA2, MC) values('{$id_d}', '{$id_aluno}', NULLIF('{$PPI}',''), NULLIF('{$AIS}',''), NULLIF('{$AIA}',''), NULLIF('{$N1}',''), NULLIF('{$N2}',''), NULLIF('{$MC}',''))";
-            $conn->query($sql);
+            $conn->query($sql) or die($conn->error);
         }
     }
 
     if(isset($_POST['atNotas'])){
         $n = 1;
         while($n < $_POST['nNotas']){
+            echo $id_disc;
+            echo $_POST['id-'.$n];
+            echo $_POST['PPI-'.$n];
+            echo $_POST['AIS-'.$n];
+            echo $_POST['AIA-'.$n];
+            echo $_POST['NOTA1-'.$n];
+            echo $_POST['NOTA2-'.$n];
+            echo $_POST['MC-'.$n];
              addNotas($id_disc, $_POST['id-'.$n], $_POST['PPI-'.$n], $_POST['AIS-'.$n], $_POST['AIA-'.$n], $_POST['NOTA1-'.$n], $_POST['NOTA2-'.$n], $_POST['MC-'.$n]);
              $n++;
         }
-        echo "<script>alert('Notas cadastradas com sucesso!')</script>";
+        //echo "<script>alert('Notas cadastradas com sucesso!')</script>";
     }
     
 ?>
