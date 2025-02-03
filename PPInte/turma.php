@@ -88,6 +88,9 @@ inner join disciplina on disciplina.id = professor_disciplina.id_disc and discip
 where professor_disciplina.id_prof = '{$_SESSION['id_us']}' and disciplina_turma.id_turma = '{$id_turma}'";
     $resFP = $conn->query($sqlFP) or die($conn->error);
     $resFreq = $conn->query($sqlFP) or die ($conn->error);
+    $resRel = $conn->query($sqlFP) or die($conn->error);
+    $resRec = $conn->query($sqlFP) or die($conn->error);
+    $resP = $conn->query($sqlFP) or die($conn->error);
 
 ?>
 
@@ -113,6 +116,7 @@ where professor_disciplina.id_prof = '{$_SESSION['id_us']}' and disciplina_turma
                         ?> 
                 </select> <br> <button type='submit' name='cadastrar'>Cadastrar notas da turma</button><br><br>
             </form>
+            <span>Enviar frequência</span><br>
             <form method="POST" action='frequencia.php'>
                 <input type='hidden' name='id_turma' value='<?php echo $id_turma?>'>
                 <label>Disciplina</label><br>
@@ -125,6 +129,60 @@ where professor_disciplina.id_prof = '{$_SESSION['id_us']}' and disciplina_turma
                         ?> 
                 </select> <br> <button type='submit' name='cadastrar'>Cadastrar frequência da turma</button><br><br>
             </form>
+            <!-- 
+            --
+            -- Dentro deste comentário estão os campos de seleção referentes à seleção da disciplina para o envio dos 3 relatórios que os professores precisam fazer.
+            -- Genuinamente estou ficando louco com o fato de que qualquer leve alteração no código me obriga a mexer em outros 8 códigos diferentes. 
+            -- Para se ter uma ideia, são 14:59 enquanto digito isso, mas eu comecei a mexer nos códigos dessas funcionalidades eram 13:20 e tudo que eu fiz foi apenas permitir que os lembretes servissem de data limite pq eu não tinha ideia de como fazer diferente.
+            -- Tomou bastante tempo, vou no banheiro, vlw.
+            --
+            -->
+            <span>Enviar plano de trabalho</span><br>
+            <form method="POST" action='plano.php'>
+                <input type='hidden' name='id_turma' value='<?php echo $id_turma?>'>
+                <label>Disciplina</label><br>
+                <select id="disc" name='id_disc'>
+                        <option value="hollow" selected>       </option>
+                        <?php
+                            while($rowP = $resP->fetch_object()){
+                                echo "<option value='" . $rowP->id_disc . "'>" . $rowP->nome . "</option>";
+                            }
+                        ?> 
+                </select> <br> <button type='submit' name='cadastrar'>Enviar plano de trabalho da turma</button><br><br>
+            </form>
+
+            <span>Enviar relatório de atividades</span><br>
+            <form method="POST" action='atividades.php'>
+                <input type='hidden' name='id_turma' value='<?php echo $id_turma?>'>
+                <label>Disciplina</label><br>
+                <select id="disc" name='id_disc'>
+                        <option value="hollow" selected>       </option>
+                        <?php
+                            while($rowRel = $resRel->fetch_object()){
+                                echo "<option value='" . $rowRel->id_disc . "'>" . $rowRel->nome . "</option>";
+                            }
+                        ?> 
+                </select> <br> <button type='submit' name='cadastrar'>Enviar relatório de atividades da turma</button><br><br>
+            </form>
+            
+            <span>Enviar registro de recuperação paralela</span><br>
+            <form method="POST" action='recuperacao.php'>
+                <input type='hidden' name='id_turma' value='<?php echo $id_turma?>'>
+                <label>Disciplina</label><br>
+                <select id="disc" name='id_disc'>
+                        <option value="hollow" selected>       </option>
+                        <?php
+                            while($rowRec = $resRec->fetch_object()){
+                                echo "<option value='" . $rowRec->id_disc . "'>" . $rowRec->nome . "</option>";
+                            }
+                        ?> 
+                </select> <br> <button type='submit' name='cadastrar'>Enviar registro de recuperação paralela da turma</button><br><br>
+            </form>
+
+            <!--
+            -- Oi, espero que vejam esse comentário na PPI, pois, na minha cabeça, é engraçado, mas, como deu pra ver, eu relatei não estar com minhas faculdades mentais funcionais no momento.
+            -- El wiwi, Dale Capo, no hable de mis tamales. Whatever in creation exists without my knowledge, exists without my consent, he is the judge, he says that he will never die, he just keeps dancing and dancing.
+            -->
                 
                 <div class="top-bar">
                     <div class="menu-container">
