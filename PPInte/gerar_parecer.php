@@ -16,7 +16,6 @@ $dompdf = new Dompdf([
 
 $dompdf->loadHtml($html2);
 
-
 $dompdf->render();
 
 $dompdf->stream("Parecer.pdf", ["Attachment" => 0]);

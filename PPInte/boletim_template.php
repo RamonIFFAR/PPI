@@ -61,8 +61,8 @@
 <body>
     <?php 
         while($Brow = $Bres->fetch_object()){
-            echo "Aluno: {$Brow->nome}";     
-            $sql = "select disciplina.nome, NOTA1 from avaliacao inner join disciplina on avaliacao.id_disc = disciplina.id where avaliacao.id_aluno = '{$Brow->matricula}'";
+            echo "Aluno: ".$Brow->nome." Matricula: ".$Brow->matricula;     
+            $sql = "select * from disciplina inner join avaliacao on avaliacao.id_disc = disciplina.id inner join frequencia on frequencia.disciplina = disciplina.id where frequencia.matricula = '{$Brow->matricula}' and frequencia.matricula = avaliacao.id_aluno; ";
             $res = $conn->query($sql) or die($conn->error);
     ?>
     <div style="page-break-after:always">
@@ -78,7 +78,7 @@
                 echo "<tr>";
                 echo "<td>".$row->nome."</td>";
                 echo "<td>".$row->NOTA1."</td>";
-                echo "<td> 0 </td>";
+                echo "<td> ".$row->faltas." </td>";
                 echo "</tr>";
             }  
             echo "</table>";
