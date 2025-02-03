@@ -4,12 +4,12 @@
     session_start();
 
     if(isset($_POST['adicionarL'])){
-        adicionarLembrete($_POST['nome'], $_POST['desc'], $_POST['dt'], $_SESSION['id_us']);
+        adicionarLembrete($_POST['nome'], $_POST['desc'], $_POST['dt'], $_SESSION['id_us'], $_POST['rec'], $_POST['plan'], $_POST['rel']);
     }
 
-    function adicionarLembrete($nome, $desc, $dt, $id){
+    function adicionarLembrete($nome, $desc, $dt, $id, $rec, $plan, $rel){
         include('config.php');
-        $SQLad = "insert into lembrete(nome, descricao, dt, id_us) values('{$nome}', '{$desc}', '{$dt}', '{$id}')";
+        $SQLad = "insert into lembrete(nome, descricao, dt, id_us, limite_relatorio, limite_plano, limite_recuperacao) values('{$nome}', '{$desc}', '{$dt}', '{$id}', '{$rel}', '{$plan}', '{$rec}')";
         $conn->query($SQLad) or die($conn->error);
         echo "<script>alert('Lembrete cadastrado com sucesso')</script>";
         echo "<script>location.href='lembretes.php'</script>";
@@ -46,6 +46,38 @@
         <input type='text' name='desc'> <br><br>
         <label>Data</label> <br>
         <input type='date' name='dt'> <br><br>
+        <?php 
+            $sqlRel = "select * from lembrete where limite_relatorio = 1";
+            $resRel = $conn->query($sqlRel);
+            $qtdRel = $resRel->num_rows;
+
+            $sqlRec = "select * from lembrete where limite_recuperacao = 1";
+            $resRec = $conn->query($sqlRec);
+            $qtdRec = $resRec->num_rows;
+
+            $sqlP = "select * from lembrete where limite_plano = 1";
+            $resP = $conn->query($sqlP);
+            $qtdP = $resP->num_rows;
+
+            if ($qtdRel == 0){
+                echo "<input type='checkbox' name='rel' value='1'>
+            <label for='rel'>Limite para envio do relatório de atividade</label> <br>";
+            } else {
+                echo "<input type='hidden' name='rel' value='0'>";
+            };
+            if ($qtdRec == 0){
+                echo "<input type='checkbox' name='rec' value='1'>
+            <label for='rec'>Limite para envio das recuperações paralelas</label> <br>";
+            } else {
+                echo "<input type='hidden' name='rec' value='0'>";
+            };
+            if($qtdP == 0){
+                echo "<input type='checkbox' name='plan' value='1'>
+            <label for='plan'>Limite para envio do plano de trabalho</label> <br>";
+            } else {
+                echo "<input type='hidden' name='plan' value='0'>";
+            };
+        ?>
         <button type='submit' name='adicionarL'>Adicionar lembrete</button>
     </form>
 </body>
