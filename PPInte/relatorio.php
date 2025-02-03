@@ -30,56 +30,57 @@
     }
 
     function enviaArquivo($professor, $turma, $disciplina, $arquivo){
-        echo $turma. "<br>";
-        echo $disciplina. "<br>";
-        echo $professor. "<br>";
         include('config.php');
 
-        $busca1 = "select * from lembrete where limite_recuperacao = 1";
+        $busca1 = "select * from lembrete where limite_relatorio = 1";
         $resB1 = $conn->query($busca1) or die($conn->error);
         $qtdB1 = $resB1->num_rows;
         $rowB1 = $resB1->fetch_object();
 
         
 
-        $busca4 = "select * from recuperacao where professor = '{$professor}' and disciplina = '{$disciplina}' and turma = '{$turma}'";
+        $busca4 = "select * from relatorio where prof = '{$professor}' and disc = '{$disciplina}' and turma = '{$turma}'";
         $resB4 = $conn->query($busca4) or die($conn->error);
         $qtdB4 = $resB4->num_rows;
 
         if($qtdB1 > 0){
-            $busca2 = "select * from recuperacao where professor = '{$professor}' and disciplina = '{$disciplina}' and turma = '{$turma}' and dat <= '{$rowB1->dt}'";
+            $busca2 = "select * from relatorio where prof = '{$professor}' and disc = '{$disciplina}' and turma = '{$turma}' and dat <= '{$rowB1->dt}'";
             $resB2 = $conn->query($busca2) or die($conn->error);
             $qtdB2 = $resB2->num_rows;
 
-            $busca3 = "select * from recuperacao where professor = '{$professor}' and disciplina = '{$disciplina}' and turma = '{$turma}' and dat > '{$rowB1->dt}'";
+            $busca3 = "select * from relatorio where prof = '{$professor}' and disc = '{$disciplina}' and turma = '{$turma}' and dat > '{$rowB1->dt}'";
             $resB3 = $conn->query($busca3) or die($conn->error);
             $qtdB3 = $resB3->num_rows;
             if($rowB1->dt > date("Y-m-d")){
                 if($qtdB2 == 0){
-                    $sql1 = "insert into recuperacao(professor, turma, disciplina, arquivo, dat) values('{$professor}', '{$turma}', '{$disciplina}', '{$arquivo}', '".date('Y-m-d')."')";
+                    $sql1 = "insert into relatorio(prof, turma, disc, arquivo, dat) values('{$professor}', '{$turma}', '{$disciplina}', '{$arquivo}', '".date('Y-m-d')."')";
                     $conn->query($sql1) or die($conn->error);
                 } else if ($qtdB2 > 0){
                     $rowB2 = $resB2->fetch_object();
-                    $sql2 = "update recuperacao set arquivo = '{$arquivo}', dat ='".date('Y-m-d')."' where id = '{$rowB2->id}'";
+                    echo "é no B2 <br>";
+                    echo date('Y-m-d')."<br>";
+                    $sql2 = "update relatorio set arquivo = '{$arquivo}', dat = '".date('Y-m-d')."' where id = '{$rowB2->id}'";
                     $conn->query($sql2) or die($conn->error);
                 }
             } else if($rowB1->dt < date("Y-m-d")){
                 if($qtdB3 == 0){
-                    $sql1 = "insert into recuperacao(professor, turma, disciplina, arquivo, dat) values('{$professor}', '{$turma}', '{$disciplina}', '{$arquivo}', '".date('Y-m-d')."')";
+                    $sql1 = "insert into relatorio(prof, turma, disc, arquivo, dat) values('{$professor}', '{$turma}', '{$disciplina}', '{$arquivo}', '".date('Y-m-d')."')";
                     $conn->query($sql1) or die($conn->error);
                 } else if ($qtdB3 > 0){
                     $rowB3 = $resB3->fetch_object();
-                    $sql2 = "update recuperacao set arquivo = '{$arquivo}', dat ='".date('Y-m-d')."' where id = '{$rowB3->id}'";
+                    echo "é no B3";
+                    $sql2 = "update relatorio set arquivo = '{$arquivo}', dat = '".date('Y-m-d')."' where id = '{$rowB3->id}'";
                     $conn->query($sql2) or die($conn->error);
                 }
             }
         } else{
             if($qtdB4 == 0){
-                $sql1 = "insert into recuperacao(professor, turma, disciplina, arquivo, dat) values('{$professor}', '{$turma}', '{$disciplina}', '{$arquivo}', '".date('Y-m-d')."')";
+                $sql1 = "insert into relatorio(prof, turma, disc, arquivo, dat) values('{$professor}', '{$turma}', '{$disciplina}', '{$arquivo}', '".date('Y-m-d')."')";
                 $conn->query($sql1) or die($conn->error);
             } else {
                 $rowB4 = $resB4->fetch_object();
-                $sql2 = "update recuperacao set arquivo = '{$arquivo}' where id = '{$rowB4->id}'";
+                echo "é no b4";
+                $sql2 = "update relatorio set arquivo = '{$arquivo}', dat = '".date('Y-m-d')."' where id = '{$rowB4->id}'";
                 $conn->query($sql2) or die($conn->error);
             }
         }
@@ -119,9 +120,10 @@
                 }
                 print "<script>alert('".$resultado."')</script>";
             } else {
-                $caminho = "recuperacoes/";
+                $caminho = "relatorios/";
                 $hoje = date("Y-m-d_h-1");
                 $novoNome = $hoje.'-'.$nomeArquivo;
+                echo $novoNome;
                 move_uploaded_file($nomeTemp, $caminho.$novoNome);
                 enviaArquivo($professor, $turma, $disciplina, $caminho.$novoNome);
             }
@@ -135,10 +137,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envio de recuperação paralela</title>
+    <title>Envio de relatório de atividades</title>
 </head>
 <body>
-    <form action='recuperacao.php' method='POST' enctype='multipart/form-data'>
+    <form action='relatorio.php' method='POST' enctype='multipart/form-data'>
         <label>Insira o arquivo PDF desejado</label>
         <input type='hidden' name='id_turma' value='<?php echo $turma ?>'>
         <input type='hidden' name='id_disc' value='<?php echo $disciplina ?>'>

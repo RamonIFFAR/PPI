@@ -152,7 +152,7 @@ where professor_disciplina.id_prof = '{$_SESSION['id_us']}' and disciplina_turma
             </form>
 
             <span>Enviar relatório de atividades</span><br>
-            <form method="POST" action='atividades.php'>
+            <form method="POST" action='relatorio.php'>
                 <input type='hidden' name='id_turma' value='<?php echo $id_turma?>'>
                 <label>Disciplina</label><br>
                 <select id="disc" name='id_disc'>
