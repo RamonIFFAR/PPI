@@ -53,6 +53,11 @@
             break-before: always;
             color: red;
         }
+
+        img {
+            width:200px; /* you can use % */
+            height: auto;
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,6 +82,7 @@
             echo "Estágio: ".$Brow->estagio ."<br>";
             echo "Acompanhamento: ".$Brow->acompanhamento ."<br>";
             echo "Turma: ".$Brow->turma ."<br>";
+            echo "<img src='".$Brow->foto."'> <br>";
         
     ?>
     <div style="page-break-after:always">
