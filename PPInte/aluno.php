@@ -61,17 +61,36 @@
 
 
 
-    function Atualizar($id, $matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento){
+    function Atualizar($id, $matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento, $foto){
         include('config.php');
+        
 
         $busca = "select * from aluno where matricula = '{$id}'";
         $hoje = date('Y-m-d');
         $pegaC = $conn->query($busca);
         $mostra = $pegaC->fetch_object();
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no aluno de nome ".$mostra->nome."', '". $hoje ."')";
+        $sqlH = "Insert into historico (id_us, descricao, dat) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no aluno de nome ".$mostra->nome."', '". $hoje ."')";
+        $conn->query($sqlH) or die($conn->error);
+
+        $sql = "UPDATE aluno SET matricula='{$matricula}', telefone='{$telefone}', email='{$email}', nome='{$nome}', genero='{$genero}', cidade='{$cidade}', dataNasc='{$dataNasc}', moradia='{$moradia}', cota='{$cota}', bolsa='{$bolsa}', orientador='{$orientador}', reprovacao='{$reprovacao}', equipTI='{$equipTI}', estagio='{$estagio}', cpf='{$cpf}', acompanhamento='{$acompanhamento}', foto='{$foto}' where matricula = '{$id}'";
+        
+        $conn->query($sql) or die($conn->error);
+        print "<script> location.href='alunos.php'</script>";
+    }
+
+    function Atualizar2($id, $matricula, $telefone, $email, $nome, $genero, $cidade, $dataNasc, $moradia, $cota, $bolsa, $orientador, $reprovacao, $equipTI, $estagio, $cpf, $acompanhamento){
+        include('config.php');
+        
+
+        $busca = "select * from aluno where matricula = '{$id}'";
+        $hoje = date('Y-m-d');
+        $pegaC = $conn->query($busca);
+        $mostra = $pegaC->fetch_object();
+        $sqlH = "Insert into historico (id_us, descricao, dat) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no aluno de nome ".$mostra->nome."', '". $hoje ."')";
         $conn->query($sqlH) or die($conn->error);
 
         $sql = "UPDATE aluno SET matricula='{$matricula}', telefone='{$telefone}', email='{$email}', nome='{$nome}', genero='{$genero}', cidade='{$cidade}', dataNasc='{$dataNasc}', moradia='{$moradia}', cota='{$cota}', bolsa='{$bolsa}', orientador='{$orientador}', reprovacao='{$reprovacao}', equipTI='{$equipTI}', estagio='{$estagio}', cpf='{$cpf}', acompanhamento='{$acompanhamento}' where matricula = '{$id}'";
+        
         $conn->query($sql) or die($conn->error);
         print "<script> location.href='alunos.php'</script>";
     }
@@ -136,8 +155,50 @@
         <div class="Posicao2">
     <?php 
         if(isset($_POST['atualizar'])){
-            Atualizar($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento']);
-        }
+            if (! empty($_FILES['foto']['name'])){
+            $nomeFoto = $_FILES['foto']['name'];
+            $tipo = $_FILES['foto']['type'];
+                                $nomeTemporario = $_FILES['foto']['tmp_name'];
+                                $tamanho = $_FILES['foto']['size'];
+                                $erros = array();  
+
+                                $tamanhoMax = 1024 * 1024 * 50;
+
+                                if($tamanho > $tamanhoMax){
+                                    $erros[] = "Tamanho do arquivo excedido";
+                                }
+
+                                $arquivosPermitidos = ["png", "jpeg", "jpg"];
+                                $extensao = pathinfo($nomeFoto, PATHINFO_EXTENSION);
+                                if ( ! in_array($extensao, $arquivosPermitidos)){
+                                    $erros[] = "Arquivo inválido";
+                                }
+
+                                $tiposPermitidos = ["image/png", "image/jpeg", "image/jpg"];
+                                if ( ! in_array($tipo, $tiposPermitidos)){
+                                    $erros[] = "Tipo de arquivo inválido";
+                                }
+
+                                if (! empty($erros)) {
+                                    foreach ($erros as $erro){
+                                        echo $erro;
+                                    }
+                                } else {
+                                    $caminho = "fotos/";
+                                    $hoje = date("d-m-Y");
+                                    $novoNome = $hoje."-".$nomeFoto;
+                                    if(move_uploaded_file($nomeTemporario, $caminho.$novoNome)) {
+                                        echo 'upload com sucesso';
+                                        Atualizar($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento'], $caminho.$novoNome);
+                                    }else {
+                                        echo "faha no upload";
+                                    }
+                                }
+                            } else {
+                                Atualizar2($_POST['id'], $_POST['matricula'], $_POST['telefone'], $_POST['email'], $_POST['nome'], $_POST['genero'], $_POST['cidade'], $_POST['dataNasc'], $_POST['moradia'], $_POST['cota'], $_POST['bolsa'], $_POST['orientador'], $_POST['reprovacao'], $_POST['equipTI'], $_POST['estagio'], $_POST['cpf'], $_POST['acompanhamento']);
+                            }
+                        }
+        
         if ($qtdChecagem > 0) {
 
         similar_text($UsoC->tipo, "DE", $percent);
@@ -147,7 +208,7 @@
         </button>
         </div>
         
-                    <form action='aluno.php' method='POST'>
+                    <form action='aluno.php' method='POST' enctype="multipart/form-data">
                         <input type='hidden' name='id' value="<?php echo $aluno ?>"> <br>
                         <label>Matrícula</label>
                         <input type='text' name='matricula' value="<?php echo $aluno ?>"> <br>
@@ -181,6 +242,13 @@
                         <input type='text' name='cpf' value="<?php echo $resSet['cpf'] ?>"> <br>
                         <label>Acompanhamento</label>
                         <input type='text' name='acompanhamento' value="<?php echo $resSet['acompanhamento'] ?>"> <br>
+                        <div class="Foto">
+                            <label for="foto">Insira uma foto:</label>
+                            <label for="foto" class="custom-file-upload">
+                            <input type="file" id="foto" name="foto" style="display: none;">
+                                <img src="<?php echo $resSet['foto']?>" alt="Escolher arquivo"> <!-- Imagem que funciona como botão -->
+                            </label>
+                        </div>
                         <button type="submit" name="atualizar">Salvar Informações</button>
                     </form>
         <?php } }else {
