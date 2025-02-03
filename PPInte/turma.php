@@ -72,6 +72,7 @@
         ?>
         <button onclick="location.href='ed_turma.php?id_turma=<?php echo $id_turma;?>'">Editar turma</button> <br> <br>
         <button onclick="location.href='gerar_parecer.php?id_turma=<?php echo $id_turma;?>'">Gerar parecer</button> <br> <br>
+        <button onclick="location.href='gerar_slides.php?id_turma=<?php echo $id_turma;?>'">Gerar material para o conselho de classe</button> <br> <br>
         <?php 
     } else{
     }
@@ -86,6 +87,7 @@ inner join disciplina_turma on professor_turma.id_turma = disciplina_turma.id_tu
 inner join disciplina on disciplina.id = professor_disciplina.id_disc and disciplina.id = disciplina_turma.id_disc
 where professor_disciplina.id_prof = '{$_SESSION['id_us']}' and disciplina_turma.id_turma = '{$id_turma}'";
     $resFP = $conn->query($sqlFP) or die($conn->error);
+    $resFreq = $conn->query($sqlFP) or die ($conn->error);
 
 ?>
 
@@ -110,6 +112,18 @@ where professor_disciplina.id_prof = '{$_SESSION['id_us']}' and disciplina_turma
                             }
                         ?> 
                 </select> <br> <button type='submit' name='cadastrar'>Cadastrar notas da turma</button><br><br>
+            </form>
+            <form method="POST" action='frequencia.php'>
+                <input type='hidden' name='id_turma' value='<?php echo $id_turma?>'>
+                <label>Disciplina</label><br>
+                <select id="disc" name='id_disc'>
+                        <option value="hollow" selected>       </option>
+                        <?php
+                            while($rowFreq = $resFreq->fetch_object()){
+                                echo "<option value='" . $rowFreq->id_disc . "'>" . $rowFreq->nome . "</option>";
+                            }
+                        ?> 
+                </select> <br> <button type='submit' name='cadastrar'>Cadastrar frequência da turma</button><br><br>
             </form>
                 
                 <div class="top-bar">

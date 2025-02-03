@@ -40,7 +40,7 @@
 
     function addFreq($disciplina, $aluno, $frequencia){
         include('config.php');
-        $sqlC = "select * from frequencia where matricula = '{$aluno}'";
+        $sqlC = "select * from frequencia where matricula = '{$aluno}' and disciplina= '{$disciplina}'";
         $resC = $conn->query($sqlC);
         $qtdC = $resC->num_rows;
         if($qtdC > 0){
