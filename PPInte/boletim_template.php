@@ -47,6 +47,29 @@ $alunos = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boletim Escolar</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+        }
+        .titulo {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .boletim-container {
+            margin-top: 40px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -66,39 +89,47 @@ $alunos = $stmt->get_result();
     </style>
 </head>
 <body>
-    <?php while ($aluno = $alunos->fetch_object()): ?>
-        <h2>Aluno: <?= htmlspecialchars($aluno->nome) ?> | Matrícula: <?= htmlspecialchars($aluno->matricula) ?></h2>
 
-        <?php
-        
-        $stmt = $conn->prepare("
-            SELECT d.nome AS disciplina, a.NOTA1, f.faltas 
-            FROM disciplina d
-            INNER JOIN avaliacao a ON a.id_disc = d.id
-            INNER JOIN frequencia f ON f.disciplina = d.id
-            WHERE f.matricula = ? AND a.id_aluno = ?
-        ");
-        $stmt->bind_param("ii", $aluno->matricula, $aluno->matricula);
-        $stmt->execute();
-        $notas = $stmt->get_result();
-        ?>
+    <div class="header">
+        <div class="titulo">Boletim Escolar</div>
+        <img src="Imagens/LogoIffar.png" alt="Logo da Instituição" class="logo">
+    </div>
 
-        <table>
-            <tr>
-                <th>Disciplina</th>
-                <th>Nota</th>
-                <th>Faltas</th>
-            </tr>
-            <?php while ($nota = $notas->fetch_object()): ?>
+    <div class="boletim-container">
+        <?php while ($aluno = $alunos->fetch_object()): ?>
+            <h2>Aluno: <?= htmlspecialchars($aluno->nome) ?> | Matrícula: <?= htmlspecialchars($aluno->matricula) ?></h2>
+
+            <?php
+            $stmt = $conn->prepare("
+                SELECT d.nome AS disciplina, a.NOTA1, f.faltas 
+                FROM disciplina d
+                INNER JOIN avaliacao a ON a.id_disc = d.id
+                INNER JOIN frequencia f ON f.disciplina = d.id
+                WHERE f.matricula = ? AND a.id_aluno = ?
+            ");
+            $stmt->bind_param("ii", $aluno->matricula, $aluno->matricula);
+            $stmt->execute();
+            $notas = $stmt->get_result();
+            ?>
+
+            <table>
                 <tr>
-                    <td><?= htmlspecialchars($nota->disciplina) ?></td>
-                    <td><?= htmlspecialchars($nota->NOTA1) ?></td>
-                    <td><?= htmlspecialchars($nota->faltas) ?></td>
+                    <th>Disciplina</th>
+                    <th>Nota</th>
+                    <th>Faltas</th>
                 </tr>
-            <?php endwhile; ?>
-        </table>
+                <?php while ($nota = $notas->fetch_object()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($nota->disciplina) ?></td>
+                        <td><?= htmlspecialchars($nota->NOTA1) ?></td>
+                        <td><?= htmlspecialchars($nota->faltas) ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </table>
 
-        <div class="page-break"></div>
-    <?php endwhile; ?>
+            <div class="page-break"></div>
+        <?php endwhile; ?>
+    </div>
+
 </body>
 </html>
