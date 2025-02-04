@@ -37,6 +37,8 @@
 
     $Baluno = "select *, turma.nome as turma from aluno inner join turma on aluno.id_turma = turma.id where turma.id = '{$turma}'";
     $Bres = $conn->query($Baluno);
+
+    
     
 ?>
 
@@ -66,8 +68,13 @@
 <body>
     <?php 
         while($Brow = $Bres->fetch_object()){
+            $sqlN = "select NOTA1, NOTA2, disciplina.nome as disciplina from avaliacao inner join disciplina on avaliacao.id_disc = disciplina.id where id_aluno = '{$Brow->matricula}'";
+            $resN = $conn->query($sqlN) or die($conn->error);
+            $rowN = $resN->fetch_object();
+            $qtdN = $resN->num_rows;
+
             echo "Aluno: ".$Brow->nome ."<br>";
-            echo "Matrícula: ".$Brow->genero ."<br>";
+            echo "Matrícula: ".$Brow->matricula ."<br>";
             echo "Telefone: ".$Brow->telefone ."<br>";
             echo "Email: ".$Brow->email ."<br>";
             echo "Gênero: ".$Brow->genero ."<br>";
@@ -82,6 +89,14 @@
             echo "Estágio: ".$Brow->estagio ."<br>";
             echo "Acompanhamento: ".$Brow->acompanhamento ."<br>";
             echo "Turma: ".$Brow->turma ."<br>";
+            if ($qtdN > 0){
+                if ($rowN->NOTA1 < 6){
+                    echo "Nota do primeiro semestre de ".$rowN->disciplina.": ".$rowN->NOTA1."<br>";
+                }
+                if ($rowN->NOTA1 < 7){
+                    echo "Nota do segundo semestre de ".$rowN->disciplina.": ".$rowN->NOTA2."<br>";
+                }
+                }
             echo "<img src='".$Brow->foto."'> <br>";
         
     ?>
