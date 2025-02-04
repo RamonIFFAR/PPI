@@ -1,10 +1,13 @@
 <?php 
-    $x = 0;
+    date_default_timezone_set('America/Sao_Paulo');
+
+
     while (true){
-        $myfile = fopen("newfile.txt", "a") or die("Unable to open file!");
-        $txt = "John Doe\n";
+        sleep(2);
+        $myfile = fopen("Status.txt", "a") or die("Unable to open file!");
+        $txt = "O sistema está de pé!\n";
         fwrite($myfile, $txt);
-        $txt = "Jane Doe\n";
+        $txt = "".date('d-m-Y, H:i:s')."\n\n";
         fwrite($myfile, $txt);
         fclose($myfile);
     }
