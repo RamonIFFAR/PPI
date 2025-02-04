@@ -1,4 +1,10 @@
 <?php 
+
+    /*
+    *
+    * CORRIGIDOOOOOOOOOOOOOOO
+    * 
+    */
     require("config.php");
 
     session_start();
@@ -17,7 +23,8 @@
         similar_text($senha1, $senha2, $percent);
         if($percent == 100){
             include('config.php');
-            $SQLat = "update usuario set senha= '{$senha1}' where id_us = '{$id}'";
+            $hashed_password = password_hash($senha1, PASSWORD_DEFAULT);
+            $SQLat = "update usuario set senha= '{$hashed_password}' where id_us = '{$id}'";
             $SQLexe = $conn->query($SQLat);
             echo "<script> alert('Senha alterada com sucesso!') </script>";
         } else{
