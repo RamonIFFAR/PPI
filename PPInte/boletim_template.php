@@ -1,89 +1,104 @@
 <?php
-    require('config.php');
+require('config.php');
+session_start();
 
-    // Inicia a sessão
-    session_start();
 
-    $turma = $_REQUEST['id_turma'];
+if (isset($_REQUEST['sair'])) {
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
 
-    // Finaliza a sessão
-    if(isset($_REQUEST['sair'])){
-        session_destroy();
-        print "<script>location.href='index.php'</script>";
-        
-    }
 
-    // XXXXXXXXXX Confere se o usuário está logado XXXXXXXXXXXXXX
-    $Checagem = "select * from usuario where senha = '{$_SESSION['senha']}' and email= '{$_SESSION['email']}'";
-    $QChecagem = $conn->query($Checagem);
-    $tes = $QChecagem->fetch_object();
-    $procura = $QChecagem->num_rows; 
+if (!isset($_SESSION['senha'], $_SESSION['email'])) {
+    echo "<script>alert('Você precisa estar logado para acessar o sistema'); location.href='index.php';</script>";
+    exit();
+}
 
-    // Usado para conferir se o setor é da DE
-    $Checagem = "select * from setor where id_set = '{$_SESSION['id_us']}' and tipo like 'DE'";
-    $ConsultaC = $conn->query($Checagem);
-    $UsoC = $ConsultaC->fetch_object();
-    $qtdChecagem = $ConsultaC->num_rows;
+$turma = $_REQUEST['id_turma'] ?? null;
 
-    // XXXXXXXXXX If que confere se o usuário está logado XXXXXXXXXXXXXX
-    if($procura > 0){
+if (!$turma) {
+    echo "<script>alert('Turma inválida!'); location.href='index.php';</script>";
+    exit();
+}
 
-    } else {
-        print"<script>alert('Você precisa estar logado para poder acessar o sistema')</script>";
-        print"<script>location.href=index.php</script>";
-    }
 
-    
+$stmt = $conn->prepare("SELECT * FROM usuario WHERE senha = ? AND email = ?");
+$stmt->bind_param("ss", $_SESSION['senha'], $_SESSION['email']);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    $Baluno = "select matricula, aluno.nome from aluno inner join turma on aluno.id_turma = turma.id where turma.id = '{$turma}'";
-    $Bres = $conn->query($Baluno);
-    
+if ($result->num_rows === 0) {
+    echo "<script>alert('Você precisa estar logado para acessar o sistema'); location.href='index.php';</script>";
+    exit();
+}
+
+
+$stmt = $conn->prepare("SELECT matricula, nome FROM aluno WHERE id_turma = ?");
+$stmt->bind_param("i", $turma);
+$stmt->execute();
+$alunos = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        };
-
-        .break {
-            break-before: always;
-            color: red;
-        }
-    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Boletim Escolar</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
 </head>
 <body>
-    <?php 
-        while($Brow = $Bres->fetch_object()){
-            echo "Aluno: ".$Brow->nome." Matricula: ".$Brow->matricula;     
-            $sql = "select * from disciplina inner join avaliacao on avaliacao.id_disc = disciplina.id inner join frequencia on frequencia.disciplina = disciplina.id where frequencia.matricula = '{$Brow->matricula}' and frequencia.matricula = avaliacao.id_aluno; ";
-            $res = $conn->query($sql) or die($conn->error);
-    ?>
-    <div style="page-break-after:always">
-    <table style="width: 100%">
-        <tr>
-            <th style="width: 70%">Disciplina</th>
-            <th>Nota</th>
-            <th>Faltas</th>
-        </tr>
-        <?php 
-            
-            while($row = $res->fetch_object()){
-                echo "<tr>";
-                echo "<td>".$row->nome."</td>";
-                echo "<td>".$row->NOTA1."</td>";
-                echo "<td> ".$row->faltas." </td>";
-                echo "</tr>";
-            }  
-            echo "</table>";
-            echo "</div>";
-        }
+    <?php while ($aluno = $alunos->fetch_object()): ?>
+        <h2>Aluno: <?= htmlspecialchars($aluno->nome) ?> | Matrícula: <?= htmlspecialchars($aluno->matricula) ?></h2>
+
+        <?php
+        
+        $stmt = $conn->prepare("
+            SELECT d.nome AS disciplina, a.NOTA1, f.faltas 
+            FROM disciplina d
+            INNER JOIN avaliacao a ON a.id_disc = d.id
+            INNER JOIN frequencia f ON f.disciplina = d.id
+            WHERE f.matricula = ? AND a.id_aluno = ?
+        ");
+        $stmt->bind_param("ii", $aluno->matricula, $aluno->matricula);
+        $stmt->execute();
+        $notas = $stmt->get_result();
         ?>
+
+        <table>
+            <tr>
+                <th>Disciplina</th>
+                <th>Nota</th>
+                <th>Faltas</th>
+            </tr>
+            <?php while ($nota = $notas->fetch_object()): ?>
+                <tr>
+                    <td><?= htmlspecialchars($nota->disciplina) ?></td>
+                    <td><?= htmlspecialchars($nota->NOTA1) ?></td>
+                    <td><?= htmlspecialchars($nota->faltas) ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+
+        <div class="page-break"></div>
+    <?php endwhile; ?>
 </body>
 </html>
