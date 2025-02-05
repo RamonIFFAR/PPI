@@ -45,41 +45,41 @@
         $rowN = $resN->fetch_object();
         $qtdN = $resN->num_rows;
         if ($qtdN > 0){
-            echo "<td class='Nomes'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='NOTA1-". $n ."' value='". $rowN->NOTA1 ."'>";
             echo "</td>";
-            echo "<td class='Nomes'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='AIS-". $n ."' value='". $rowN->AIS ."'>";
             echo "</td>";
-            echo "<td class='Nomes'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='NOTA2-". $n ."' value='". $rowN->NOTA2 ."'>";
             echo "</td>";
-            echo "<td class='Nomes'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='MC-". $n ."' value='". $rowN->MC ."'>";
             echo "</td>";
-            echo "<td class='Nomes'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='PPI-". $n ."' value='". $rowN->PPI ."'>";
             echo "</td>";
-            echo "<td class='Nomes'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='AIA-". $n ."' value='". $rowN->AIA ."'>";
             echo "</td>";
         } else{
             echo "<td class='N1'>";
             echo "<input type='number' name='NOTA1-". $n ."'>";
             echo "</td>";
-            echo "<td class='AISS'>";
+            echo "<td class='N1'>";
             echo "<input type='number' name='AIS-". $n ."'>";
             echo "</td>";
-            echo "<td class='Nota2'>";
+            echo "<td class='N1'>";
             echo "<input type='number' name='NOTA2-". $n ."'>";
             echo "</td>";
-            echo "<td class='MCC'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='MC-". $n ."'>";
             echo "</td>";
-            echo "<td class='PPII'>";
+            echo "<td class='N1'>";
             echo "<input type='number' name='PPI-". $n ."'>";
             echo "</td>";
-            echo "<td class='AIAA'>";
+            echo "<td class='N1'>";
             echo "<input type='number' name='AIA-". $n ."'>";
             echo "</td>";
         }
@@ -120,14 +120,6 @@
     if(isset($_POST['atNotas'])){
         $n = 1;
         while($n < $_POST['nNotas']){
-            echo $id_disc;
-            echo $_POST['id-'.$n];
-            echo $_POST['PPI-'.$n];
-            echo $_POST['AIS-'.$n];
-            echo $_POST['AIA-'.$n];
-            echo $_POST['NOTA1-'.$n];
-            echo $_POST['NOTA2-'.$n];
-            echo $_POST['MC-'.$n];
              addNotas($id_disc, $_POST['id-'.$n], $_POST['PPI-'.$n], $_POST['AIS-'.$n], $_POST['AIA-'.$n], $_POST['NOTA1-'.$n], $_POST['NOTA2-'.$n], $_POST['MC-'.$n]);
              $n++;
         }
