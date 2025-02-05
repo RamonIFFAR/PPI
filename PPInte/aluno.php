@@ -205,6 +205,7 @@
         if($percent  == 100) { ?>
         <button onclick="if(confirm('Tem certeza que deseja excluir esse aluno?')){location.href='aluno.php?id= <?php echo $aluno ?>&excluir=1'}">
         <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
+        
         </button>
         </div>
         
@@ -251,6 +252,7 @@
                         </div>
                         <button type="submit" name="atualizar">Salvar Informações</button>
                     </form>
+                    <button onclick="location.href='notas_aluno.php?id_aluno= <?php echo $aluno ?>'"> Ver notas do aluno</button>
         <?php } }else {
                 print $resSet['matricula'] . "<br>";
                 print $resSet['telefone'] . "<br>";
