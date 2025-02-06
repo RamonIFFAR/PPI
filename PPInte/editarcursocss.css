@@ -171,16 +171,16 @@ h1 {
 
 .Foto {
     position: absolute;
-    top: 480px;
-    left: 615px;
+    top: 430px;
+    left: 950px;
 }
 
 .custom-file-upload {
     position: absolute;
     width: 117px;
     height: 100px;
-    left: 170px;
-    top: -20px;
+    left: 20px;
+    top: 40px;
     background-color: #004b21;
     display: flex;
     align-items: center;
@@ -196,14 +196,15 @@ h1 {
     vertical-align: middle;
 }
 
+/* CPF */
 .DefinirCod {
     position: absolute;
-    left: 1150px;
-    top: 200px;
+    top: 430px;
+    left: 600px;
 }
 
-.DefinirCod select {
-    width: 300px;
-    height: 55px;
-    border-radius: 5px;
+.DefinirCod option {
+    position: absolute;
+    width: 230px;
+    height: 50px;
 }

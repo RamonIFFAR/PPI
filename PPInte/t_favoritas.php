@@ -53,6 +53,7 @@
 </head>
 <body>
     <h1>Turmas favoritas</h1><br><br>
+    <button onClick="location.href='painel.php'">Voltar</button><br>
     <?php
         while($row = $res->fetch_object()){
             echo "<span>Turma ". $row->nome ."</span> <a href='turma.php?id=". $row->id_turma ."'>Ver mais</a>";

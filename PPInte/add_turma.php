@@ -21,7 +21,7 @@
 
     } else {
         print"<script>alert('Você precisa estar logado para poder acessar o sistema')</script>";
-        print"<script>location.href=index.php</script>";
+        print"<script>location.href='index.php'</script>";
     }
 
     //  XXXXXXXXXX If que confere se o usuário é um setor DE XXXXXXXXXXXXXX
@@ -29,7 +29,7 @@
 
     } else{
         print"<script>alert('Você não tem permissão para estar aqui')</script>";
-        print"<script>location.href=index.php</script>";
+        print"<script>location.href='painel.php'</script>";
     }
 
     function addTurma($numero, $sala, $descricao, $curso){

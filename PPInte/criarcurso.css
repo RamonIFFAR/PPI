@@ -159,7 +159,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     top: 600px;
-    left: 17%;
+    left: 18%;
 }
 
 button:hover {
@@ -207,7 +207,7 @@ h1 {
     font-style: Italic;
     letter-spacing: 1px;
     top: 10%;
-    left: 17%;
+    left: 18%;
 }   
 
 .message {

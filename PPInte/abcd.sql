@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03/02/2025 às 23:42
+-- Tempo de geração: 31/01/2025 às 21:20
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -44,20 +44,15 @@ CREATE TABLE `aluno` (
   `estagio` varchar(255) DEFAULT NULL,
   `cpf` varchar(11) NOT NULL,
   `acompanhamento` varchar(255) DEFAULT NULL,
-  `id_turma` int(11) NOT NULL,
-  `foto` varchar(200) NOT NULL
+  `id_turma` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `aluno`
 --
 
-INSERT INTO `aluno` (`matricula`, `telefone`, `email`, `nome`, `genero`, `cidade`, `dataNasc`, `moradia`, `cota`, `bolsa`, `orientador`, `reprovacao`, `equipTI`, `estagio`, `cpf`, `acompanhamento`, `id_turma`, `foto`) VALUES
-(111, '22', 'c@gmail.com', 'esperança', 'g', 'c', '2025-01-28', 'telefone', 'teste', 'd', 'teste', 'd', 'teste', 'teste', '02474728082', 'n', 25, 'fotos/03-02-2025-Olho seco.jpg'),
-(222, '4', 'bah@gmail.com', 'ttbrttt', 'tt', 'tt', '2025-02-05', 'nao', '3', 't', 't', '4', 't', 't', '3', 'tem', 25, ''),
-(333, '234234', 'wer@gmail.com', 'SuperFly', 'wer', 'wer', 'wer', 'wer', 'wer', 'wer', 'wer', 'wer', 'wer', 'wer', 'wer', 'wer', 25, 'fotos/03-02-2025-deus da frustração.jpg'),
-(6354, '888', 'emil@gmail.com', 'nome', 'genero', 'ci', 'nasc', 'mor', 'cot', 'bol', 'or', 'rep', 'equip', 'est', 'cpf', 'acomp', 25, ''),
-(787878, '513', 'tomei@gmail.com', 'super aluno', 'masculino', 'palmitinho', '2025-02-18', 'não', 'LI_EP', 'tem', 'Godofredo', 'sim, várias', 'nenhum', '4', '8', 'batata frita', 25, '');
+INSERT INTO `aluno` (`matricula`, `telefone`, `email`, `nome`, `genero`, `cidade`, `dataNasc`, `moradia`, `cota`, `bolsa`, `orientador`, `reprovacao`, `equipTI`, `estagio`, `cpf`, `acompanhamento`, `id_turma`) VALUES
+(6354, '888', 'emil@gmail.com', 'nome', 'genero', 'ci', 'nasc', 'mor', 'cot', 'bol', 'or', 'rep', 'equip', 'est', 'cpf', 'acomp', 25);
 
 -- --------------------------------------------------------
 
@@ -82,13 +77,7 @@ CREATE TABLE `avaliacao` (
 --
 
 INSERT INTO `avaliacao` (`id`, `id_disc`, `id_aluno`, `PPI`, `AIS`, `AIA`, `NOTA1`, `NOTA2`, `MC`) VALUES
-(9, 5, 6354, 6, 6, 6, 4, 6, 6),
-(10, 5, 787878, 8, 8, 8, 8, 8, 8),
-(13, 2, 6354, 7, 7, 7, 7, 7, 7),
-(17, 4, 6354, 8, 8, 8, 8, 8, 8),
-(18, 4, 787878, 6, 6, 6, 6, 6, 6),
-(19, 4, 111, 9, 9, 9, 9, 9, 9),
-(20, 5, 111, 9, 9, 9, 9, 9, 9);
+(9, 5, 6354, 3, 3, 3, 3, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -165,8 +154,7 @@ CREATE TABLE `disciplina_turma` (
 --
 
 INSERT INTO `disciplina_turma` (`id`, `id_disc`, `id_turma`) VALUES
-(19, 5, 25),
-(21, 4, 25);
+(19, 5, 25);
 
 -- --------------------------------------------------------
 
@@ -198,11 +186,7 @@ CREATE TABLE `frequencia` (
 --
 
 INSERT INTO `frequencia` (`id`, `disciplina`, `matricula`, `faltas`) VALUES
-(5, 5, 6354, 1),
-(6, 4, 6354, 3),
-(7, 4, 787878, 8),
-(8, 5, 111, 2),
-(9, 5, 787878, 5);
+(5, 5, 6354, 0);
 
 -- --------------------------------------------------------
 
@@ -263,86 +247,7 @@ INSERT INTO `historico` (`id`, `id_us`, `descricao`, `dat`) VALUES
 (39, 28, 'teste', '0000-00-00'),
 (40, 28, 'Usuário excluiu o professor de nome pp', '0000-00-00'),
 (41, 28, 'teste', '2025-01-31'),
-(42, 28, 'Usuário excluiu o professor de nome pp', '2025-01-31'),
-(43, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(44, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(45, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(46, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(47, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(48, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(49, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(50, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(51, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(52, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(53, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(54, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(55, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(56, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(57, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(58, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(59, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(60, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(61, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(62, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(63, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(64, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(65, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(66, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(67, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(68, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(69, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(70, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(71, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(72, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(73, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(74, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(75, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(76, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(77, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(78, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(79, 28, 'Usuário realizou uma alteração na disciplina de nome ', '2025-02-02'),
-(80, 28, 'Usuário realizou uma alteração na disciplina de nome Disciplina teste 2', '2025-02-02'),
-(81, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(82, 28, 'Usuário realizou uma alteração na disciplina de nome teste disciplina novo', '2025-02-02'),
-(83, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(84, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome ', '2025-02-02'),
-(85, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome  Vinícius P Polastri', '2025-02-02'),
-(86, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(87, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome  Vinícius P Polastri', '2025-02-02'),
-(88, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(89, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome ', '2025-02-02'),
-(90, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(91, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome ', '2025-02-02'),
-(92, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(93, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome ', '2025-02-02'),
-(94, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(95, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome ', '2025-02-02'),
-(96, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(97, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome ', '2025-02-02'),
-(98, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(99, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome ', '2025-02-02'),
-(100, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(101, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(102, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(103, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(104, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(105, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(106, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome  Vinícius P Polastri', '2025-02-02'),
-(107, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(108, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(109, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(110, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(111, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(112, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(113, 28, 'Usuário realizou a remoção de uma disciplina do professor de nome  Vinícius P Polastri', '2025-02-02'),
-(114, 28, 'Usuário realizou uma alteração na disciplina de nome disciplina de teste para procura ', '2025-02-02'),
-(115, 28, 'Usuário realizou uma alteração na disciplina de nome Economia aplicada', '2025-02-02'),
-(116, 28, 'Usuário realizou uma alteração no aluno de nome rew', '2025-02-03'),
-(117, 28, 'Usuário realizou uma alteração no aluno de nome rew', '2025-02-03'),
-(118, 28, 'Usuário realizou uma alteração no aluno de nome rew', '2025-02-03'),
-(119, 28, 'Usuário realizou uma alteração no aluno de nome esperança', '2025-02-03'),
-(120, 28, 'Usuário realizou uma alteração no aluno de nome t', '2025-02-03'),
-(121, 28, 'Usuário realizou uma alteração no aluno de nome t', '2025-02-03');
+(42, 28, 'Usuário excluiu o professor de nome pp', '2025-01-31');
 
 -- --------------------------------------------------------
 
@@ -355,41 +260,15 @@ CREATE TABLE `lembrete` (
   `nome` varchar(50) DEFAULT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   `dt` date DEFAULT NULL,
-  `id_us` int(11) NOT NULL,
-  `limite_relatorio` tinyint(1) NOT NULL,
-  `limite_plano` tinyint(1) NOT NULL,
-  `limite_recuperacao` tinyint(1) NOT NULL
+  `id_us` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `lembrete`
 --
 
-INSERT INTO `lembrete` (`id`, `nome`, `descricao`, `dt`, `id_us`, `limite_relatorio`, `limite_plano`, `limite_recuperacao`) VALUES
-(6, 'mais um lembrete', 'outro lembrete', '2024-11-28', 28, 0, 1, 0),
-(7, 'Limite teste1', 'teste de limites', '2025-02-11', 28, 1, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `plano`
---
-
-CREATE TABLE `plano` (
-  `id` int(11) NOT NULL,
-  `prof` int(11) NOT NULL,
-  `disc` int(11) NOT NULL,
-  `turma` int(11) NOT NULL,
-  `arquivo` varchar(200) NOT NULL,
-  `dat` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `plano`
---
-
-INSERT INTO `plano` (`id`, `prof`, `disc`, `turma`, `arquivo`, `dat`) VALUES
-(1, 48, 4, 25, 'planos/2025-02-03_11-1-document.pdf', '2025-02-03');
+INSERT INTO `lembrete` (`id`, `nome`, `descricao`, `dt`, `id_us`) VALUES
+(6, 'mais um lembrete', 'outro lembrete', '2024-11-28', 28);
 
 -- --------------------------------------------------------
 
@@ -428,8 +307,7 @@ CREATE TABLE `professor_disciplina` (
 --
 
 INSERT INTO `professor_disciplina` (`id`, `id_prof`, `id_disc`) VALUES
-(34, 48, 4),
-(52, 48, 5);
+(18, 48, 5);
 
 -- --------------------------------------------------------
 
@@ -449,50 +327,6 @@ CREATE TABLE `professor_turma` (
 
 INSERT INTO `professor_turma` (`id`, `id_prof`, `id_turma`) VALUES
 (16, 48, 25);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `recuperacao`
---
-
-CREATE TABLE `recuperacao` (
-  `id` int(11) NOT NULL,
-  `arquivo` varchar(250) NOT NULL,
-  `professor` int(11) NOT NULL,
-  `disciplina` int(11) NOT NULL,
-  `turma` int(11) NOT NULL,
-  `dat` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `recuperacao`
---
-
-INSERT INTO `recuperacao` (`id`, `arquivo`, `professor`, `disciplina`, `turma`, `dat`) VALUES
-(3, 'recuperacoes/2025-02-03_10-1-document.pdf', 48, 4, 25, '2025-02-03');
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `relatorio`
---
-
-CREATE TABLE `relatorio` (
-  `id` int(11) NOT NULL,
-  `prof` int(11) NOT NULL,
-  `disc` int(11) NOT NULL,
-  `turma` int(11) NOT NULL,
-  `arquivo` varchar(200) NOT NULL,
-  `dat` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `relatorio`
---
-
-INSERT INTO `relatorio` (`id`, `prof`, `disc`, `turma`, `arquivo`, `dat`) VALUES
-(4, 48, 4, 25, 'relatorios/2025-02-03_11-1-document.pdf', '2025-02-03');
 
 -- --------------------------------------------------------
 
@@ -654,15 +488,6 @@ ALTER TABLE `lembrete`
   ADD KEY `id_us` (`id_us`);
 
 --
--- Índices de tabela `plano`
---
-ALTER TABLE `plano`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `prof` (`prof`),
-  ADD KEY `disc` (`disc`),
-  ADD KEY `turma` (`turma`);
-
---
 -- Índices de tabela `professor`
 --
 ALTER TABLE `professor`
@@ -683,24 +508,6 @@ ALTER TABLE `professor_turma`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_prof` (`id_prof`),
   ADD KEY `professor_turma_ibfk_1` (`id_turma`);
-
---
--- Índices de tabela `recuperacao`
---
-ALTER TABLE `recuperacao`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `disciplina` (`disciplina`),
-  ADD KEY `professor` (`professor`),
-  ADD KEY `turma` (`turma`);
-
---
--- Índices de tabela `relatorio`
---
-ALTER TABLE `relatorio`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `relatorio_ibfk_1` (`disc`),
-  ADD KEY `relatorio_ibfk_2` (`prof`),
-  ADD KEY `relatorio_ibfk_3` (`turma`);
 
 --
 -- Índices de tabela `setor`
@@ -729,7 +536,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `comentario`
@@ -753,7 +560,7 @@ ALTER TABLE `disciplina`
 -- AUTO_INCREMENT de tabela `disciplina_turma`
 --
 ALTER TABLE `disciplina_turma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `favorita`
@@ -765,49 +572,31 @@ ALTER TABLE `favorita`
 -- AUTO_INCREMENT de tabela `frequencia`
 --
 ALTER TABLE `frequencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `historico`
 --
 ALTER TABLE `historico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de tabela `lembrete`
 --
 ALTER TABLE `lembrete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de tabela `plano`
---
-ALTER TABLE `plano`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `professor_disciplina`
 --
 ALTER TABLE `professor_disciplina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `professor_turma`
 --
 ALTER TABLE `professor_turma`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de tabela `recuperacao`
---
-ALTER TABLE `recuperacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de tabela `relatorio`
---
-ALTER TABLE `relatorio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `turma`
@@ -885,14 +674,6 @@ ALTER TABLE `lembrete`
   ADD CONSTRAINT `lembrete_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `setor` (`id_set`);
 
 --
--- Restrições para tabelas `plano`
---
-ALTER TABLE `plano`
-  ADD CONSTRAINT `plano_ibfk_1` FOREIGN KEY (`prof`) REFERENCES `professor` (`id_prof`),
-  ADD CONSTRAINT `plano_ibfk_2` FOREIGN KEY (`disc`) REFERENCES `disciplina` (`id`),
-  ADD CONSTRAINT `plano_ibfk_3` FOREIGN KEY (`turma`) REFERENCES `turma` (`id`);
-
---
 -- Restrições para tabelas `professor`
 --
 ALTER TABLE `professor`
@@ -911,22 +692,6 @@ ALTER TABLE `professor_disciplina`
 ALTER TABLE `professor_turma`
   ADD CONSTRAINT `professor_turma_ibfk_1` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`),
   ADD CONSTRAINT `professor_turma_ibfk_2` FOREIGN KEY (`id_prof`) REFERENCES `professor` (`id_prof`);
-
---
--- Restrições para tabelas `recuperacao`
---
-ALTER TABLE `recuperacao`
-  ADD CONSTRAINT `recuperacao_ibfk_1` FOREIGN KEY (`disciplina`) REFERENCES `disciplina` (`id`),
-  ADD CONSTRAINT `recuperacao_ibfk_2` FOREIGN KEY (`professor`) REFERENCES `professor` (`id_prof`),
-  ADD CONSTRAINT `recuperacao_ibfk_3` FOREIGN KEY (`turma`) REFERENCES `turma` (`id`);
-
---
--- Restrições para tabelas `relatorio`
---
-ALTER TABLE `relatorio`
-  ADD CONSTRAINT `relatorio_ibfk_1` FOREIGN KEY (`disc`) REFERENCES `disciplina` (`id`),
-  ADD CONSTRAINT `relatorio_ibfk_2` FOREIGN KEY (`prof`) REFERENCES `professor` (`id_prof`),
-  ADD CONSTRAINT `relatorio_ibfk_3` FOREIGN KEY (`turma`) REFERENCES `turma` (`id`);
 
 --
 -- Restrições para tabelas `setor`

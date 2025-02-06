@@ -49,44 +49,45 @@
                 echo "<input type='number' name='NOTA1-". $n ."' value='". $rowN->NOTA1 ."'>";
             echo "</td>";
             echo "<td class='N1'>";
-                echo "<input type='number' name='AIS-". $n ."' value='". $rowN->AIS ."'>";
+                echo "<input type='number' name='AIS-". $n ."' value='". $rowN->AIS ."' readonly>";
             echo "</td>";
             echo "<td class='N1'>";
                 echo "<input type='number' name='NOTA2-". $n ."' value='". $rowN->NOTA2 ."'>";
             echo "</td>";
             echo "<td class='N1'>";
-                echo "<input type='number' name='MC-". $n ."' value='". $rowN->MC ."'>";
+                echo "<input type='number' name='MC-". $n ."' value='". $rowN->MC ."' readonly>";
             echo "</td>";
             echo "<td class='N1'>";
-                echo "<input type='number' name='PPI-". $n ."' value='". $rowN->PPI ."'>";
+                echo "<input type='number' name='PPI-". $n ."' value='". $rowN->PPI ."' readonly>";
             echo "</td>";
             echo "<td class='N1'>";
-                echo "<input type='number' name='AIA-". $n ."' value='". $rowN->AIA ."'>";
+                echo "<input type='number' name='AIA-". $n ."' value='". $rowN->AIA ."' readonly>";
             echo "</td>";
         } else{
             echo "<td class='N1'>";
             echo "<input type='number' name='NOTA1-". $n ."'>";
             echo "</td>";
             echo "<td class='N1'>";
-            echo "<input type='number' name='AIS-". $n ."'>";
+            echo "<input type='number' name='AIS-". $n ."' readonly>";
             echo "</td>";
             echo "<td class='N1'>";
             echo "<input type='number' name='NOTA2-". $n ."'>";
             echo "</td>";
             echo "<td class='N1'>";
-                echo "<input type='number' name='MC-". $n ."'>";
+                echo "<input type='number' name='MC-". $n ."' readonly>";
             echo "</td>";
             echo "<td class='N1'>";
-            echo "<input type='number' name='PPI-". $n ."'>";
+            echo "<input type='number' name='PPI-". $n ."' readonly>";
             echo "</td>";
             echo "<td class='N1'>";
-            echo "<input type='number' name='AIA-". $n ."'>";
+            echo "<input type='number' name='AIA-". $n ."' readonly>";
             echo "</td>";
         }
     }
 
     function addNotas($id_d, $id_aluno, $PPI, $AIS, $AIA, $N1, $N2, $MC){
         include('config.php');
+        $X = 0;
         if($PPI == ""){
             $PPI="";
         }
@@ -105,6 +106,25 @@
         if($MC == ""){
             $MC="";
         }
+        if($N1 > 10 || $N1 < 0 && $N1 != ""){
+            $X++;
+        }
+        if($N2 > 10 || $N2 < 0 && $N2 != ""){
+            $X++;
+        }
+        if($MC > 10 || $MC < 0 && $MC != ""){
+            $X++;
+        }
+        if($PPI > 10 || $PPI < 0 && $PPI != ""){
+            $X++;
+        }
+        if($AIA > 10 || $AIA < 0 && $AIA != ""){
+            $X++;
+        }
+        if($AIS > 10 || $AIS < 0 && $AIS != ""){
+            $X++;
+        }
+        if($X == 0){
         $sqlC = "select * from avaliacao where id_aluno = '{$id_aluno}' and id_disc = '{$id_d}'";
         $resC = $conn->query($sqlC);
         $qtdC = $resC->num_rows;
@@ -114,6 +134,9 @@
         } else{
             $sql = "insert into avaliacao(id_disc, id_aluno, PPI, AIS, AIA, NOTA1, NOTA2, MC) values('{$id_d}', '{$id_aluno}', NULLIF('{$PPI}',''), NULLIF('{$AIS}',''), NULLIF('{$AIA}',''), NULLIF('{$N1}',''), NULLIF('{$N2}',''), NULLIF('{$MC}',''))";
             $conn->query($sql) or die($conn->error);
+        }
+        } else{
+            print "<script>alert('Insira apenas valores entre 0 e 10!')</script>";
         }
     }
 

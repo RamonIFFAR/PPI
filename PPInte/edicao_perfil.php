@@ -18,7 +18,7 @@
         include("config.php");
         $SQLatu = "update usuario set nome = '{$nome}', fone = '{$fone}' where id_us = '{$id_us}'";
         $SQLexe = $conn->query($SQLatu);
-        echo "<script>location.href='perfil.php'</script>";
+        echo "<script>location.href='edicao_perfil.php'</script>";
     }
 
     if($qtd > 0){
@@ -86,11 +86,11 @@
                 <input type='hidden' name='id_us' value='<?php echo $row->id_us ?>'>
                 <div class="Nome">
                     <label>Nome:</label>
-                    <input type='text' name='nome' value='<?php echo $row->nome?>'><br>
+                    <input type='text' name='nome' value='<?php echo $row->nome?>'  required><br>
                 </div>
                 <div class="Telefone">
                     <label>Telefone:</label><br>
-                    <input type='text' name='fone' value='<?php echo $row->fone?>'> <br>
+                    <input type='text' name='fone' value='<?php echo $row->fone?>'  required> <br>
                 </div>
                 <div class ="BotaoSalvar">
                     <button type='submit' name='editar'>Salvar</button> <br>

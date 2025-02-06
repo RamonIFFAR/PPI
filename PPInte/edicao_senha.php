@@ -27,6 +27,7 @@
             $SQLat = "update usuario set senha= '{$hashed_password}' where id_us = '{$id}'";
             $SQLexe = $conn->query($SQLat);
             echo "<script> alert('Senha alterada com sucesso!') </script>";
+            $_SESSION['senha'] = $hashed_password;
         } else{
             echo "<script>alert('As duas senhas não correspondem')</script>";
         }
@@ -61,11 +62,11 @@
             <div class="ConfigurarTurmas">
                 <input type='hidden' name='id' value='<?php echo $row->id_us ?>'>
                 <label>Insira sua senha:</label>
-                <input type='password' name='senha'>
+                <input type='password' name='senha' required>
             </div>
             <div class="ConfigurarTurmas2">
                 <label>Insira sua senha novamente:</label>
-                <input type='password' name='senha2'>
+                <input type='password' name='senha2' required>
             </div>
             <button type='submit' name='atSenha'>Atualizar</button>
             <a href="edicao_perfil.php">Cancelar</a>

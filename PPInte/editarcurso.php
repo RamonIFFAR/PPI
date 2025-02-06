@@ -46,12 +46,12 @@
     // Funções referentes à alteração das informações do curso
     function Atualizar($id, $nome, $duracao, $descricao, $foto, $id_coord){
         include('config.php');
-
+       
         $busca = "select * from curso where id_curso = '{$id}'";
         $hoje = date('Y-m-d');
-        $pegaC = $conn->query($busca);
+        $pegaC = $conn->query($busca) or die($conn->error);
         $mostra = $pegaC->fetch_object();
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no curso de nome " . $mostra->nome ."', '". $hoje ."')";
+        $sqlH = "Insert into historico (id_us, descricao, dat) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no curso de nome " . $mostra->nome ."', '". $hoje ."')";
         $QHist = $conn->query($sqlH) or die($conn->error);
 
         if($id_coord == 'none'){
@@ -64,13 +64,12 @@
             echo "<script>alert('Atualização feita com sucesso')</script>";
         }
         
-        echo $foto;
         print "<script> location.href='cursos.php'</script>";
     }
 
     function Atualizar2($id, $nome, $duracao, $descricao, $id_coord){
         include('config.php');
-
+        
         $busca = "select * from curso where id_curso = '{$id}'";
         $hoje = date('Y-m-d');
         $pegaC = $conn->query($busca);
@@ -166,19 +165,19 @@
                             }
                             if ($qtdChecagem > 0){
                                 similar_text($UsoC->tipo, "DE", $percent);
-                                echo $curso;
+                                
                                 if($percent  == 100) { ?>
                                     <form action='editarcurso.php' method='POST'>
 
                                     <div class="NomeCompleto">
                                         <label>Nome do curso:</label> <br>
-                                        <input type='text' name='nome' value="<?php echo $resSet->nome ?>"> <br>
+                                        <input type='text' name='nome' value="<?php echo $resSet->nome ?>" required> <br>
                                         <input type='hidden' name='id' value="<?php echo $curso ?>"> <br>
                                     </div>
 
                                     <div class="CPF">
                                         <label>Duração do curso:</label> <br>
-                                        <input type='text' name='duracao' value="<?php echo $resSet->duracao ?>"><br>
+                                        <input type='text' name='duracao' value="<?php echo $resSet->duracao ?>" required><br>
                                     </div>
 
                                     <div class="MatriculaSiape">
@@ -189,7 +188,7 @@
                                     <div class="Foto">
                                         <label for="foto">Insira uma foto:</label>
                                         <label for="foto" class="custom-file-upload">
-                                        <input type="file" id="foto" name="foto" style="display: none;">
+                                        <input type="file" id="foto" name="foto" style="display: none;" required>
                                             <img src="Imagens/Foto.png" alt="Escolher arquivo"> <!-- Imagem que funciona como botão -->
                                         </label>
                                     </div>

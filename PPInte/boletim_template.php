@@ -89,19 +89,19 @@ $alunos = $stmt->get_result();
     </style>
 </head>
 <body>
-
+    <?php while ($aluno = $alunos->fetch_object()): ?>
     <div class="header">
         <div class="titulo">Boletim Escolar</div>
         <img src="Imagens/LogoIffar.png" alt="Logo da Instituição" class="logo">
     </div>
 
     <div class="boletim-container">
-        <?php while ($aluno = $alunos->fetch_object()): ?>
+        
             <h2>Aluno: <?= htmlspecialchars($aluno->nome) ?> | Matrícula: <?= htmlspecialchars($aluno->matricula) ?></h2>
 
             <?php
             $stmt = $conn->prepare("
-                SELECT d.nome AS disciplina, a.NOTA1, f.faltas 
+                SELECT d.nome AS disciplina, a.NOTA1, a.NOTA2, f.faltas 
                 FROM disciplina d
                 INNER JOIN avaliacao a ON a.id_disc = d.id
                 INNER JOIN frequencia f ON f.disciplina = d.id
@@ -115,12 +115,14 @@ $alunos = $stmt->get_result();
             <table>
                 <tr>
                     <th>Disciplina</th>
-                    <th>Nota</th>
+                    <th>1º Semestre</th>
+                    <th>2º Semestre</th>
                     <th>Faltas</th>
                 </tr>
                 <?php while ($nota = $notas->fetch_object()): ?>
                     <tr>
                         <td><?= htmlspecialchars($nota->disciplina) ?></td>
+                        <td><?= htmlspecialchars($nota->NOTA2) ?></td>
                         <td><?= htmlspecialchars($nota->NOTA1) ?></td>
                         <td><?= htmlspecialchars($nota->faltas) ?></td>
                     </tr>

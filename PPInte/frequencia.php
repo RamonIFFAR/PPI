@@ -13,6 +13,13 @@
 
     $turma = $_REQUEST['id_turma'];
     $disciplina = $_REQUEST['id_disc'];
+
+    if(!isset($disciplina)){
+        print "<script>location.href='turma.php?id=".$turma."'</script>";
+    }
+    if(!isset($turma)){
+        print "<script>location.href='turma.php?id=".$turma."'</script>";
+    }
     
     /*
     * Aqui eu tô catando os alunos
@@ -28,7 +35,7 @@
         $rowF = $resF->fetch_object();
         $qtdF = $resF->num_rows;
         if ($qtdF > 0){
-            echo "<td class='Nomes'>";
+            echo "<td class='N1'>";
                 echo "<input type='number' name='Freq-". $n ."' value='". $rowF->faltas ."'>";
             echo "</td>";
         } else{
@@ -43,13 +50,18 @@
         $sqlC = "select * from frequencia where matricula = '{$aluno}' and disciplina= '{$disciplina}'";
         $resC = $conn->query($sqlC);
         $qtdC = $resC->num_rows;
-        if($qtdC > 0){
-            $sql = "update frequencia set faltas = '{$frequencia}' where matricula = '{$aluno}' and disciplina = '{$disciplina}'";
-            $conn->query($sql);
-        } else{
-            $sql = "insert into frequencia(disciplina, matricula, faltas) values('{$disciplina}', '{$aluno}', '{$frequencia}')";
-            $conn->query($sql);
+        if($frequencia < 0){
+            $frequencia = 0;
         }
+            if($qtdC > 0){
+                $sql = "update frequencia set faltas = '{$frequencia}' where matricula = '{$aluno}' and disciplina = '{$disciplina}'";
+                $conn->query($sql);
+            } else{
+                $sql = "insert into frequencia(disciplina, matricula, faltas) values('{$disciplina}', '{$aluno}', '{$frequencia}')";
+                $conn->query($sql);
+            }
+        
+        
     }
 
 
@@ -79,7 +91,7 @@
              addFreq($disciplina, $_POST['id-'.$n], $_POST['Freq-'.$n]);
              $n++;
         }
-        echo "<script>alert('Notas cadastradas com sucesso!')</script>";
+        echo "<script>alert('Ausências válidas registradas com sucesso!')</script>";
     }
 ?>
 <!DOCTYPE html>
@@ -87,43 +99,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviar frequência</title>
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+    <link rel="stylesheet" href="frequenciacss.css?v=<?php echo time(); ?>">
+    <title>SGAE</title>
 </head>
-<body>
-        <h1> Notas</h1>
-        <form method="POST" action="frequencia.php">
-            <div>
+<body class="Fundo">
+    <div class="Background1"></div>
+    <form method="POST" action="frequencia.php">
+    <h1> Frequência</h1>
+        <div>
             <table class='formulario'>
-            <tr>
-                <th class='Infos'><label >Alunos</label></th>
-                <th class='Infos'><label >Ausências</label> </th>
-            </tr>
-            <input type='hidden' name='id_disc' value='<?php echo $disciplina ?>'>
-            <input type='hidden' name='id_turma' value='<?php echo $turma ?>'>
-            <?php
-                $i = 1;
-                echo "";
-                while($row = $res->fetch_object()){
-                    echo "<tr>";
-                    echo "";
-                    echo "<td class='Nomes'><label>".$row->nome."</label></td>";
-                    echo "";
-                    
-                   
-                    echo "<input type='hidden' name='id-". $i ."' value='". $row->matricula ."'>";
-                    pegaFreq($turma, $disciplina, $row->matricula, $i);
-                    
-                    echo "</tr>";
-                    $i++;
-                }
-                echo "";
-                    echo "<td><input type='hidden' name ='nFreq' value='". $i ."'><td>";
-            ?>
+                <tr>
+                    <th class='Infos1'><label >Alunos</label></th>
+                    <th class='Infos'><label >Ausências</label> </th>
+                </tr>
+
+                <input type='hidden' name='id_disc' value='<?php echo $disciplina ?>'>
+                <input type='hidden' name='id_turma' value='<?php echo $turma ?>'>
+
+                
+                    <?php
+                        echo "<div class='Posicaotr'>";
+                        $i = 1;
+                        echo "";
+                        while($row = $res->fetch_object()){
+                                
+                            echo "<tr>";
+                            echo "";
+                            echo "<td class='Nomes'><label>".$row->nome."</label></td> ";
+                            echo "";
+                                    
+                                
+                            echo "<input type='hidden' name='id-". $i ."' value='". $row->matricula ."'>";
+                            pegaFreq($turma, $disciplina, $row->matricula, $i);
+                                    
+                            echo "</tr>";
+                            $i++;
+            
+                        }
+                        echo "";
+                            echo "<td><input type='hidden' name ='nFreq' value='". $i ."'><td>";
+                        echo "</div>";
+                    ?>
             </table>
-            </div>
-                <a href='turma.php?id=<?php echo $id_turma?>'>Cancelar</a><br> 
-                <button type='submit' name='atFreq'>Atualizar notas</button><br>
-            <form method="POST" action="frequencia.php">
-            <br>
+        </div>
+        <a href='turma.php?id=<?php echo $turma?>'>Cancelar</a><br> 
+        <button type='submit' name='atFreq'>Atualizar Frequência</button><br>
+    </form><br>
 </body>
 </html>

@@ -199,8 +199,8 @@
 .imagem-menu2 img {
     width: 30px;
     height: auto;
-    position: absolute;
-    top: 255px;
+    position: relative;
+    top: 260px;
     left: 5px;
 }
 

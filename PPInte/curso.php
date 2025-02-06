@@ -17,21 +17,12 @@
     $UsoC = $ConsultaC->fetch_object();
     $qtdChecagem = $ConsultaC->num_rows;
 
-    $sql = "select * from curso where id_curso = '{$curso}'";
-    $res = $conn->query($sql);
-    $resSet = $res->fetch_object();
-
     // Função usada para excluir curso
     if(isset($_REQUEST['excluir'])){
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou a exclusão do curso de nome " . $resSet->nome . "')";
-        $QHist = $conn->query($sqlH) or die($conn->error);
-
         $removercursosql = "DELETE FROM curso WHERE id_curso = '{$curso}'";
         $conn->query($removercursosql);
         print "<script>alert('Curso excluído com sucesso!')</script>";
         print "<script>location.href='cursos.php'</script>";
-
-        
     }
     // XXXXXXXXXX If que confere se o usuário está logado XXXXXXXXXXXXXX
     if($procura > 0){
@@ -44,14 +35,6 @@
     // Funções referentes à alteração das informações do curso
     function Atualizar($id, $nome, $duracao, $descricao, $foto){
         include('config.php');
-
-        $busca = "select * from curso where id_curso = '{$id}'";
-        $hoje = date('Y-m-d');
-        $pegaC = $conn->query($busca);
-        $mostra = $pegaC->fetch_object();
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no curso de nome " . $mostra->nome ."', '". $hoje ."')";
-        $QHist = $conn->query($sqlH) or die($conn->error);
-
         $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}', foto='{$foto}' where id_curso = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> location.href='cursos.php'</script>";
@@ -59,14 +42,6 @@
 
     function Atualizar2($id, $nome, $duracao, $descricao){
         include('config.php');
-
-        $busca = "select * from curso where id_curso = '{$id}'";
-        $hoje = date('Y-m-d');
-        $pegaC = $conn->query($busca);
-        $mostra = $pegaC->fetch_object();
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no curso de nome " . $mostra->nome."', '". $hoje ."')";
-        $QHist = $conn->query($sqlH) or die($conn->error);
-
         $sql = "UPDATE curso SET nome='{$nome}', duracao='{$duracao}', descricao='{$descricao}' where id_curso = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> location.href='cursos.php'</script>";
@@ -74,21 +49,15 @@
 
     function deletar($id){
         include('config.php');
-
-        $busca = "select * from curso where id_curso = '{$id}'";
-        $hoje = date('Y-m-d');
-        $pegaC = $conn->query($busca);
-        $mostra = $pegaC->fetch_object();
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração no curso de nome " . $pegaC->nome."', '". $hoje ."')";
-        $QHist = $conn->query($sqlH) or die($conn->error);
-
         $sql = "DELETE FROM curso WHERE id_curso = '{$id}'";
         $conn->query($sql) or die($conn->error);
         print "<script> alert('curso removido com sucesso')</script>";
         print "<script> location.href='cursos.php'</script>";
     }
 
-    
+    $sql = "select * from curso where id_curso = '{$curso}'";
+    $res = $conn->query($sql);
+    $resSet = $res->fetch_object();
 
     $sqlC = "select * from curso inner join usuario where curso.id_curso = '{$curso}' and curso.id_coord = usuario.id_us";
     $resC = $conn->query($sqlC);

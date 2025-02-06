@@ -310,3 +310,11 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.Foto img{
+    width: 250px;
+    height: 200px;
+    position: absolute;
+    left: 1%;
+    top: 85%;
+}

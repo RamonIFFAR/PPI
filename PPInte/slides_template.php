@@ -35,7 +35,7 @@
 
     
 
-    $Baluno = "select *, turma.nome as turma from aluno inner join turma on aluno.id_turma = turma.id where turma.id = '{$turma}'";
+    $Baluno = "select *, aluno.nome as aluno, turma.nome as turma from aluno inner join turma on aluno.id_turma = turma.id where turma.id = '{$turma}'";
     $Bres = $conn->query($Baluno);
 
     
@@ -56,54 +56,87 @@
             color: red;
         }
 
-        img {
-            width:200px; /* you can use % */
-            height: auto;
+        .Image2 {
+            width: 200px;
+            position: absolute;
+            left: 80%;
+            top: 60%;
+            height: 200px;
+            border: 5px solid black;
         }
+
+        .Image {
+            position: absolute;
+            left: 80%;
+            top: 0%;
+            width: 200px;
+        }
+
+        .Separar p{
+            font-size: 20px;
+            font-style: Arial, sans-serif;
+            margin-bottom: -29px;
+        }
+
+        .BarraVerde {
+            position: absolute;
+            width: 1300px;
+            height: 20px;
+            left: -50px;
+            top: 735px;
+            background-color: Green;
+        }
+
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
+
     <?php 
         while($Brow = $Bres->fetch_object()){
+            echo "<div class='Position' style='page-break-after:always'>";
             $sqlN = "select NOTA1, NOTA2, disciplina.nome as disciplina from avaliacao inner join disciplina on avaliacao.id_disc = disciplina.id where id_aluno = '{$Brow->matricula}'";
             $resN = $conn->query($sqlN) or die($conn->error);
             $rowN = $resN->fetch_object();
             $qtdN = $resN->num_rows;
-
-            echo "Aluno: ".$Brow->nome ."<br>";
-            echo "Matrícula: ".$Brow->matricula ."<br>";
-            echo "Telefone: ".$Brow->telefone ."<br>";
-            echo "Email: ".$Brow->email ."<br>";
-            echo "Gênero: ".$Brow->genero ."<br>";
-            echo "Cidade: ".$Brow->cidade ."<br>";
-            echo "Data de nascimento: ".$Brow->dataNasc ."<br>";
-            echo "Moradia: ".$Brow->moradia ."<br>";
-            echo "Cota: ".$Brow->cota ."<br>";
-            echo "Bolsa: ".$Brow->bolsa ."<br>";
-            echo "Orientador da mostra científica: ".$Brow->orientador ."<br>";
-            echo "Reprovações: ".$Brow->reprovacao ."<br>";
-            echo "Equipamento da TI emprestado: ".$Brow->equipTI ."<br>";
-            echo "Estágio: ".$Brow->estagio ."<br>";
-            echo "Acompanhamento: ".$Brow->acompanhamento ."<br>";
-            echo "Turma: ".$Brow->turma ."<br>";
+            
+            
+            echo "<img class='Image' src='Imagens\LogoIffar.png'>";
+            echo "<div class='Separar'>";
+            echo "<p><b>Aluno:</b> ".$Brow->aluno ."</p><br>";
+            echo "<p><b>Matrícula:</b> ".$Brow->matricula ."</p><br>";
+            echo "<p><b>Telefone: </b>".$Brow->telefone ."</p><br>";
+            echo "<p><b>Email: </b>".$Brow->email ."</p><br>";
+            echo "<p><b>Gênero: </b>".$Brow->genero ."</p><br>";
+            echo "<p><b>Cidade: </b>".$Brow->cidade ."</p><br>";
+            echo "<p><b>Data de nascimento: </b>".$Brow->dataNasc ."</p><br>";
+            echo "<p><b>Moradia: </b>".$Brow->moradia ."</p><br>";
+            echo "<p><b>Cota: </b>".$Brow->cota ."</p><br>";
+            echo "<p><b>Bolsa: </b>".$Brow->bolsa ."</p><br>";
+            echo "<p><b>Orientador da mostra científica: </b>".$Brow->orientador ."</p><br>";
+            echo "<p><b>Reprovações: </b>".$Brow->reprovacao ."</p><br>";
+            echo "<p><b>Equipamento da TI emprestado: </b>".$Brow->equipTI ."</p><br>";
+            echo "<p><b>Estágio: </b>".$Brow->estagio ."</p><br>";
+            echo "<p><b>Acompanhamento: </b>".$Brow->acompanhamento . "</p><br>";
+            echo "<p><b>Turma: </b>".$Brow->turma ."</p><br>";
             if ($qtdN > 0){
                 if ($rowN->NOTA1 < 6){
-                    echo "Nota do primeiro semestre de ".$rowN->disciplina.": ".$rowN->NOTA1."<br>";
+                    echo "<p><b>Nota do primeiro semestre de".$rowN->disciplina."</b>: ".$rowN->NOTA1."</p><br>";
                 }
                 if ($rowN->NOTA1 < 7){
-                    echo "Nota do segundo semestre de ".$rowN->disciplina.": ".$rowN->NOTA2."<br>";
+                    echo "<p><b>Nota do segundo semestre de".$rowN->disciplina."</b>: ".$rowN->NOTA2."</p><br>";
                 }
                 }
-            echo "<img src='".$Brow->foto."'> <br>";
+            echo "</div>";
+            echo "<img class='Image2' src='".$Brow->foto."'> <br>";
+            echo "<div class='BarraVerde'></div>";
+            echo "</div>";
+        }
         
     ?>
-    <div style="page-break-after:always">
-    </div>
-    <?php 
-    }
-    ?>
+    
+    
 </body>
 </html>

@@ -294,3 +294,67 @@ body {
     top: 5px;
     left: 5px;
 }
+
+.Form1 {
+    position: absolute;
+    left: 1%;
+    top: 55%;
+}
+
+.Form2 {
+    position: absolute;
+    left: 15%;
+    top: 55%;
+}
+
+.Form3 {
+    position: absolute;
+    left: 1%;
+    top: 75%;
+}
+
+.Form4 {
+    position: absolute;
+    left: 15%;
+    top: 75%;
+}
+
+.Form5 {
+    position: absolute;
+    left: 33%;
+    top: 63%;
+}
+
+.GerarMaterial {
+    position: absolute;
+    left: -450px;
+    top: 5px;
+    background-color: #003D1A;
+    width: 150px;
+    height: 40px;
+}
+
+.GerarMaterial button {
+    font-size: 20px;
+    color: white;
+    position: relative;
+    top: 10px;
+    left: 13px;
+}
+
+.GerarParecer {
+    position: absolute;
+    left: -250px;
+    top: 5px;
+    background-color: #003D1A;
+    width: 150px;
+    height: 40px;
+}
+
+.GerarParecer button {
+    font-size: 20px;
+    color: white;
+    position: relative;
+    top: 10px;
+    left: 13px;
+}

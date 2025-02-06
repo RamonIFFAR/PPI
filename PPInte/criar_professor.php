@@ -77,32 +77,32 @@
 
         <div class="NomeCompleto">
             <label>Insira o nome completo:</label> <br>
-            <input type="text" name="nome" value="<?php echo htmlspecialchars(@$_POST['nome'], ENT_QUOTES); ?>"> <br>
+            <input type="text" name="nome" value="<?php echo htmlspecialchars(@$_POST['nome'], ENT_QUOTES); ?>" required> <br>
         </div>
 
         <div class="MatriculaSiape">
             <label>Insira a matrícula SIAPE:</label> <br>
-            <input type="text" name="Siape" value="<?php echo htmlspecialchars(@$_POST['Siape'], ENT_QUOTES); ?>"> <br>
+            <input type="text" name="Siape" value="<?php echo htmlspecialchars(@$_POST['Siape'], ENT_QUOTES); ?>" required> <br>
         </div>
 
         <div class="EmailInsti">
             <label>Insira o email institucional:</label> <br>
-            <input type="email" name="email" value="<?php echo htmlspecialchars(@$_POST['email'], ENT_QUOTES); ?>"> <br>
+            <input type="email" name="email" value="<?php echo htmlspecialchars(@$_POST['email'], ENT_QUOTES); ?>" required> <br>
         </div>
 
         <div class="CPF">
             <label>Insira o CPF:</label> <br>
-            <input type="text" name="cpf" value="<?php echo htmlspecialchars(@$_POST['cpf'], ENT_QUOTES); ?>"> <br>
+            <input type="text" name="cpf" value="<?php echo htmlspecialchars(@$_POST['cpf'], ENT_QUOTES); ?>" required> <br>
          </div>
         
          <div class="Senha">
             <label>Insira uma senha:</label> <br>
-            <input type="text" name="senha" value="<?php echo htmlspecialchars(@$_POST['senha'], ENT_QUOTES); ?>"> <br>
+            <input type="text" name="senha" value="<?php echo htmlspecialchars(@$_POST['senha'], ENT_QUOTES); ?>" required> <br>
         </div>
 
         <div class="Fone">
             <label>Insira o número de telefone:</label> <br>
-            <input type="text" name="fone" value="<?php echo htmlspecialchars(@$_POST['fone'], ENT_QUOTES); ?>"> <br>
+            <input type="text" name="fone" value="<?php echo htmlspecialchars(@$_POST['fone'], ENT_QUOTES); ?>" required> <br>
         </div>
 
         <button type="submit" name="cadastro">Cadastrar</button>

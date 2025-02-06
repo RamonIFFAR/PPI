@@ -17,18 +17,6 @@
     $tes = $QChecagem->fetch_object();
     $procura = $QChecagem->num_rows; 
 
-    // Usado para conferir se o setor é da DE
-    $Checagem = "select * from setor where id_set = '{$_SESSION['id_us']}' and tipo like 'DE'";
-    $ConsultaC = $conn->query($Checagem);
-    $UsoC = $ConsultaC->fetch_object();
-    $qtdChecagem = $ConsultaC->num_rows;
-
-    // Confere se o usuário é um professor
-    $Cprof = "select * from professor where id_prof = '{$_SESSION['id_us']}'";
-    $resProf = $conn->query($Cprof);
-    $rowProf = $resProf->fetch_object();
-    $qtdProf = $resProf->num_rows;
-
     // XXXXXXXXXX If que confere se o usuário está logado XXXXXXXXXXXXXX
     if($procura > 0){
 
@@ -37,35 +25,109 @@
         print"<script>location.href=index.php</script>";
     }
 
-    $sqlTurmaADM = "select * from turma";
-    $res = $conn->query($sqlTurmaADM) or die($conn->error);
+    $sql = "select nome, id from turma";
+    $Cres = $conn->query($sql);
 
-    $sqlTurmaProf = "select id, nome from turma where id = any (select id_turma from professor_turma where id_prof = '{$_SESSION['id_us']}')";
-    $resTurmaProf = $conn->query($sqlTurmaProf);
-    
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGAE: Turmas</title>
+<meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+                <link rel="stylesheet" href="turmascss.css?v=<?php echo time(); ?>">
 </head>
 <body>
-    <a href="painel.php">Voltar para o início</a><br> <br>
-    <a href="add_turma.php">Adicionar turma</a><br><br>
-    <?php 
-        //  XXXXXXXXXX If que confere se o usuário é um setor DE XXXXXXXXXXXXXX
-        if($qtdChecagem > 0){
-            while($row = $res->fetch_object()){
-                echo "Turma ".$row->nome."<a href='turma.php?id=". $row->id ."'> Informações</a><br>";
-            }
-        } else if($qtdProf > 0){
-            while($rowTurmaProf = $resTurmaProf->fetch_object()){
-                echo "Turma".$rowTurmaProf->nome." <a href='turma.php?id=". $rowTurmaProf->id ."'> Informações</a><br>";
-            }
+<div class="top-bar">
+                    <div class="menu-container">
+                        <div class="menu-abriricon" onclick="openMenu()">☰</div> <!-- Ícone do menu -->
+                        <div class="floating-menu">
+                            <div class="design-menu"></div>
+                            <div class="design-menu2"></div>
+                            <div class="design-menu3"></div>
+                            <div class="Titulo-menu">
+                                <img src="Imagens/TituloMenu.png">
+                            </div>
+                            <div class="menu-fecharicon" onclick="closeMenu()">☰</div>
+                            <ul>
+                                <li><a href="painel.php">Início</a></li>
+                                <li><a href="cursos.php">Cursos</a></li>
+                                <li><a href="disciplinas.php">Disciplinas</a></li>
+                                <li><a href="alunos.php">Alunos</a></li>
+                                <li><a href="professores.php">Professores</a></li>
+                                <li><a href="turmas.php">Turmas</a></li>
+                            </ul>
+                            <a class="textPosition" href="index.php">Sair</a>
+
+                            <div class="imagem-menu2"><img src="Imagens/inicio.png"></div>
+                        </div>
+                    </div>
+                </div>
+
+    <div class="green-bar"></div>
+
+    <div class="bottom-bar">
+        <div class="iconeNotificacao">
+            <img src="Imagens/Notificacao.png">
+        </div>
+        <div class="iconeTitulo">
+            <img src="Imagens/Titulo.png">
+        </div>
+        <div class="iconePerfil">
+            <img src="Imagens/Perfil.png">
+        </div>
+    </div>
+
+    <div class="new-green-bar">
+        <div class="Titulo-Turmas">
+            <h1>Turma(s)</h1>
+        </div>
+        <div class="AdicionarProf">
+            <?php
+                echo "<a href='add_turma.php'>Adicionar turma</a>";
+            ?>
+        </div>
+    </div>
+
+    <div class="new-bottom-bar">
+        <div class="box-center">
+
+                <?php 
+                        echo "<div class='turmas-container'>"; 
+                        while($Crow = $Cres->fetch_object()){
+                            echo "<div class='backgroundFundo1'>";
+
+                                echo "<div class='backgroundFundo2'>";
+                                    echo "<p class='nome-turma'>" . $Crow->nome . "</p>";
+                                echo "</div>";
+
+                                echo "<div class='botaodetalhes'>";
+                                echo "<br> <a>Ver detalhes</a>";
+                                echo "</div>";
+                            
+                                echo "<div class='imagemBotao'>";
+                                echo "<img onclick=\"window.location.href='turma.php?id=" . htmlspecialchars($Crow->id, ENT_QUOTES, 'UTF-8') . "'\" src='Imagens/Informacoes.png' alt='Detalhes'>";
+                                echo "</div>";
+
+                                echo "<div class='designFundoCurso'></div>";
+
+                            echo "</div>";
+                        }
+                        echo "</div>"; 
+                ?>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openMenu() {
+            var menu = document.querySelector('.floating-menu');
+            menu.style.display = 'block';
         }
-        
-    ?>
+
+        function closeMenu() {
+            var menu = document.querySelector('.floating-menu');
+            menu.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

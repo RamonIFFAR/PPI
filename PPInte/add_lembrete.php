@@ -80,5 +80,6 @@
         ?>
         <button type='submit' name='adicionarL'>Adicionar lembrete</button>
     </form>
+    <button onClick="location.href='lembretes.php'">Voltar</button><br>
 </body>
 </html>

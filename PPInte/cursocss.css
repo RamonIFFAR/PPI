@@ -55,6 +55,12 @@
     overflow: auto; 
 }
 
+.Foto {
+    left: 80px;
+    top: 100px;
+    width: 200px;
+}
+
 
 .Titulo-Professores h1{
     font-size: 35px;
@@ -242,6 +248,13 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.Fone {
+    position: relative;
+    width: 50px;
+    height: auto;
+    top: 330px;
+}
+
 
 .Posicao {
     position: absolute;
@@ -286,4 +299,21 @@ body {
     height: auto; 
     top: 5px;
     left: 5px;
+}
+
+.img-button {
+    
+    width: 40px; 
+    height: 40px;
+    right: 5px;
+    z-index: 2;
+}
+
+.botao-exclui {
+    background-color: #015d29;
+    position: absolute;
+    top: 10px;
+    z-index: 1;
+    right: 100px;
+    
 }

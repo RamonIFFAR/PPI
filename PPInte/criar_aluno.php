@@ -107,37 +107,37 @@
             <form action='criar_aluno.php' method='POST' enctype="multipart/form-data">
                 <div class="Matricula">
                     <label>Matrícula:</label> <br>
-                    <input type='text' name='matricula' value="<?php echo @$_POST['matricula']?>"></a>
+                    <input type='number' name='matricula' value="<?php echo @$_POST['matricula']?>"  required></a>
                 </div>
 
                 <div class="Telefone">
                     <label>Telefone:</label> <br>
-                    <input type='text' name='telefone' value="<?php echo @$_POST['telefone']?>"></a>
+                    <input type='text' name='telefone' value="<?php echo @$_POST['telefone']?>"  required></a>
                 </div>
 
                     <div class="Email">
                         <label>Email:</label> <br>
-                        <input type='email' name='email' value="<?php echo @$_POST['email']?>"></a>
+                        <input type='email' name='email' value="<?php echo @$_POST['email']?>"  required></a>
                     </div>
 
                     <div class="Nome">
                         <label>Nome:</label> <br>
-                        <input type='text' name='nome' value="<?php echo @$_POST['nome']?>"></a>
+                        <input type='text' name='nome' value="<?php echo @$_POST['nome']?>"  required></a>
                     </div>
 
                     <div class="Genero">
                         <label>Gênero:</label> <br>
-                        <input type='text' name='genero' value="<?php echo @$_POST['genero']?>"></a>
+                        <input type='text' name='genero' value="<?php echo @$_POST['genero']?>"  required></a>
                     </div>
 
                     <div class="Cidade">
                         <label>Cidade:</label> <br>
-                        <input type='text' name='cidade' value="<?php echo @$_POST['cidade']?>"></a>
+                        <input type='text' name='cidade' value="<?php echo @$_POST['cidade']?>" required></a>
                     </div>
 
                     <div class="Data-De-Nascimento">
                         <label>Data de Nascimento:</label> <br>
-                        <input type='date' name='dataNasc'value="<?php echo @$_POST['dataNasc']?>"></a>
+                        <input type='date' name='dataNasc'value="<?php echo @$_POST['dataNasc']?>" required></a>
                     </div>
 
                     <div class="Moradia">
@@ -177,7 +177,7 @@
 
                     <div class="CPF">
                         <label>CPF:</label> <br>
-                        <input type='text' name='cpf' value="<?php echo @$_POST['cpf']?>"></a>
+                        <input type='text' name='cpf' value="<?php echo @$_POST['cpf']?>" required></a>
                     </div>
                             
                     <div class="Acompanhamento">

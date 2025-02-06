@@ -3,7 +3,7 @@
 
 
     while (true){
-        sleep(2);
+        sleep(30*60);
         $myfile = fopen("Status.txt", "a") or die("Unable to open file!");
         $txt = "O sistema está de pé!\n";
         fwrite($myfile, $txt);

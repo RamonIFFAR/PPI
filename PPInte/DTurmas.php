@@ -43,7 +43,7 @@
 
     } else {
         print"<script>alert('Você precisa estar logado para poder acessar o sistema')</script>";
-        print"<script>location.href=index.php</script>";
+        print"<script>location.href='painel.php'</script>";
     }
 
     //  XXXXXXXXXX If que confere se o usuário é um setor DE XXXXXXXXXXXXXX
@@ -51,7 +51,7 @@
 
     } else{
         print"<script>alert('Você não tem permissão para estar aqui')</script>";
-        print"<script>location.href=index.php</script>";
+        print"<script>location.href='painel.php'</script>";
     }
 
     function listarTurmas($id_disc){
@@ -66,14 +66,16 @@
     function atRelacionamento($idr, $idt){
         include('config.php');
 
-        $busca = "select * from disciplina where id = '{$idt}'";
-        $hoje = date('Y-m-d');
-        $pegaC = $conn->query($busca);
-        $mostra = $pegaC->fetch_object();
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na disciplina de nome ".$mostra->nome."', '". $hoje ."')";
-        $conn->query($sqlH) or die($conn->error);
+        
 
         if($idt != 'hollow'){
+
+            $busca = "select * from turma where id = '{$idt}'";
+            $hoje = date('Y-m-d');
+            $pegaC = $conn->query($busca);
+            $mostra = $pegaC->fetch_object();
+            $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na turma de nome ".$mostra->nome."', '". $hoje ."')";
+            $conn->query($sqlH) or die($conn->error);
             $sqlat = "update disciplina_turma set id_turma = '{$idt}' where id = '{$idr}'";
             $conn->query($sqlat);
         } else{
@@ -85,14 +87,16 @@
     function addRelacionamento($idd, $idt){
         include('config.php');
 
-        $busca = "select * from disciplina where id = '{$idt}'";
-        $hoje = date('Y-m-d');
-        $pegaC = $conn->query($busca);
-        $mostra = $pegaC->fetch_object();
-        $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na disciplina de nome ".$mostra->nome."', '". $hoje ."')";
-        $conn->query($sqlH) or die($conn->error);
+        
 
         if($idt != 'hollow'){
+
+            $busca = "select nome from disciplina where id = '{$idd}'";
+            $hoje = date('Y-m-d');
+            $pegaC = $conn->query($busca);
+            $mostra = $pegaC->fetch_object();
+            $sqlH = "Insert into historico (id_us, descricao) values ('{$_SESSION['id_us']}', 'Usuário realizou uma alteração na disciplina de nome ".$mostra->nome."', '". $hoje ."')";
+            $conn->query($sqlH);
             
             $sqlad = "insert into disciplina_turma(id_disc, id_turma) values('{$idd}', '{$idt}')";
             $conn->query($sqlad);
@@ -145,6 +149,6 @@
         <input type='hidden' name='nTurmas' value='<?php echo $i?>'>
         <button type='submit' name='atualizar'>Atualizar turmas</button>
     </form>
-        <br><br><button onclick="location.href='disciplina.php?id_prof=<?php echo $id_disc?>'">Cancelar</button>
+        <br><br><button onclick="location.href='disciplina.php?id_disc=<?php echo $id_disc?>'">Cancelar</button>
 </body>
 </html>

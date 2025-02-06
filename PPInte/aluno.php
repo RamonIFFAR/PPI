@@ -104,7 +104,7 @@
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
-                <link rel="stylesheet" href="cursocss.css">
+                <link rel="stylesheet" href="cursocss.css?v=<?php echo time(); ?>">
             </head>
 <body>
 <div class="top-bar">
@@ -134,12 +134,16 @@
                 </div>
 
                 <!-- Barra verde -->
-                <div class="green-bar"></div>
+                <div class="green-bar">
+                
+
+                </div>
 
                 <!-- Nova barra cinza -->
                 <div class="bottom-bar">
                 <div class="iconeNotificacao">
                         <img src="Imagens/Notificacao.png">
+                        
                     </div>
                     <div class="iconeTitulo">
                         <img src="Imagens/Titulo.png">
@@ -148,12 +152,21 @@
                         <img src="Imagens/Perfil.png">
                     </div>
                 </div>
+
                 <div class="new-green-bar">
-                <div class="new-green-bar"></div>
+                <?php if ($qtdChecagem > 0) { ?>
+                    <button onclick="if(confirm('Tem certeza que deseja excluir esse aluno?')){location.href='aluno.php?id= <?php echo $aluno ?>&excluir=1'}" class='botao-exclui'>
+                    <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
+                    <?php
+                    }
+                    ?>
+                    
+                </div>
                 <div class="new-bottom-bar">
         <div class="box-center">
         <div class="Posicao2">
-    <?php 
+    
+        <?php 
         if(isset($_POST['atualizar'])){
             if (! empty($_FILES['foto']['name'])){
             $nomeFoto = $_FILES['foto']['name'];
@@ -203,12 +216,10 @@
 
         similar_text($UsoC->tipo, "DE", $percent);
         if($percent  == 100) { ?>
-        <button onclick="if(confirm('Tem certeza que deseja excluir esse aluno?')){location.href='aluno.php?id= <?php echo $aluno ?>&excluir=1'}">
+        <button onclick="if(confirm('Tem certeza que deseja excluir esse aluno?')){location.href='aluno.php?id= <?php echo $aluno ?>&excluir=1'}" class='botao-exclui'>
         <img src="Imagens/Lixeira.png" alt="Excluir" class="img-button">
-        
         </button>
         </div>
-        
                     <form action='aluno.php' method='POST' enctype="multipart/form-data">
                         <input type='hidden' name='id' value="<?php echo $aluno ?>"> <br>
                         <label>Matrícula</label>
@@ -224,7 +235,7 @@
                         <label>Cidade</label>
                         <input type='text' name='cidade' value="<?php echo $resSet['cidade']?>"> <br>
                         <label>Data de Nascimento</label>
-                        <input type='text' name='dataNasc' value="<?php echo $resSet['dataNasc'] ?>"> <br>
+                        <input type='date' name='dataNasc' value="<?php echo $resSet['dataNasc'] ?>"> <br>
                         <label>Moradia</label>
                         <input type='text' name='moradia' value="<?php echo $resSet['moradia'] ?>"> <br>
                         <label>Cota</label>
@@ -244,10 +255,10 @@
                         <label>Acompanhamento</label>
                         <input type='text' name='acompanhamento' value="<?php echo $resSet['acompanhamento'] ?>"> <br>
                         <div class="Foto">
-                            <label for="foto">Insira uma foto:</label>
-                            <label for="foto" class="custom-file-upload">
+                            <label for="Foto">Insira uma foto:</label>
+                            <label for="Foto" class="custom-file-upload">
                             <input type="file" id="foto" name="foto" style="display: none;">
-                                <img src="<?php echo $resSet['foto']?>" alt="Escolher arquivo"> <!-- Imagem que funciona como botão -->
+                                <img src="<?php echo $resSet['foto']?>" alt="Escolher arquivo" class='Foto'> <!-- Imagem que funciona como botão -->
                             </label>
                         </div>
                         <button type="submit" name="atualizar">Salvar Informações</button>
