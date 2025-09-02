@@ -1,0 +1,24 @@
+/////////////Fazer o CSS/////////////
+frequencia.php (Feito)
+historico.php (Feito)
+recuperacao.php (Feito) 14:26
+plano.php (Feito) 14:30
+relatorio.php (Feito) 14:34
+boletim_template.php
+slides_template.php
+
+
+
+
+/////////////Arrumar CSS/////////////
+
+professor.php  (Botões de ver turma e ver disciplinas)
+turma.php (Arrumar o botão de favoritar, botão para cadastrar notas da turma e o campo para ver as disciplinas)
+edicao_senha.php (Adicionar o fundo)
+add_notas.php (Tudo)
+t_favoritas.php (tudo)
+lembretes.php (tudo)
+lembrete.php (tudo)
+add_lembrete.php (tudo)
+DTurmas.php (tudo)
+PDisciplinas.php (tudo)
